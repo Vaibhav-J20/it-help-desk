@@ -1,7 +1,8 @@
 # Project Context — Current State
 > **This file is the single source of truth for Bob and both developers.**
 > Update it immediately every time a sub-task PR is merged into `main`.
-> At the start of every Bob session, say: *"Bob, read CONTEXT.md and it-helpdesk-chatbot-plan.md first."*
+> At the start of every Bob session, say: *"Bob, read `SESSION-LOG.md`, `CONTEXT.md`, and `it-helpdesk-chatbot-plan.md` in that order first."*
+> For full conversation history and decision rationale, see `SESSION-LOG.md`.
 
 ---
 
