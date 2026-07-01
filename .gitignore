@@ -31,3 +31,6 @@ env/
 
 # Logs
 *.log
+
+# Private Bob session log — local only, never commit
+SESSION-LOG.md
