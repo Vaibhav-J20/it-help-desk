@@ -140,3 +140,27 @@ WATSONX_URL=https://us-south.ml.cloud.ibm.com
 ### Next
 - **ST-3 starting now** — implementing `rag_core.py` (Developer A)
 - **Developer B** — share CP-1 credentials over IBM internal chat so Anush can start ST-2 (`ingest.py`)
+
+---
+
+## Developer A Context — 30 July 2025 (ST-2 Reviewed, ST-3 Starting)
+
+### ST-2 Review — Developer B ✅ COMPLETE
+
+Anush finished ST-2 before ST-1 was even complete. His work is clean and correct:
+
+- `ingest.py` — fully implemented, matches interface contract, idempotent, metadata prompting correct
+- `requirements.txt` — all 6 deps: `ibm-watson`, `ibm-watsonx-ai`, `fastapi`, `uvicorn`, `requests`, `python-dotenv`
+- `docs/`, `prompts/`, `skills/` folders created
+- `README.md` partial (Setup + Adding Documents sections done — rest in ST-6b)
+- `manifest.json` entry schema matches CONTEXT.md exactly
+- Committed on `dev/developer-b` — commits: `ec95735` (ST-2), `d4f46b8` (work log)
+
+### CP-1 Complete
+- Sent Anush all `.env` values over IBM internal chat ✅
+- Anush can now test `ingest.py` against the live Discovery instance
+
+### ST-3 Starting Now
+- Building `rag_core.py` — full implementation
+- Depends on: `ibm-watsonx-ai` (in requirements.txt ✅), Watson Discovery live (✅)
+- Will implement: `get_iam_token()`, `retrieve()`, `generate()`, `query()`

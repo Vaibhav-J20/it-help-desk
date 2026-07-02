@@ -16,8 +16,8 @@
 | ID | Sub-Task | Owner | Status |
 |---|---|---|---|
 | ST-1 | IBM Cloud Service Provisioning & Environment Setup | Developer A | `[x] complete` |
-| ST-2 | Document Ingestion Pipeline (`ingest.py`) | Developer B | `[ ] pending` |
-| ST-3 | RAG Core Logic (`rag_core.py`) | Developer A | `[ ] pending` |
+| ST-2 | Document Ingestion Pipeline (`ingest.py`) | Developer B | `[x] complete` |
+| ST-3 | RAG Core Logic (`rag_core.py`) | Developer A | `[-] in progress` |
 | ST-4a | FastAPI Server (`server.py`) | Developer A | `[ ] pending` — blocked on ST-3 |
 | ST-4b | Skill YAML definitions (`skills/`) | Developer B | `[ ] pending` — blocked on ST-4a deploy |
 | ST-5 | Watsonx Orchestrate Assistant Configuration | Developer B | `[ ] pending` — blocked on ST-4b |
