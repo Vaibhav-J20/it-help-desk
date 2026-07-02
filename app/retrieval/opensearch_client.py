@@ -33,11 +33,14 @@ def get_opensearch_client() -> OpenSearch:
         host = host_part
         port = 443 if use_ssl else 9200
 
+    auth = (settings.opensearch_username, settings.opensearch_password) if settings.opensearch_username else None
+
     client = OpenSearch(
         hosts=[{"host": host, "port": port}],
-        http_auth=(settings.opensearch_username, settings.opensearch_password),
+        http_auth=auth,
         use_ssl=use_ssl,
         verify_certs=False,          # set True in production with a real cert
+        ssl_show_warn=False,
         connection_class=RequestsHttpConnection,
         timeout=30,
     )
