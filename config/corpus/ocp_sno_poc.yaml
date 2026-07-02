@@ -1,0 +1,18 @@
+# Corpus manifest — reviewed source list for Developer B
+# Add entries only after reviewing and approving each document.
+# This file is a REVIEWED SOURCE LIST, not an operational state tracker.
+
+corpus_id: ocp_sno_poc_v1
+
+sources: []
+# Example entry — uncomment and fill in with real values:
+#  - source_uri: cos://approved-knowledge/ocp-sno/sno-installation-4.16.pdf
+#    title: Single Node OpenShift Installation Guide
+#    domain_id: ocp_sno_support
+#    product: OpenShift
+#    ocp_version: "4.16"
+#    deployment_type: [SNO]
+#    components: [bootstrap, dns, networking]
+#    document_type: installation_guide
+#    classification: internal
+#    is_current: true

@@ -1,0 +1,43 @@
+# Taxonomy — LOCKED CONTRACT
+# Changes require a PR reviewed by both Developer A and Developer B.
+# Metadata values not in these lists will be REJECTED during ingestion.
+
+domain_id: ocp_sno_support
+
+allowed_products:
+  - OpenShift
+  - RHCOS
+
+allowed_ocp_versions:
+  - "4.14"
+  - "4.15"
+  - "4.16"
+  - "4.17"
+
+allowed_deployment_types:
+  - SNO
+  - standard
+  - compact
+
+allowed_document_types:
+  - installation_guide
+  - troubleshooting_runbook
+  - configuration_guide
+  - release_notes
+  - reference_manual
+
+allowed_components:
+  - bootstrap
+  - dns
+  - networking
+  - ingress
+  - storage
+  - etcd
+  - api_server
+  - authentication
+  - monitoring
+  - operators
+
+allowed_classifications:
+  - internal
+  - public

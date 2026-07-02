@@ -1,0 +1,7 @@
+domains:
+  ocp_sno_support:
+    label: "OpenShift & SNO Technical Support"
+    description: "Red Hat OpenShift Container Platform and Single Node OpenShift documentation support"
+    active: true
+    corpus_ids:
+      - ocp_sno_poc_v1
