@@ -4,6 +4,25 @@
 
 ---
 
+## Sprint Progress — Developer A (Vaibhav)
+
+| Day | What was built | Tests | Status |
+|---|---|---|---|
+| **Day 1** | Architecture reset — wiped Watson Discovery, clean V3 foundation committed to `main`. New branches `feature/dev-a-api-agent` and `feature/dev-b-ingestion` created. Developer prompts written for both developers. | — | ✅ Done |
+| **Day 2** | Full `app/` skeleton: FastAPI app factory, `POST /v1/assist`, API key auth, Pydantic schemas (locked contract), `SupportState` TypedDict (locked contract), all 7 LangGraph nodes, `StateGraph` workflow, OpenSearch client, BM25+vector hybrid retriever, RRF fusion, watsonx.ai chat + embedding + rerank providers, domain/evidence policy, prompt templates, structured JSON logging. | 39/39 unit | ✅ Done |
+| **Day 3** | OpenSearch index mappings (`knowledge_chunks_v1`, `knowledge_documents_v1`) with correct field types (BM25 text, keyword filters, kNN vector, integer pages). `scripts/create_index.py`, `scripts/validate_env.py`. Integration tests: BM25 retrieval, version filter, wrong-version returns 0 hits, page fields round-trip. | 47/47 (8 integration + 39 unit) | ✅ Done |
+| **Day 4** | watsonx.ai embedding provider verified live (`ibm/slate-125m-english-rtrvr-v2`, dim=768). `scripts/smoke_test.py` — end-to-end: embed query, index fixture chunk with real vector, BM25 retrieval, vector kNN retrieval, hybrid RRF. Integration tests for vector search and RRF. | 50/50 (11 integration + 39 unit) | ✅ Done |
+| **Day 5** | LangGraph workflow — all 5 status codes proven deterministically with mocked providers | — | ⏳ Next |
+| **Day 6** | watsonx.ai chat generation + evidence prompt + citation validator | — | ⏳ Pending |
+| **Day 7** | Containerise + deploy to TechZone OpenShift | — | ⏳ Pending |
+| **Day 8–10** | Evaluation, hardening, demo | — | ⏳ Pending |
+
+**Current branch:** `feature/dev-a-api-agent`
+**Local services:** OpenSearch on `http://localhost:9200` (Docker), watsonx.ai credentials in `.env`
+**To restore OpenSearch after reboot:** `docker start opensearch-poc`
+
+---
+
 ## Table of Contents
 
 1. [What Is This Project?](#1-what-is-this-project)
