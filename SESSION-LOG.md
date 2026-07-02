@@ -92,3 +92,51 @@ Anush got a 403 pushing to GitHub. Fix:
 - All planning and architecture complete
 - Repo live with scaffold
 - **Next:** ST-1 (Developer A — IBM Cloud provisioning) and ST-2 (Developer B — ingest.py) can start in parallel
+
+---
+
+## Developer A Context — 30 July 2025 (ST-1 Complete)
+
+### ST-1 — IBM Cloud Service Provisioning ✅ COMPLETE
+
+#### Services Provisioned
+| Service | Status | Details |
+|---|---|---|
+| Watson Discovery v2 | ✅ Live | TechZone Plus plan — `itz-wd-694001ov56-su19iesj` |
+| Watsonx.ai | ✅ Live | Project ID: `50fcfd4e-df29-4a4e-be9a-c49007300f78` — us-south |
+| Watsonx Orchestrate | ✅ Live | 23 days remaining on current plan |
+| IBM Code Engine | ⏳ Pending | Provisioned in ST-4a |
+
+#### Discovery Setup
+- Project name: `it-helpdesk` (type: Document Retrieval)
+- Collection name: `ibm-helpdesk-docs` (OCR enabled)
+- Project ID: `6b6225b0-246f-4fb2-a375-4fdc388c2109`
+- Collection ID: `c692372a-6ee8-b5fb-0000-019f21252915`
+- Instance URL: `https://api.us-south.discovery.watson.cloud.ibm.com/instances/b9d1ce46-9e77-48d2-b847-28cb7bdabe1a`
+
+#### Connectivity Verified
+```json
+{"collections":[{"name":"ibm-helpdesk-docs","collection_id":"c692372a-6ee8-b5fb-0000-019f21252915"}]}
+```
+✅ Watson Discovery API responding correctly
+
+#### Key Decisions Made During ST-1
+- Watson Discovery Lite plan no longer exists — used TechZone reservation instead (free for interns)
+- TechZone environment: "Watson Discovery GenAI bundle w/StudentID" — includes Discovery, Watsonx.ai, Code Engine, Container Registry all in one
+- Authentication: used instance-specific API key from Discovery Manage tab (NOT personal IBM Cloud API key — TechZone restricts IAM policy assignment)
+- Discovery URL format: `https://api.us-south.discovery.watson.cloud.ibm.com/instances/{instance-id}` (instance-specific, not generic regional URL)
+
+#### CP-1 — Developer B needs these values (share over IBM internal chat, NOT git)
+```
+IBM_CLOUD_API_KEY=<from Discovery Manage tab — Show credentials>
+DISCOVERY_URL=https://api.us-south.discovery.watson.cloud.ibm.com/instances/b9d1ce46-9e77-48d2-b847-28cb7bdabe1a
+DISCOVERY_PROJECT_ID=6b6225b0-246f-4fb2-a375-4fdc388c2109
+DISCOVERY_COLLECTION_ID=c692372a-6ee8-b5fb-0000-019f21252915
+WATSONX_PROJECT_ID=50fcfd4e-df29-4a4e-be9a-c49007300f78
+WATSONX_REGION=us-south
+WATSONX_URL=https://us-south.ml.cloud.ibm.com
+```
+
+### Next
+- **ST-3 starting now** — implementing `rag_core.py` (Developer A)
+- **Developer B** — share CP-1 credentials over IBM internal chat so Anush can start ST-2 (`ingest.py`)

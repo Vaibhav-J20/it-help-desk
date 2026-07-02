@@ -6,7 +6,7 @@
 
 ---
 
-**Last updated:** project kickoff
+**Last updated:** 30 July 2025
 **Updated by:** Developer A
 
 ---
@@ -15,7 +15,7 @@
 
 | ID | Sub-Task | Owner | Status |
 |---|---|---|---|
-| ST-1 | IBM Cloud Service Provisioning & Environment Setup | Developer A | `[ ] pending` |
+| ST-1 | IBM Cloud Service Provisioning & Environment Setup | Developer A | `[x] complete` |
 | ST-2 | Document Ingestion Pipeline (`ingest.py`) | Developer B | `[ ] pending` |
 | ST-3 | RAG Core Logic (`rag_core.py`) | Developer A | `[ ] pending` |
 | ST-4a | FastAPI Server (`server.py`) | Developer A | `[ ] pending` — blocked on ST-3 |
@@ -84,18 +84,16 @@ API_KEY_SECRET
 
 | Service | Status | Notes |
 |---|---|---|
-| Watson Discovery v2 | not provisioned | Developer A to provision in ST-1 |
-| Watsonx.ai | not provisioned | Developer A to provision in ST-1 |
+| Watson Discovery v2 | ✅ Live — Plus plan (TechZone) | URL: `https://api.us-south.discovery.watson.cloud.ibm.com/instances/b9d1ce46-9e77-48d2-b847-28cb7bdabe1a` |
+| Watsonx.ai | ✅ Live | Project ID: `50fcfd4e-df29-4a4e-be9a-c49007300f78` — region: `us-south` |
 | IBM Code Engine | not provisioned | Developer A to deploy in ST-4a |
-| Watsonx Orchestrate | not provisioned | Developer B to configure in ST-5 |
-
-*(Update this table with Project ID / Collection ID / URLs once ST-1 is complete)*
+| Watsonx Orchestrate | ✅ Live (23 days remaining) | Developer B to configure in ST-5 |
 
 ---
 
 ## Active Blockers
 
-- **ST-3** — no blockers, can start after ST-1
+- **ST-3** — ✅ unblocked — ST-1 complete, starting now
 - **ST-4a** — blocked until `rag_core.py` function implementations are complete (ST-3)
 - **ST-4b** — blocked until Code Engine URL is live (ST-4a deployed)
 - **ST-5** — blocked until skill YAMLs are imported into Orchestrate (ST-4b)
@@ -144,5 +142,6 @@ API_KEY_SECRET
 | Date | Developer | Change |
 |---|---|---|
 | project kickoff | Developer A | Initial CONTEXT.md created |
+| 30 July 2025 | Developer A | ST-1 complete — Watson Discovery live, .env populated, connectivity verified |
 
 *(Add a row here every time you update this file)*
