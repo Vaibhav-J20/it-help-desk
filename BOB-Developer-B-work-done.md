@@ -2,6 +2,38 @@
 
 ---
 
+## Session 6 — Day 6: Chunk Quality Audit + Corpus Expanded to 8 PDFs
+
+**Branch:** `feature/dev-b-ingestion`
+**Status:** 🔄 IN PROGRESS — ingestion blocked on Docker password fix
+
+### What Was Done
+- Built `scripts/audit_chunks.py` — validates all 29 required fields, types, vector dims, page order, chunk_id format
+- Ran audit against all 6 indexed documents → **6/6 PASS**
+- Audit report written to `docs/operations/CHUNK_AUDIT.md`
+- Downloaded 2 new Red Hat public PDFs:
+  - `ocp-operators-4.16.pdf` (496 pages → 901 chunks when indexed)
+  - `ocp-updating-clusters-4.16.pdf` (154 pages → 306 chunks when indexed)
+- Added both to `config/corpus/ocp_sno_poc.yaml` → corpus now 8 PDFs
+- Docker container was lost, reinstalled Docker Desktop, recreated container
+- Container password set to `Ibm@Intern2025` (without `!` — zsh stripped it)
+- `.env` still has old password `Ibm@Intern2025!` — needs manual fix next session
+
+### Blocker for Next Session
+Fix `.env`: change `OPENSEARCH_PASSWORD=Ibm@Intern2025!` → `OPENSEARCH_PASSWORD=Ibm@Intern2025`
+Then run: `python3 -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml`
+
+### Files Changed
+| File | Change |
+|---|---|
+| `scripts/audit_chunks.py` | New — chunk quality audit tool |
+| `config/corpus/ocp_sno_poc.yaml` | +2 new PDFs (operators, updating-clusters) |
+| `config/corpus/new_pdfs_only.yaml` | Temp ingest helper |
+| `SESSION-LOG-V3.md` | Day 6 in-progress entry |
+| `BOB-Developer-B-work-done.md` | This entry |
+
+---
+
 ## Session 5 — Day 5: Evaluation Dataset Complete (All 40 Questions)
 
 **Branch:** `feature/dev-b-ingestion`

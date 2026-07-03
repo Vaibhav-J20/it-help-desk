@@ -85,3 +85,27 @@ sources:
     document_type: configuration_guide
     classification: public
     is_current: true
+
+  - source_uri: local://docs/ocp-operators-4.16.pdf
+    title: "Operators — Working with Operators in OpenShift Container Platform (OCP 4.16)"
+    domain_id: ocp_sno_support
+    product: OpenShift
+    ocp_version: "4.16"
+    deployment_type: [standard, SNO, compact]
+    components: [operators, api_server, monitoring]
+    topic_tags: [operators, olm, operator-lifecycle-manager, catalogsource, subscription]
+    document_type: configuration_guide
+    classification: public
+    is_current: true
+
+  - source_uri: local://docs/ocp-updating-clusters-4.16.pdf
+    title: "Updating Clusters — Updating OpenShift Container Platform Clusters (OCP 4.16)"
+    domain_id: ocp_sno_support
+    product: OpenShift
+    ocp_version: "4.16"
+    deployment_type: [standard, SNO, compact]
+    components: [operators, api_server]
+    topic_tags: [upgrades, cluster-update, eus-update, channel, release-image]
+    document_type: configuration_guide
+    classification: public
+    is_current: true

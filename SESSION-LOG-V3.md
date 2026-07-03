@@ -85,6 +85,51 @@ These files require a PR reviewed by BOTH developers before changes:
 
 ---
 
+## Developer B (Anush) — Day 6 — Chunk Quality Audit + Corpus Expanded to 8 PDFs
+
+**Branch:** `feature/dev-b-ingestion`
+**Status:** Day 6 🔄 IN PROGRESS — ingestion of 2 new PDFs pending (Docker password fix needed next session)
+
+### What Was Done
+
+#### Chunk Quality Audit — ALL 6 PASS ✅
+- Built `scripts/audit_chunks.py` — samples N chunks per document, validates all 29 required fields, types, vector dimensions, page ordering, chunk_id format
+- Ran audit against all 6 indexed documents (10 chunks sampled each)
+- Result: **6/6 PASS** — no missing fields, no type errors, no malformed metadata
+- Report written to `docs/operations/CHUNK_AUDIT.md`
+
+| Document | OCP Version | Total Chunks | Status |
+|---|---|---|---|
+| doc-8e43 (networking) | 4.16 | 1850 | PASS ✅ |
+| doc-7a28 (storage) | 4.16 | 491 | PASS ✅ |
+| doc-73eb (authentication) | 4.16 | 380 | PASS ✅ |
+| doc-a752 (troubleshooting) | 4.16 | 300 | PASS ✅ |
+| doc-4957 (sno install 4.16) | 4.16 | 158 | PASS ✅ |
+| doc-04af (sno install 4.14) | 4.14 | 138 | PASS ✅ |
+
+#### Corpus Expanded to 8 PDFs ✅
+- Downloaded and verified 2 new Red Hat public PDFs:
+  - `ocp-operators-4.16.pdf` — 496 pages, 901 chunks (parsed, not yet indexed)
+  - `ocp-updating-clusters-4.16.pdf` — 154 pages, 306 chunks (parsed, not yet indexed)
+- Added both to `config/corpus/ocp_sno_poc.yaml` (now 8 entries)
+- Both PDFs parse correctly — confirmed via pdfminer.six
+
+#### Pending — Next Session
+- Fix `.env` OPENSEARCH_PASSWORD (Docker container recreated without `!` in password)
+- Re-run `python3 -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml`
+- Expected result: INDEXED: 8, SKIPPED: 0, FAILED: 0
+- Then commit everything and Day 6 is complete
+
+### Files Added/Changed
+| File | Change |
+|---|---|
+| `scripts/audit_chunks.py` | New — chunk quality audit tool |
+| `config/corpus/ocp_sno_poc.yaml` | +2 new PDFs (operators, updating-clusters) |
+| `docs/operations/CHUNK_AUDIT.md` | New — audit report (local only, gitignored) |
+| `config/corpus/new_pdfs_only.yaml` | Temp ingest helper (to be deleted after indexing) |
+
+---
+
 ## Developer B (Anush) — Day 5 — Evaluation Dataset Complete (All 40 Questions)
 
 **Branch:** `feature/dev-b-ingestion`
