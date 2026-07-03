@@ -72,7 +72,7 @@ CHUNKS_MAPPING = {
                 "dimension": _get_embedding_dimension(),
                 "method": {
                     "name": "hnsw",
-                    "space_type": "cosinesimil",
+                    "space_type": "l2",
                     "engine": "lucene",
                     "parameters": {"ef_construction": 128, "m": 24},
                 },
@@ -133,7 +133,7 @@ def main() -> None:
         hosts=[url],
         http_auth=(username, password),
         use_ssl=url.startswith("https"),
-        verify_certs=True,
+        verify_certs=False,
         ssl_show_warn=False,
     )
 

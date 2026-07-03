@@ -1,4 +1,49 @@
 # Developer B — Work Log (Bob-Assisted)
+
+---
+
+## Session 3 — Day 3: First Ingestion Run + Idempotency
+
+**Branch:** `feature/dev-b-ingestion`
+
+### What Was Done
+- Installed Docker Desktop via `brew install --cask docker`
+- Started OpenSearch 2.13.0 container locally
+- Fixed `verify_certs=False` for local dev SSL
+- Fixed index mapping: `l2` space type (accepts zero stub vectors)
+- Ran full ingestion: **6/6 PDFs INDEXED, 3,317 chunks total**
+- Validated idempotency: re-run = **INDEXED: 0, SKIPPED: 6, FAILED: 0**
+- Verified BM25 retrieval with real query
+- Saved CP-2 sample chunk to `tests/fixtures/cp2_sample_chunk.json`
+
+### Files Changed
+| File | Change |
+|---|---|
+| `scripts/create_index.py` | `verify_certs=False`, `l2` space type |
+| `app/ingestion/run.py` | `verify_certs=False` |
+| `tests/fixtures/cp2_sample_chunk.json` | CP-2 payload for Vaibhav |
+| `SESSION-LOG-V3.md` | Day 3 entry added |
+
+### Ingestion Summary
+| PDF | Chunks |
+|---|---|
+| sno-installation-guide-4.16.pdf | 158 |
+| sno-installation-guide-4.14.pdf | 138 |
+| ocp-networking-4.16.pdf | 1850 |
+| ocp-storage-4.16.pdf | 491 |
+| ocp-troubleshooting-4.16.pdf | 300 |
+| ocp-authentication-4.16.pdf | 380 |
+| **TOTAL** | **3,317** |
+
+### Day 3 Exit Condition — MET ✅
+- OpenSearch retrieves correct chunk IDs ✅
+- Idempotency confirmed (re-run = all SKIPPED) ✅
+- CP-2 chunk JSON committed ✅
+
+### Next (Day 4)
+- Write first 15 evaluation questions with expected document IDs and pages
+
+---
 > **Purpose:** Tracks every piece of work done by Developer B (Anush, GitHub: Anush-28-ibm) with Bob's assistance.
 > **Rule:** Updated and pushed after every Bob session that produces committed work.
 > **Branch:** `feature/dev-b-ingestion`

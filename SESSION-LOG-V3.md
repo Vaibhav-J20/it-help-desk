@@ -85,6 +85,76 @@ These files require a PR reviewed by BOTH developers before changes:
 
 ---
 
+## Developer B (Anush) — Day 3 — First Ingestion Run + Idempotency Confirmed
+
+**Branch:** `feature/dev-b-ingestion`
+**Status:** Day 3 ✅ COMPLETE — **CP-2 READY for Vaibhav**
+
+### What Was Done
+
+#### OpenSearch Local Setup
+- Docker Desktop installed and running
+- OpenSearch 2.13.0 container started: `docker run --name opensearch-poc -p 9200:9200 ...`
+- Both indices created via `scripts/create_index.py`:
+  - `knowledge_chunks_v1` (kNN vector + BM25 text + keyword filters)
+  - `knowledge_documents_v1` (document registry)
+
+#### Bugs Fixed
+| Bug | Fix |
+|---|---|
+| `verify_certs=True` — SSL cert error on local Docker | Changed to `verify_certs=False` in `scripts/create_index.py` and `app/ingestion/run.py` |
+| `cosinesimil` rejects zero vectors (stub embeddings) | Changed to `l2` space type in index mapping for local dev |
+
+#### First Ingestion Run — ALL 6 PDFs INDEXED ✅
+| PDF | Pages | Chunks | Status |
+|---|---|---|---|
+| sno-installation-guide-4.16.pdf | 104 | 158 | INDEXED |
+| sno-installation-guide-4.14.pdf | 87 | 138 | INDEXED |
+| ocp-networking-4.16.pdf | 1049 | 1850 | INDEXED |
+| ocp-storage-4.16.pdf | 278 | 491 | INDEXED |
+| ocp-troubleshooting-4.16.pdf | 166 | 300 | INDEXED |
+| ocp-authentication-4.16.pdf | 226 | 380 | INDEXED |
+| **TOTAL** | **1910 pages** | **3,317 chunks** | **6/6 INDEXED** |
+
+#### Idempotency Confirmed ✅
+Re-run result: `INDEXED: 0  SKIPPED: 6  FAILED: 0`
+Same content_hash → SKIP, no duplicate writes.
+
+#### BM25 Retrieval Verified ✅
+Query: `"bootstrap DNS installation SNO"` → returned `chunk-0009` from SNO 4.14 installation guide with correct section path, page numbers, and all metadata fields.
+
+### CP-2 Sample Chunk JSON — Ready for Vaibhav
+File: `tests/fixtures/cp2_sample_chunk.json`
+
+```json
+{
+  "chunk_id": "ocp_sno_support:doc-04af:rev-2026-07-03-76f032e7080a:chunk-0009",
+  "document_id": "doc-04af",
+  "ocp_version": "4.14",
+  "ocp_major": 4,
+  "ocp_minor": 14,
+  "deployment_type": ["SNO", "standard"],
+  "components": ["bootstrap", "dns", "networking"],
+  "topic_tags": ["installation", "agent-based-installer", "bootstrap", "dns"],
+  "section_path": "1.2.1. Agent-based Installer workflow",
+  "page_start": 7,
+  "page_end": 9,
+  "embedding_model_id": "ibm/slate-125m-english-rtrvr-v2",
+  "embedding_dimension": 768,
+  "is_current": true
+}
+```
+
+**Vaibhav: use `tests/fixtures/cp2_sample_chunk.json` to write correct OpenSearch query filters.**
+Field names confirmed: `ocp_version` (keyword), `ocp_major`/`ocp_minor` (integer), `deployment_type` (keyword array), `components` (keyword array), `is_current` (boolean).
+
+### Day 3 Exit Condition — MET
+- curl against local OpenSearch retrieves correct chunk IDs ✅
+- Re-running ingest skips unchanged files (SKIPPED: 6) ✅
+- CP-2 sample chunk JSON committed to `tests/fixtures/cp2_sample_chunk.json` ✅
+
+---
+
 ## Developer B (Anush) — Day 2 — Unit Tests All Green
 
 **Branch:** `feature/dev-b-ingestion`

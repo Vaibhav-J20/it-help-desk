@@ -43,7 +43,7 @@ def _build_opensearch_client() -> OpenSearch:
         hosts=[url],
         http_auth=(username, password),
         use_ssl=url.startswith("https"),
-        verify_certs=True,
+        verify_certs=False,
         ssl_show_warn=False,
     )
 
