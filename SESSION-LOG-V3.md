@@ -85,5 +85,67 @@ These files require a PR reviewed by BOTH developers before changes:
 
 ---
 
+## Developer B (Anush) — Day 1 — Ingestion Pipeline Foundation
+
+**Branch:** `feature/dev-b-ingestion`
+**Commit:** `2674938`
+**Status:** Day 1 ✅ COMPLETE
+
+### What Was Built
+
+Full V3 ingestion pipeline foundation committed and pushed.
+
+#### Files Delivered
+| File | Purpose |
+|---|---|
+| `requirements.txt` | Pinned to match Dev A's exact versions (`pdfminer.six==20231228`, `opensearch-py==3.2.0`, etc.) |
+| `config/taxonomy/ocp_sno.yaml` | Controlled vocabulary — locked contract committed |
+| `config/corpus/ocp_sno_poc.yaml` | 6 approved OCP/SNO PDFs with full metadata + topic_tags |
+| `app/ingestion/pdf_parser.py` | pdfminer.six text extraction, 1-based page numbers, SHA-256 content hash |
+| `app/ingestion/chunker.py` | 350–550 token chunks, ~70 token overlap, section-aware heading detection |
+| `app/ingestion/metadata.py` | Taxonomy validator — hard rejects any unsupported field value |
+| `app/ingestion/cos_source.py` | COS + local dev fallback (`local://docs/` URI scheme) |
+| `app/ingestion/indexer.py` | Idempotent SHA-256 dedup, revision tracking, `is_current` flag, all chunk fields |
+| `app/ingestion/run.py` | CLI: `python -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml` |
+| `scripts/create_index.py` | Creates `knowledge_chunks_v1` + `knowledge_documents_v1` with correct kNN mapping |
+| `tests/unit/` | Unit tests for pdf_parser, metadata, chunker |
+
+#### 6 PDFs Downloaded and Confirmed Text-Extractable
+All sourced from public Red Hat documentation (access.redhat.com):
+
+| File | OCP Version | Type |
+|---|---|---|
+| `sno-installation-guide-4.16.pdf` | 4.16 | installation_guide |
+| `sno-installation-guide-4.14.pdf` | 4.14 | installation_guide |
+| `ocp-networking-4.16.pdf` | 4.16 | configuration_guide |
+| `ocp-storage-4.16.pdf` | 4.16 | configuration_guide |
+| `ocp-troubleshooting-4.16.pdf` | 4.16 | troubleshooting_runbook |
+| `ocp-authentication-4.16.pdf` | 4.16 | configuration_guide |
+
+### Chunk Schema Alignment
+All fields from `tests/fixtures/sample_chunk.json` are produced by `indexer.py`, including:
+- `topic_tags` (was missing — added)
+- `ocp_major` / `ocp_minor` as integers
+- `embedding_model_id` read from `WATSONX_EMBEDDING_MODEL_ID` env var (never hardcoded)
+- `is_current` flag with old-revision supersede logic
+
+### Day 1 Exit Condition — MET
+- Taxonomy committed ✅
+- Corpus manifest with 6 real approved entries committed ✅
+- 6 PDFs confirmed text-extractable (pdfminer.six extracts real OCP text) ✅
+
+### What Vaibhav Needs to Know
+- **CP-2 is coming Day 3** — after first ingestion run against local OpenSearch, I will send a real sample chunk JSON
+- `config/corpus/ocp_sno_poc.yaml` is now populated — Vaibhav can see the source list
+- `config/taxonomy/ocp_sno.yaml` matches his version exactly — no conflicts
+- `requirements.txt` is aligned to his pinned versions — Docker build will not break
+
+### Next Steps (Developer B)
+- **Day 2:** Rewrite `test_pdf_parser.py` for pdfminer.six, run all unit tests green
+- **Day 3:** Stand up local OpenSearch (Docker), run ingestion for 3 PDFs, validate idempotency, send CP-2 chunk JSON to Vaibhav
+- **Day 4:** Ingest full 6-PDF corpus, write first 15 evaluation questions
+
+---
+
 *Add new entries below this line as work progresses*
 
