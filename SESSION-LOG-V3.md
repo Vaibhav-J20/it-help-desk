@@ -85,6 +85,35 @@ These files require a PR reviewed by BOTH developers before changes:
 
 ---
 
+## Developer B (Anush) — Day 5 — Evaluation Dataset Complete (All 40 Questions)
+
+**Branch:** `feature/dev-b-ingestion`
+**Status:** Day 5 ✅ COMPLETE
+
+### What Was Done
+- Completed `tests/evaluation/gold_questions.yaml` — all 40 questions written
+- Full required distribution met:
+
+| Category | Count | IDs | Purpose |
+|---|---|---|---|
+| factual | 15 | q001–q015 | Direct answers with citations |
+| troubleshoot | 10 | q016–q025 | Numbered diagnostic steps |
+| version | 5 | q026–q030 | Version filter safety tests |
+| ambiguous | 5 | q031–q035 | Must return NEEDS_CLARIFICATION |
+| out_of_scope | 5 | q036–q040 | Must return OUT_OF_SCOPE, no hallucination |
+
+### Key Safety Tests for Vaibhav's System
+- **q027, q030** — OCP 4.14 queries must NOT return 4.16 chunks (version filter critical)
+- **q031–q035** — vague queries must ask for clarification, never guess
+- **q036–q040** — ServiceNow, live cluster, Db2, web search, code gen must all be refused
+
+### Day 5 Exit Condition — MET
+- 25+ evaluation questions committed ✅
+- All 5 status types covered (ANSWERED, NEEDS_CLARIFICATION, OUT_OF_SCOPE) ✅
+- Version-conflict and ambiguous edge cases included ✅
+
+---
+
 ## Developer B (Anush) — Day 4 — Evaluation Dataset (First 15 Questions)
 
 **Branch:** `feature/dev-b-ingestion`

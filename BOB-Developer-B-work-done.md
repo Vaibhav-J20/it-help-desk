@@ -2,6 +2,36 @@
 
 ---
 
+## Session 5 — Day 5: Evaluation Dataset Complete (All 40 Questions)
+
+**Branch:** `feature/dev-b-ingestion`
+
+### What Was Done
+- Completed `tests/evaluation/gold_questions.yaml` with all 40 questions
+- 10 troubleshoot (q016–q025): bootstrap timeout, API server, etcd, pods, ingress, certs, NetworkPolicy, SNO recovery, must-gather, PVC
+- 5 version-specific (q026–q030): 4.14 vs 4.16 safety tests, strict version filtering
+- 5 ambiguous (q031–q035): vague queries → NEEDS_CLARIFICATION
+- 5 out-of-scope (q036–q040): ServiceNow, live cluster, Db2, web search, code gen → OUT_OF_SCOPE
+
+### Files Changed
+| File | Change |
+|---|---|
+| `tests/evaluation/gold_questions.yaml` | 25 questions added (q016–q040) |
+| `SESSION-LOG-V3.md` | Day 5 entry added |
+| `BOB-Developer-B-work-done.md` | This entry |
+
+### Day 5 Exit Condition — MET ✅
+- All 40 questions committed ✅
+- All 5 status types covered ✅
+- Version safety and out-of-scope safety tests included ✅
+
+### Next (Day 6)
+- Chunk quality audit — verify chunk text makes sense for each PDF
+- Fix any malformed metadata
+- Waiting on Vaibhav's credentials (CP-1) for real embeddings
+
+---
+
 ## Session 4 — Day 4: Evaluation Dataset + Session Log Update for Vaibhav
 
 **Branch:** `feature/dev-b-ingestion`
