@@ -93,10 +93,11 @@ Every chunk produced by `indexer.py` contains all fields from `tests/fixtures/sa
 
 ---
 
-### What's Next (Day 2)
-- Fix `test_pdf_parser.py` — currently uses `pypdf` mocks, needs rewrite for `pdfminer.six`
-- Run all unit tests: `python3 -m pytest tests/unit/ -v`
-- Fix any test failures before moving to Day 3
+### What's Next (Day 3)
+- Stand up local OpenSearch via Docker
+- Run ingestion for 3 PDFs: `python -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml`
+- Validate idempotency: re-run = skip
+- Send CP-2 sample chunk JSON to Vaibhav
 
 ### Pending / Waiting On
 

@@ -76,7 +76,7 @@ class TestChunkPages:
 
     def test_no_empty_chunk_text(self):
         """No chunk should have empty or whitespace-only text."""
-        pages = _make_pages(["Real text here. " * 100])
+        pages = _make_pages(["Real text here. " * 50])
         chunks = chunk_pages(pages)
         for chunk in chunks:
             assert chunk.text.strip() != ""

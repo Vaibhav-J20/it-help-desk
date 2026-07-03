@@ -15,7 +15,7 @@ from dataclasses import dataclass
 from io import BytesIO
 
 from pdfminer.high_level import extract_pages
-from pdfminer.layout import LAParams, LTAnon, LTChar, LTTextContainer
+from pdfminer.layout import LAParams, LTTextContainer
 
 logger = logging.getLogger(__name__)
 

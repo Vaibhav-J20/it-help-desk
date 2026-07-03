@@ -99,11 +99,12 @@ def _chunk_text(text: str, page_start: int, page_end: int) -> list[tuple[str, in
         if chunk_text:
             results.append((chunk_text, page_start, page_end))
 
-        # Advance with overlap
-        start = end - OVERLAP_CHARS
-        if start <= (end - TARGET_MAX_CHARS):
-            # Safety: never go backwards
-            start = end
+        # Advance: move forward by (chunk size - overlap), always forward
+        next_start = end - OVERLAP_CHARS
+        if next_start <= start:
+            # Safety: must always advance to avoid infinite loop
+            next_start = end
+        start = next_start
 
     return results
 
