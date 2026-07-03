@@ -1,0 +1,112 @@
+# Developer B — Work Log (Bob-Assisted)
+> **Purpose:** Tracks every piece of work done by Developer B (Anush, GitHub: Anush-28-ibm) with Bob's assistance.
+> **Rule:** Updated and pushed after every Bob session that produces committed work.
+> **Branch:** `feature/dev-b-ingestion`
+
+---
+
+## Session 1 — Old Architecture (Watson Discovery / ST-2)
+**Branch at time:** `dev/developer-b` (now deleted)
+**Status:** SUPERSEDED — architecture was reset to V3
+
+Built `ingest.py`, `requirements.txt`, `README.md` for the old Watson Discovery pipeline.
+All of this was replaced by the V3 reset performed by Developer A (Vaibhav).
+
+---
+
+## Session 2 — V3 Architecture: Day 1
+
+**Date:** Session 2
+**Branch:** `feature/dev-b-ingestion`
+
+### Context Read
+- Read `DEVELOPER-B-PROMPT.md` — full V3 architecture spec and Developer B task list
+- Read `SESSION-LOG-V3.md` — V3 reset summary and branch structure
+- Read `developer-task-split-openshift-sno-copilot-poc.html` — day-by-day sprint table
+- Read `RESTART-GUIDE.md` — full project reset context
+- Checked `origin/feature/dev-a-api-agent` — Vaibhav is on Day 4 complete, 50 passing tests
+- Read `app/api/schemas.py`, `app/graph/state.py`, `tests/fixtures/sample_chunk.json` — locked contracts
+
+### Architecture State Confirmed
+- **Stack:** OpenSearch (BM25 + kNN hybrid) + watsonx.ai + LangGraph + Orchestrate
+- **Watson Discovery:** completely removed — never reference it
+- **Embedding model:** `ibm/slate-125m-english-rtrvr-v2`, dimension=768 (confirmed by Vaibhav)
+- **PDF parser:** `pdfminer.six==20231228` (Vaibhav's requirements.txt — must match)
+- **CP-2 pending:** Vaibhav is waiting for a sample chunk JSON from us
+
+### Files Created / Modified
+
+| File | Operation | Notes |
+|---|---|---|
+| `requirements.txt` | Rewritten | Now exactly matches Vaibhav's pinned versions |
+| `config/taxonomy/ocp_sno.yaml` | Created | Controlled vocabulary — locked contract |
+| `config/corpus/ocp_sno_poc.yaml` | Created | 6 approved PDF entries with topic_tags |
+| `app/ingestion/__init__.py` | Created | Package marker |
+| `app/ingestion/pdf_parser.py` | Created | pdfminer.six extraction, 1-based page numbers, SHA-256 hash |
+| `app/ingestion/chunker.py` | Created | 350–550 token chunks, ~70 token overlap, section-aware |
+| `app/ingestion/metadata.py` | Created | Taxonomy validator — rejects unsupported values |
+| `app/ingestion/cos_source.py` | Created | COS + local dev fallback, URI-based dispatch |
+| `app/ingestion/indexer.py` | Created | Idempotent SHA-256 dedup, revision tracking, is_current flag |
+| `app/ingestion/run.py` | Created | CLI entry point with --dry-run support |
+| `app/__init__.py` | Created | Package marker |
+| `scripts/create_index.py` | Created | Creates knowledge_chunks_v1 + knowledge_documents_v1 |
+| `tests/__init__.py` | Created | Package marker |
+| `tests/unit/__init__.py` | Created | Package marker |
+| `tests/unit/test_pdf_parser.py` | Created | 7 unit tests for parser |
+| `tests/unit/test_metadata.py` | Created | 12 unit tests for metadata validator |
+| `tests/unit/test_chunker.py` | Created | 10 unit tests for chunker |
+
+### 6 PDFs Downloaded and Confirmed Text-Extractable
+
+| Filename | Title | OCP Version | Type |
+|---|---|---|---|
+| `sno-installation-guide-4.16.pdf` | Agent-based Installer Guide | 4.16 | installation_guide |
+| `sno-installation-guide-4.14.pdf` | Agent-based Installer Guide | 4.14 | installation_guide |
+| `ocp-networking-4.16.pdf` | Networking Guide | 4.16 | configuration_guide |
+| `ocp-storage-4.16.pdf` | Storage Guide | 4.16 | configuration_guide |
+| `ocp-troubleshooting-4.16.pdf` | Support / Troubleshooting | 4.16 | troubleshooting_runbook |
+| `ocp-authentication-4.16.pdf` | Authentication & Authorization | 4.16 | configuration_guide |
+
+All verified: `%PDF-` header confirmed, pdfminer.six extracts real text from first 3 pages.
+
+### Key Decisions Made
+
+| Decision | Choice | Reason |
+|---|---|---|
+| PDF parser | `pdfminer.six==20231228` | Matches Vaibhav's requirements.txt — same container build |
+| `topic_tags` field | Added to indexer + OpenSearch mapping | Present in Vaibhav's sample_chunk.json fixture |
+| requirements.txt | Pinned exact versions | Must match Dev A for shared Docker container |
+| Corpus size | 6 PDFs (Day 1), targeting 8–12 total | 2 versions (4.14, 4.16) + 4 topic areas |
+
+### Chunk Schema Compliance
+Every chunk produced by `indexer.py` contains all fields from `tests/fixtures/sample_chunk.json`:
+`chunk_id`, `document_id`, `revision_id`, `domain_id`, `title`, `source_uri`, `source_type`,
+`document_type`, `classification`, `access_scope`, `product`, `ocp_version`, `ocp_major` (int),
+`ocp_minor` (int), `deployment_type`, `components`, `topic_tags`, `section_path`, `page_start`,
+`page_end`, `chunk_ordinal`, `chunk_text`, `chunk_text_vector`, `content_hash`, `parser_version`,
+`chunker_version`, `embedding_model_id` (from env), `embedding_dimension`, `ingested_at`, `is_current`
+
+### Day 1 Exit Condition — MET ✅
+- Taxonomy YAML committed ✅
+- Corpus manifest with 6 real approved entries committed ✅
+- 3+ PDFs confirmed text-extractable (all 6 confirmed) ✅
+
+---
+
+### What's Next (Day 2)
+- Fix `test_pdf_parser.py` — currently uses `pypdf` mocks, needs rewrite for `pdfminer.six`
+- Run all unit tests: `python3 -m pytest tests/unit/ -v`
+- Fix any test failures before moving to Day 3
+
+### Pending / Waiting On
+
+| Item | Blocked By | Who |
+|---|---|---|
+| CP-1 credentials | Vaibhav to share `.env` values | Developer A |
+| OpenSearch local Docker | Need `docker start opensearch-poc` or fresh container | Anush to set up |
+| CP-2 sample chunk JSON | Needs Day 3 ingestion run | Self |
+| CP-3 deployed URL | Vaibhav to deploy to TechZone OpenShift | Developer A |
+
+---
+
+*Next update: Session 3 — Day 2 (unit tests) + Day 3 (first ingestion run)*
