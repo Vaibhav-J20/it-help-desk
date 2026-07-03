@@ -1,21 +1,19 @@
 """
 watsonx.ai chat/generation provider.
 Model ID comes from WATSONX_CHAT_MODEL_ID env var — never hard-coded.
+Uses the chat completions API (/ml/v1/text/chat).
 """
 from functools import lru_cache
 from ibm_watsonx_ai import Credentials
 from ibm_watsonx_ai.foundation_models import ModelInference
-from ibm_watsonx_ai.metanames import GenTextParamsMetaNames as GenParams
 from app.core.config import get_settings
 from app.observability.logging import get_logger
 
 logger = get_logger(__name__)
 
-_GENERATE_PARAMS = {
-    GenParams.MAX_NEW_TOKENS: 1024,
-    GenParams.MIN_NEW_TOKENS: 10,
-    GenParams.TEMPERATURE: 0.0,    # deterministic for grounded answers
-    GenParams.STOP_SEQUENCES: [],
+_CHAT_PARAMS = {
+    "max_tokens": 1024,
+    "temperature": 0.0,
 }
 
 
@@ -35,7 +33,6 @@ def _get_model() -> ModelInference:
         model_id=settings.watsonx_chat_model_id,
         credentials=credentials,
         project_id=settings.watsonx_project_id,
-        params=_GENERATE_PARAMS,
     )
 
 
@@ -50,5 +47,6 @@ def generate(prompt: str) -> str:
         Generated text string.
     """
     model = _get_model()
-    response = model.generate_text(prompt=prompt)
-    return response
+    messages = [{"role": "user", "content": prompt}]
+    response = model.chat(messages=messages, params=_CHAT_PARAMS)
+    return response["choices"][0]["message"]["content"]
