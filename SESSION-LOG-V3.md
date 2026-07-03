@@ -85,6 +85,116 @@ These files require a PR reviewed by BOTH developers before changes:
 
 ---
 
+## Developer B (Anush) — Day 4 — Evaluation Dataset (First 15 Questions)
+
+**Branch:** `feature/dev-b-ingestion`
+**Status:** Day 4 ✅ COMPLETE
+
+### What Was Done
+- Created `tests/evaluation/gold_questions.yaml`
+- Wrote first **15 factual questions** (q001–q015) with:
+  - Expected document IDs mapping to real indexed chunks
+  - Expected OCP version, deployment type where applicable
+  - Page hints based on actual PDF content
+  - Notes explaining what the correct answer should cite
+
+### Question Coverage (15 factual)
+| ID | Topic | Expected Doc |
+|---|---|---|
+| q001 | Rendezvous host / Agent-based Installer | SNO install guide |
+| q002 | DNS records for SNO 4.16 | SNO install 4.16 |
+| q003 | Topologies supported by agent create image | SNO install guide |
+| q004 | Default network plugin OCP 4.16 | Networking guide |
+| q005 | NMStateConfig manifest purpose | SNO install guide |
+| q006 | Enable cluster-admin role | Auth guide |
+| q007 | Default storage classes OCP 4.16 | Storage guide |
+| q008 | must-gather command | Troubleshooting guide |
+| q009 | SNO minimum hardware requirements | SNO install guide |
+| q010 | IngressController traffic management | Networking guide |
+| q011 | OAuth identity providers OCP 4.16 | Auth guide |
+| q012 | etcd operator responsibilities | Storage + Troubleshooting |
+| q013 | cluster-manifests required files | SNO install guide |
+| q014 | RWO vs RWX persistent volumes | Storage guide |
+| q015 | HTPasswd identity provider config | Auth guide |
+
+### Day 4 Exit Condition — MET
+- First 15 evaluation questions committed ✅
+- All questions reference real document IDs from indexed corpus ✅
+
+### Reminder for Vaibhav
+See `⚡ ACTION REQUIRED` section above — CP-2 field types and credential sharing needed.
+
+### Next Steps (Day 5)
+- Add 10 troubleshooting questions (q016–q025)
+- Add 5 version-specific questions (q026–q030)
+- Add 5 ambiguous questions (q031–q035)
+- Add 5 out-of-scope questions (q036–q040)
+
+---
+
+## ⚡ ACTION REQUIRED — Developer A (Vaibhav) — Read This
+
+**Triggered by:** Developer B (Anush) completing Day 3 — CP-2 checkpoint
+
+### What Anush has completed (Days 1–3)
+- Full ingestion pipeline built and working (`app/ingestion/`)
+- 6 OCP/SNO PDFs indexed into local OpenSearch: **3,317 chunks**
+- Idempotency confirmed: re-run = all SKIPPED (SHA-256 dedup works)
+- BM25 retrieval verified against real indexed data
+- All 33 unit tests passing
+
+### What Vaibhav needs to do — CP-2 Actions
+
+**1. Read the sample chunk JSON**
+File: `tests/fixtures/cp2_sample_chunk.json` on `feature/dev-b-ingestion`
+
+This is a real chunk from our OpenSearch index. Use it to write correct query filters in your retrieval code.
+
+**Confirmed field names and types for your OpenSearch queries:**
+```
+ocp_version          → keyword  (e.g. "4.14", "4.16")
+ocp_major            → integer  (e.g. 4)
+ocp_minor            → integer  (e.g. 14, 16)
+deployment_type      → keyword array  (e.g. ["SNO", "standard"])
+components           → keyword array  (e.g. ["bootstrap", "dns", "networking"])
+topic_tags           → keyword array  (e.g. ["installation", "agent-based-installer"])
+is_current           → boolean  (always filter: is_current=true)
+domain_id            → keyword  (always: "ocp_sno_support")
+chunk_text           → text (BM25 search field)
+chunk_text_vector    → knn_vector dim=768 (vector search field)
+```
+
+**2. Confirm these filter patterns work in your retrieval code:**
+```python
+# Version filter
+{"term": {"ocp_version": "4.16"}}
+
+# Deployment type filter
+{"term": {"deployment_type": "SNO"}}
+
+# Component filter
+{"term": {"components": "bootstrap"}}
+
+# Always add this to every query
+{"term": {"is_current": True}}
+{"term": {"domain_id": "ocp_sno_support"}}
+```
+
+**3. Confirm acknowledgement in SESSION-LOG-V3.md**
+Add an entry: `## Developer A — CP-2 acknowledged — [date]` confirming the field names work with your retrieval code.
+
+**4. Share your IBM Cloud credentials with Anush (CP-1 pending)**
+Anush still needs `.env` values to use real watsonx.ai embeddings:
+- `IBM_CLOUD_API_KEY`
+- `WATSONX_PROJECT_ID`
+- `OPENSEARCH_URL` (your deployed instance)
+- `OPENSEARCH_USERNAME` / `OPENSEARCH_PASSWORD`
+- `WATSONX_EMBEDDING_MODEL_ID` (confirmed: `ibm/slate-125m-english-rtrvr-v2`)
+
+Send over IBM internal chat — **never git.**
+
+---
+
 ## Developer B (Anush) — Day 3 — First Ingestion Run + Idempotency Confirmed
 
 **Branch:** `feature/dev-b-ingestion`

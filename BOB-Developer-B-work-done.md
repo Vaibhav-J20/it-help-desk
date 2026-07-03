@@ -2,6 +2,34 @@
 
 ---
 
+## Session 4 — Day 4: Evaluation Dataset + Session Log Update for Vaibhav
+
+**Branch:** `feature/dev-b-ingestion`
+
+### What Was Done
+- Added `⚡ ACTION REQUIRED` section for Vaibhav in `SESSION-LOG-V3.md`:
+  - CP-2 field types confirmed (ocp_version, ocp_major, deployment_type etc.)
+  - Filter patterns for his retrieval code
+  - Credential sharing reminder (CP-1 still pending)
+- Created `tests/evaluation/gold_questions.yaml` with first 15 factual questions
+- Questions cover all 6 indexed PDFs with expected document IDs and page hints
+
+### Files Changed
+| File | Change |
+|---|---|
+| `SESSION-LOG-V3.md` | Day 4 entry + ACTION REQUIRED for Vaibhav |
+| `tests/evaluation/gold_questions.yaml` | 15 factual eval questions |
+| `BOB-Developer-B-work-done.md` | This entry |
+
+### Day 4 Exit Condition — MET ✅
+- 15 factual evaluation questions committed ✅
+- All reference real document IDs from indexed corpus ✅
+
+### Next (Day 5)
+- 10 troubleshooting + 5 version-specific + 5 ambiguous + 5 out-of-scope = 25 more questions
+
+---
+
 ## Session 3 — Day 3: First Ingestion Run + Idempotency
 
 **Branch:** `feature/dev-b-ingestion`

@@ -1,0 +1,189 @@
+# Gold Evaluation Dataset — OpenShift & SNO Support Copilot
+# Owner: Developer B (Anush)
+# Total: 40 questions (build incrementally across Days 4–5)
+#
+# Question categories (required distribution):
+#   factual       15  — direct questions with a clear answer in the corpus
+#   troubleshoot  10  — step-by-step guidance questions
+#   version       5   — version-specific questions (wrong version must NOT be used)
+#   ambiguous     5   — missing version/type — should return NEEDS_CLARIFICATION
+#   out_of_scope  5   — ServiceNow, ticketing, live clusters — OUT_OF_SCOPE
+#
+# Status: Day 4 — first 15 factual questions added
+#         Day 5 — remaining 25 questions to be added
+
+questions:
+
+  # ─────────────────────────────────────────────────────────────────
+  # FACTUAL (15 questions) — should return ANSWERED with citations
+  # ─────────────────────────────────────────────────────────────────
+
+  - id: "q001"
+    category: factual
+    question: "What is the rendezvous host in the Agent-based Installer workflow?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-04af", "doc-4957"]
+    expected_ocp_version: null
+    expected_deployment_type: null
+    expected_pages_hint: "page 7-9"
+    notes: "Rendezvous host (node 0) runs Assisted Service at boot. Should cite SNO installation guide."
+
+  - id: "q002"
+    category: factual
+    question: "What DNS records are required before starting SNO 4.16 installation?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-4957"]
+    expected_ocp_version: "4.16"
+    expected_deployment_type: "SNO"
+    expected_pages_hint: "early chapters"
+    notes: "api.<cluster>.<domain> and *.apps.<cluster>.<domain> DNS records required."
+
+  - id: "q003"
+    category: factual
+    question: "Which topologies are supported by the openshift-install agent create image subcommand?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-04af", "doc-4957"]
+    expected_ocp_version: null
+    expected_deployment_type: null
+    expected_pages_hint: "page 5-7"
+    notes: "SNO, 3-node compact, multi-node. Should cite installation guide."
+
+  - id: "q004"
+    category: factual
+    question: "What is the default network plugin used in OpenShift Container Platform 4.16?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-8e43"]
+    expected_ocp_version: "4.16"
+    expected_deployment_type: null
+    expected_pages_hint: "networking guide early chapters"
+    notes: "OVN-Kubernetes is the default CNI. Should cite networking guide."
+
+  - id: "q005"
+    category: factual
+    question: "What is the purpose of the NMStateConfig manifest in the agent-based installer?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-04af", "doc-4957"]
+    expected_ocp_version: null
+    expected_deployment_type: null
+    expected_pages_hint: "cluster-manifests section"
+    notes: "NMStateConfig defines static network configuration for hosts."
+
+  - id: "q006"
+    category: factual
+    question: "How do you enable the cluster-admin role for a user in OpenShift 4.16?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-73eb"]
+    expected_ocp_version: "4.16"
+    expected_deployment_type: null
+    expected_pages_hint: "RBAC section"
+    notes: "oc adm policy add-cluster-role-to-user cluster-admin <user>. Should cite auth guide."
+
+  - id: "q007"
+    category: factual
+    question: "What storage classes are available by default in OpenShift 4.16?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-7a28"]
+    expected_ocp_version: "4.16"
+    expected_deployment_type: null
+    expected_pages_hint: "storage classes section"
+    notes: "Should cite storage guide for default storage class options."
+
+  - id: "q008"
+    category: factual
+    question: "What is the must-gather command used for in OpenShift support?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-a752"]
+    expected_ocp_version: "4.16"
+    expected_deployment_type: null
+    expected_pages_hint: "support/troubleshooting section"
+    notes: "oc adm must-gather collects diagnostics. Should cite troubleshooting guide."
+
+  - id: "q009"
+    category: factual
+    question: "What is the minimum hardware requirement for a Single Node OpenShift installation?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-04af", "doc-4957"]
+    expected_ocp_version: null
+    expected_deployment_type: "SNO"
+    expected_pages_hint: "prerequisites section"
+    notes: "8 vCPU, 32GB RAM, 120GB disk minimum for SNO."
+
+  - id: "q010"
+    category: factual
+    question: "How does the IngressController manage external traffic in OpenShift?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-8e43"]
+    expected_ocp_version: "4.16"
+    expected_deployment_type: null
+    expected_pages_hint: "ingress section"
+    notes: "IngressController uses HAProxy router. Should cite networking guide."
+
+  - id: "q011"
+    category: factual
+    question: "What OAuth identity providers are supported in OpenShift 4.16?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-73eb"]
+    expected_ocp_version: "4.16"
+    expected_deployment_type: null
+    expected_pages_hint: "identity provider section"
+    notes: "LDAP, HTPasswd, GitHub, Google, OIDC etc. Should cite auth guide."
+
+  - id: "q012"
+    category: factual
+    question: "What is the etcd operator responsible for in OpenShift?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-7a28", "doc-a752"]
+    expected_ocp_version: "4.16"
+    expected_deployment_type: null
+    expected_pages_hint: "etcd section"
+    notes: "etcd operator manages backup, scaling, and health of etcd cluster."
+
+  - id: "q013"
+    category: factual
+    question: "What files are required in the cluster-manifests directory for agent-based installation?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-04af", "doc-4957"]
+    expected_ocp_version: null
+    expected_deployment_type: null
+    expected_pages_hint: "page 4-5"
+    notes: "cluster-deployment.yaml, agent-cluster-install.yaml, pull-secret.yaml, infraenv.yaml etc."
+
+  - id: "q014"
+    category: factual
+    question: "What is the difference between a ReadWriteOnce and ReadWriteMany persistent volume in OpenShift?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-7a28"]
+    expected_ocp_version: "4.16"
+    expected_deployment_type: null
+    expected_pages_hint: "PVC access modes section"
+    notes: "RWO = single node, RWX = multiple nodes simultaneously. Should cite storage guide."
+
+  - id: "q015"
+    category: factual
+    question: "How do you configure an HTPasswd identity provider in OpenShift 4.16?"
+    expected_status: ANSWERED
+    expected_document_ids: ["doc-73eb"]
+    expected_ocp_version: "4.16"
+    expected_deployment_type: null
+    expected_pages_hint: "HTPasswd section"
+    notes: "Create secret with htpasswd file, configure OAuth CR. Should cite auth guide."
+
+  # ─────────────────────────────────────────────────────────────────
+  # TROUBLESHOOT (10 questions) — Day 5
+  # ─────────────────────────────────────────────────────────────────
+  # q016–q025 to be added in Day 5
+
+  # ─────────────────────────────────────────────────────────────────
+  # VERSION-SPECIFIC (5 questions) — Day 5
+  # ─────────────────────────────────────────────────────────────────
+  # q026–q030 to be added in Day 5
+
+  # ─────────────────────────────────────────────────────────────────
+  # AMBIGUOUS (5 questions) — Day 5
+  # ─────────────────────────────────────────────────────────────────
+  # q031–q035 to be added in Day 5
+
+  # ─────────────────────────────────────────────────────────────────
+  # OUT OF SCOPE (5 questions) — Day 5
+  # ─────────────────────────────────────────────────────────────────
+  # q036–q040 to be added in Day 5
