@@ -5,23 +5,17 @@
 ## Session 6 — Day 6: Chunk Quality Audit + Corpus Expanded to 8 PDFs
 
 **Branch:** `feature/dev-b-ingestion`
-**Status:** 🔄 IN PROGRESS — ingestion blocked on Docker password fix
+**Status:** ✅ COMPLETE
 
 ### What Was Done
 - Built `scripts/audit_chunks.py` — validates all 29 required fields, types, vector dims, page order, chunk_id format
-- Ran audit against all 6 indexed documents → **6/6 PASS**
+- Ran full audit → **8/8 documents PASS**
 - Audit report written to `docs/operations/CHUNK_AUDIT.md`
-- Downloaded 2 new Red Hat public PDFs:
-  - `ocp-operators-4.16.pdf` (496 pages → 901 chunks when indexed)
-  - `ocp-updating-clusters-4.16.pdf` (154 pages → 306 chunks when indexed)
-- Added both to `config/corpus/ocp_sno_poc.yaml` → corpus now 8 PDFs
-- Docker container was lost, reinstalled Docker Desktop, recreated container
-- Container password set to `Ibm@Intern2025` (without `!` — zsh stripped it)
-- `.env` still has old password `Ibm@Intern2025!` — needs manual fix next session
-
-### Blocker for Next Session
-Fix `.env`: change `OPENSEARCH_PASSWORD=Ibm@Intern2025!` → `OPENSEARCH_PASSWORD=Ibm@Intern2025`
-Then run: `python3 -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml`
+- Downloaded 2 new Red Hat public PDFs and indexed all 8:
+  - `ocp-operators-4.16.pdf` — 496 pages, 901 chunks
+  - `ocp-updating-clusters-4.16.pdf` — 154 pages, 306 chunks
+- Corpus now 8 PDFs, **5,524 total chunks** in OpenSearch
+- Ingestion result: **INDEXED: 8  SKIPPED: 0  FAILED: 0**
 
 ### Files Changed
 | File | Change |

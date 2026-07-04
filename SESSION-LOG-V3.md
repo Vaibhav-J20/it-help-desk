@@ -88,7 +88,7 @@ These files require a PR reviewed by BOTH developers before changes:
 ## Developer B (Anush) — Day 6 — Chunk Quality Audit + Corpus Expanded to 8 PDFs
 
 **Branch:** `feature/dev-b-ingestion`
-**Status:** Day 6 🔄 IN PROGRESS — ingestion of 2 new PDFs pending (Docker password fix needed next session)
+**Status:** Day 6 ✅ COMPLETE
 
 ### What Was Done
 
@@ -114,11 +114,10 @@ These files require a PR reviewed by BOTH developers before changes:
 - Added both to `config/corpus/ocp_sno_poc.yaml` (now 8 entries)
 - Both PDFs parse correctly — confirmed via pdfminer.six
 
-#### Pending — Next Session
-- Fix `.env` OPENSEARCH_PASSWORD (Docker container recreated without `!` in password)
-- Re-run `python3 -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml`
-- Expected result: INDEXED: 8, SKIPPED: 0, FAILED: 0
-- Then commit everything and Day 6 is complete
+#### Ingestion Result — ALL 8 INDEXED ✅
+- `python3 -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml`
+- Result: **INDEXED: 8  SKIPPED: 0  FAILED: 0**
+- Total corpus: **5,524 chunks** across 8 documents
 
 ### Files Added/Changed
 | File | Change |

@@ -104,7 +104,7 @@ def _list_document_ids(client: OpenSearch, index: str) -> list[str]:
         body={
             "size": 0,
             "query": {"term": {"is_current": True}},
-            "aggs": {"docs": {"terms": {"field": "document_id", "size": 50}}},
+            "aggs": {"docs": {"terms": {"field": "document_id.keyword", "size": 50}}},
         },
     )
     buckets = resp["aggregations"]["docs"]["buckets"]
@@ -122,7 +122,7 @@ def _sample_chunks(
             "query": {
                 "bool": {
                     "must": [
-                        {"term": {"document_id": doc_id}},
+                        {"term": {"document_id.keyword": doc_id}},
                         {"term": {"is_current": True}},
                     ]
                 }
@@ -140,7 +140,7 @@ def _count_chunks(client: OpenSearch, index: str, doc_id: str) -> int:
             "query": {
                 "bool": {
                     "must": [
-                        {"term": {"document_id": doc_id}},
+                        {"term": {"document_id.keyword": doc_id}},
                         {"term": {"is_current": True}},
                     ]
                 }
