@@ -5,7 +5,7 @@
 ## Session 8 — Day 8: Full 40-Question Eval Run
 
 **Branch:** `feature/dev-b-ingestion`
-**Status:** ✅ COMPLETE (Phase 1 done + all 8 PDFs uploaded to COS)
+**Status:** ✅ COMPLETE (COS upload done, diagnosis complete — waiting on Vaibhav corpus fix)
 
 ### What Was Done
 - Verified all endpoints live: `/healthz` ✅ `/readyz` ✅ (`opensearch:true, watsonx:true`)

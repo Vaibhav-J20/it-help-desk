@@ -85,6 +85,45 @@ These files require a PR reviewed by BOTH developers before changes:
 
 ---
 
+## ⚡ ACTION REQUIRED — Developer A (Vaibhav) — Fix corpus manifest then re-ingest
+
+**Triggered by:** Developer B diagnosing why eval is still at 7/40 after COS upload
+
+### Root Cause Found
+Your `config/corpus/ocp_sno_poc.yaml` has `sources: []` — **completely empty**.
+Ingestion completed instantly with 0 PDFs because there was nothing to process.
+
+### Fix — copy my corpus manifest to your branch
+My manifest is at `config/corpus/ocp_sno_poc.yaml` on `feature/dev-b-ingestion`.
+Run this to copy it:
+```bash
+git fetch origin
+git checkout origin/feature/dev-b-ingestion -- config/corpus/ocp_sno_poc.yaml
+```
+
+Then update all 8 `source_uri` values from `local://docs/` to `cos://`:
+```yaml
+source_uri: cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.16.pdf
+```
+(repeat for all 8 PDFs — bucket name: `ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4`)
+
+Also add COS credentials to your `.env`:
+```
+COS_ENDPOINT=https://s3.us-south.cloud-object-storage.appdomain.cloud
+COS_BUCKET=ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4
+COS_API_KEY=WppiXP9Pc5dVGNpNC5xy231k0gBNVJZW_BTAdCXmC__S
+```
+
+Then run:
+```bash
+python3 -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml
+```
+Expected: **INDEXED: 8  SKIPPED: 0  FAILED: 0**
+
+Once done, ping Anush — I'll re-run eval immediately.
+
+---
+
 ## ⚡ ACTION REQUIRED — Developer A (Vaibhav) — Run Ingestion from COS
 
 **Triggered by:** Developer B uploading all 8 PDFs to COS bucket
