@@ -2,6 +2,33 @@
 
 ---
 
+## Session 7 — Day 7: Orchestrate Tool Import + API Verified
+
+**Branch:** `feature/dev-b-ingestion`
+**Status:** ✅ COMPLETE
+
+### What Was Done
+- Received CP-3 from Vaibhav: ngrok URL + API key
+- Verified API live: `/healthz` → `{"status":"ok"}`
+- Ran 3 test calls: INSUFFICIENT_EVIDENCE, NEEDS_CLARIFICATION, INSUFFICIENT_EVIDENCE — all correct
+- Copied + patched `openapi/it_helpdesk_v1.yaml` (real URL filled in)
+- Wrote `docs/operations/ORCHESTRATE_SETUP.md` — full click-by-click Orchestrate guide
+
+### Files Changed
+| File | Change |
+|---|---|
+| `openapi/it_helpdesk_v1.yaml` | Copied from Vaibhav's branch, URL patched |
+| `docs/operations/ORCHESTRATE_SETUP.md` | New — Orchestrate setup guide |
+| `SESSION-LOG-V3.md` | Day 7 entry added |
+| `BOB-Developer-B-work-done.md` | This entry |
+
+### Day 7 Exit Condition — MET ✅
+- API verified live ✅
+- OpenAPI spec ready for Orchestrate import ✅
+- Agent instructions written ✅
+
+---
+
 ## Session 6 — Day 6: Chunk Quality Audit + Corpus Expanded to 8 PDFs
 
 **Branch:** `feature/dev-b-ingestion`

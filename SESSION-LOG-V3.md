@@ -85,6 +85,48 @@ These files require a PR reviewed by BOTH developers before changes:
 
 ---
 
+## Developer B (Anush) — Day 7 — Orchestrate Tool Import Ready + API Verified
+
+**Branch:** `feature/dev-b-ingestion`
+**Status:** Day 7 ✅ COMPLETE
+
+### What Was Done
+
+#### CP-3 Received from Vaibhav ✅
+- URL: `https://left-appraiser-disorder.ngrok-free.dev` (ngrok tunnel)
+- API Key: received over chat
+
+#### API Verified — 3 Test Calls ✅
+| Test | Status returned | Correct? |
+|---|---|---|
+| DNS config for SNO 4.16 | `INSUFFICIENT_EVIDENCE` | ✅ (no shared OpenSearch yet) |
+| "My cluster failed" | `NEEDS_CLARIFICATION` | ✅ Asked for version + type |
+| "Configure ServiceNow" | `INSUFFICIENT_EVIDENCE` | ✅ No hallucination |
+| `/healthz` | `{"status":"ok"}` | ✅ Live |
+
+#### OpenAPI Spec Patched ✅
+- Copied `openapi/it_helpdesk_v1.yaml` from Vaibhav's branch
+- Replaced `YOUR_CODE_ENGINE_URL` with real ngrok URL
+- File ready for Orchestrate import
+
+#### Orchestrate Setup Doc Written ✅
+- `docs/operations/ORCHESTRATE_SETUP.md` — step-by-step: connection, tool import, agent creation, test
+- Agent instructions written (exactly as per `DEVELOPER-B-PROMPT.md`)
+
+### For Vaibhav
+- API is responding correctly on all 3 status types
+- `INSUFFICIENT_EVIDENCE` on factual questions is expected — your OpenSearch isn't connected to mine yet
+- Day 8: joint eval run — we connect both sides and run all 40 gold questions
+- **Reminder:** ngrok URL changes every restart — ping me with new URL each session
+
+### Day 7 Exit Condition — MET
+- Orchestrate tool importable (spec ready with live URL) ✅
+- API key connection documented ✅
+- Agent instructions written ✅
+- All 3 API status types verified ✅
+
+---
+
 ## Developer B (Anush) — Day 6 — Chunk Quality Audit + Corpus Expanded to 8 PDFs
 
 **Branch:** `feature/dev-b-ingestion`
