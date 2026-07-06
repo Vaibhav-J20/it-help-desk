@@ -5,7 +5,7 @@
 ## Session 8 — Day 8: Full 40-Question Eval Run
 
 **Branch:** `feature/dev-b-ingestion`
-**Status:** ✅ COMPLETE (Phase 1 — retrieval gap identified, action sent to Vaibhav)
+**Status:** ✅ COMPLETE (Phase 1 done + all 8 PDFs uploaded to COS)
 
 ### What Was Done
 - Verified all endpoints live: `/healthz` ✅ `/readyz` ✅ (`opensearch:true, watsonx:true`)

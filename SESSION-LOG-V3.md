@@ -85,6 +85,38 @@ These files require a PR reviewed by BOTH developers before changes:
 
 ---
 
+## ⚡ ACTION REQUIRED — Developer A (Vaibhav) — Run Ingestion from COS
+
+**Triggered by:** Developer B uploading all 8 PDFs to COS bucket
+
+### All 8 PDFs now in COS ✅
+```
+Bucket: ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4
+Endpoint: https://s3.us-south.cloud-object-storage.appdomain.cloud
+```
+| File | Size | Status |
+|---|---|---|
+| sno-installation-guide-4.16.pdf | 1.2 MB | ✅ |
+| sno-installation-guide-4.14.pdf | 1.1 MB | ✅ |
+| ocp-networking-4.16.pdf | 9.9 MB | ✅ |
+| ocp-storage-4.16.pdf | 3.0 MB | ✅ |
+| ocp-troubleshooting-4.16.pdf | 1.3 MB | ✅ |
+| ocp-authentication-4.16.pdf | 2.7 MB | ✅ |
+| ocp-operators-4.16.pdf | 4.4 MB | ✅ |
+| ocp-updating-clusters-4.16.pdf | 1.5 MB | ✅ |
+
+### What Vaibhav needs to do now
+1. Update your `.env` with COS credentials and run ingestion:
+```bash
+python3 -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml
+```
+Expected: **INDEXED: 8  SKIPPED: 0  FAILED: 0** (~5,524 chunks into your OpenSearch)
+
+2. Once ingested, ping Anush — I'll re-run `python3 scripts/run_eval.py` immediately
+3. Expected eval result after ingestion: **70%+ pass rate**
+
+---
+
 ## ⚡ ACTION REQUIRED — Developer A (Vaibhav) — Day 8 Eval Results
 
 **Triggered by:** Developer B completing Day 8 eval run
