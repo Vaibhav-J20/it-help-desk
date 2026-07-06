@@ -1,18 +1,111 @@
-# Corpus manifest — reviewed source list for Developer B
-# Add entries only after reviewing and approving each document.
-# This file is a REVIEWED SOURCE LIST, not an operational state tracker.
+# Corpus Manifest — OpenShift & SNO Support Copilot POC
+# Owner: Developer B (Anush)
+# Version: 1.0.0
+#
+# REVIEWED SOURCE LIST — every entry manually approved.
+# All sources are publicly available Red Hat OCP documentation.
+# Add entries only after confirming the PDF is text-extractable.
+#
+# To ingest:
+#   python -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml
+# To dry-run (no indexing):
+#   python -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml --dry-run
 
 corpus_id: ocp_sno_poc_v1
 
-sources: []
-# Example entry — uncomment and fill in with real values:
-#  - source_uri: cos://approved-knowledge/ocp-sno/sno-installation-4.16.pdf
-#    title: Single Node OpenShift Installation Guide
-#    domain_id: ocp_sno_support
-#    product: OpenShift
-#    ocp_version: "4.16"
-#    deployment_type: [SNO]
-#    components: [bootstrap, dns, networking]
-#    document_type: installation_guide
-#    classification: internal
-#    is_current: true
+sources:
+  - source_uri: cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.16.pdf
+    title: "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)"
+    domain_id: ocp_sno_support
+    product: OpenShift
+    ocp_version: "4.16"
+    deployment_type: [SNO, standard]
+    components: [bootstrap, dns, networking]
+    topic_tags: [installation, agent-based-installer, bootstrap, dns]
+    document_type: installation_guide
+    classification: public
+    is_current: true
+
+  - source_uri: cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.14.pdf
+    title: "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)"
+    domain_id: ocp_sno_support
+    product: OpenShift
+    ocp_version: "4.14"
+    deployment_type: [SNO, standard]
+    components: [bootstrap, dns, networking]
+    topic_tags: [installation, agent-based-installer, bootstrap, dns]
+    document_type: installation_guide
+    classification: public
+    is_current: true
+
+  - source_uri: cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf
+    title: "Networking — Configuring and Managing Cluster Networking (OCP 4.16)"
+    domain_id: ocp_sno_support
+    product: OpenShift
+    ocp_version: "4.16"
+    deployment_type: [standard, SNO, compact]
+    components: [networking, ingress, dns]
+    topic_tags: [networking, ingress, dns, network-policy, load-balancer]
+    document_type: configuration_guide
+    classification: public
+    is_current: true
+
+  - source_uri: cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf
+    title: "Storage — Configuring and Managing Storage in OpenShift (OCP 4.16)"
+    domain_id: ocp_sno_support
+    product: OpenShift
+    ocp_version: "4.16"
+    deployment_type: [standard, compact]
+    components: [storage, etcd]
+    topic_tags: [storage, persistent-volumes, etcd, csi]
+    document_type: configuration_guide
+    classification: public
+    is_current: true
+
+  - source_uri: cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-troubleshooting-4.16.pdf
+    title: "Support — Getting Support for OpenShift Container Platform (OCP 4.16)"
+    domain_id: ocp_sno_support
+    product: OpenShift
+    ocp_version: "4.16"
+    deployment_type: [standard, SNO, compact]
+    components: [api_server, etcd, networking, bootstrap]
+    topic_tags: [troubleshooting, support, diagnostics, must-gather]
+    document_type: troubleshooting_runbook
+    classification: public
+    is_current: true
+
+  - source_uri: cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-authentication-4.16.pdf
+    title: "Authentication and Authorization — Configuring User Authentication (OCP 4.16)"
+    domain_id: ocp_sno_support
+    product: OpenShift
+    ocp_version: "4.16"
+    deployment_type: [standard, SNO, compact]
+    components: [authentication, api_server]
+    topic_tags: [authentication, authorization, rbac, identity-provider, oauth]
+    document_type: configuration_guide
+    classification: public
+    is_current: true
+
+  - source_uri: cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-operators-4.16.pdf
+    title: "Operators — Working with Operators in OpenShift Container Platform (OCP 4.16)"
+    domain_id: ocp_sno_support
+    product: OpenShift
+    ocp_version: "4.16"
+    deployment_type: [standard, SNO, compact]
+    components: [operators, api_server, monitoring]
+    topic_tags: [operators, olm, operator-lifecycle-manager, catalogsource, subscription]
+    document_type: configuration_guide
+    classification: public
+    is_current: true
+
+  - source_uri: cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-updating-clusters-4.16.pdf
+    title: "Updating Clusters — Updating OpenShift Container Platform Clusters (OCP 4.16)"
+    domain_id: ocp_sno_support
+    product: OpenShift
+    ocp_version: "4.16"
+    deployment_type: [standard, SNO, compact]
+    components: [operators, api_server]
+    topic_tags: [upgrades, cluster-update, eus-update, channel, release-image]
+    document_type: configuration_guide
+    classification: public
+    is_current: true

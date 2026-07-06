@@ -45,16 +45,28 @@ def run(state: SupportState, generate_fn=None) -> SupportState:
     api_scope = state.get("extracted_scope") or {}
     merged_scope = {**extracted_scope, **api_scope}  # API explicit values win
 
+    required_clarification = (
+        parsed.get("clarification_question")
+        if parsed.get("needs_clarification")
+        else None
+    )
+    if required_clarification and _clarification_satisfied_by_scope(
+        required_clarification,
+        merged_scope,
+        question,
+    ):
+        required_clarification = None
+
     return {
         **state,
         "intent": parsed.get("intent", "qa"),
         "extracted_scope": merged_scope,
-        "required_clarification": parsed.get("clarification_question") if parsed.get("needs_clarification") else None,
+        "required_clarification": required_clarification,
         "trace": {
             **state.get("trace", {}),
             "classify_extract": {
                 "intent": parsed.get("intent"),
-                "needs_clarification": parsed.get("needs_clarification"),
+                "needs_clarification": required_clarification is not None,
             },
         },
     }
@@ -75,3 +87,36 @@ def _safe_defaults() -> dict:
         "needs_clarification": False,
         "clarification_question": None,
     }
+
+
+def _clarification_satisfied_by_scope(
+    clarification_question: str,
+    scope: dict,
+    user_question: str,
+) -> bool:
+    """
+    Treat explicit API requested_scope as authoritative when it supplies the
+    missing scope the model asked for.
+
+    Deployment type is only mandatory for deployment-specific questions. General
+    troubleshooting can proceed with an explicit OCP version alone.
+    """
+    clarification = clarification_question.lower()
+    question = user_question.lower()
+
+    asks_version = "version" in clarification or "ocp" in clarification
+    if asks_version and not scope.get("ocp_version"):
+        return False
+
+    asks_deployment = any(
+        phrase in clarification
+        for phrase in ("deployment", "sno", "single node", "standard", "compact")
+    )
+    deployment_specific_question = any(
+        phrase in question
+        for phrase in ("sno", "single node", "compact", "standard", "bootstrap")
+    )
+    if asks_deployment and deployment_specific_question and not scope.get("deployment_type"):
+        return False
+
+    return bool(scope.get("ocp_version") or scope.get("deployment_type") or scope.get("component"))

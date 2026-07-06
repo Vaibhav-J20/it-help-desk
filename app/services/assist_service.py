@@ -20,12 +20,16 @@ def handle_request(request: AssistRequest) -> AssistResponse:
     trace_id = str(uuid.uuid4())
     start_ms = time.monotonic()
 
+    requested_scope = _scope_to_dict(request)
     initial_state: SupportState = {
         "request_id": request_id,
         "user_question": request.question,
         "conversation_context": [m.model_dump() for m in request.conversation_context],
-        "extracted_scope": _scope_to_dict(request),
-        "trace": {"trace_id": trace_id},
+        "extracted_scope": requested_scope,
+        "trace": {
+            "trace_id": trace_id,
+            "explicit_scope_keys": sorted(requested_scope),
+        },
     }
 
     try:

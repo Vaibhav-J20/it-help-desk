@@ -1,6 +1,10 @@
-# Taxonomy — LOCKED CONTRACT
-# Changes require a PR reviewed by both Developer A and Developer B.
-# Metadata values not in these lists will be REJECTED during ingestion.
+# Taxonomy — OpenShift & SNO Support Copilot
+# Owner: Developer B (locked contract — changes require PR reviewed by Developer A)
+# Version: 1.0.0
+#
+# This file defines the controlled vocabulary for all document metadata.
+# The metadata validator (app/ingestion/metadata.py) rejects any value
+# not present in these lists. Do NOT add values here without discussion.
 
 domain_id: ocp_sno_support
 
