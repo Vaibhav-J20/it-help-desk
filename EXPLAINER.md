@@ -12,14 +12,398 @@
 | **Day 2** | Full `app/` skeleton: FastAPI app factory, `POST /v1/assist`, API key auth, Pydantic schemas (locked contract), `SupportState` TypedDict (locked contract), all 7 LangGraph nodes, `StateGraph` workflow, OpenSearch client, BM25+vector hybrid retriever, RRF fusion, watsonx.ai chat + embedding + rerank providers, domain/evidence policy, prompt templates, structured JSON logging. | 39/39 unit | ✅ Done |
 | **Day 3** | OpenSearch index mappings (`knowledge_chunks_v1`, `knowledge_documents_v1`) with correct field types (BM25 text, keyword filters, kNN vector, integer pages). `scripts/create_index.py`, `scripts/validate_env.py`. Integration tests: BM25 retrieval, version filter, wrong-version returns 0 hits, page fields round-trip. | 47/47 (8 integration + 39 unit) | ✅ Done |
 | **Day 4** | watsonx.ai embedding provider verified live (`ibm/slate-125m-english-rtrvr-v2`, dim=768). `scripts/smoke_test.py` — end-to-end: embed query, index fixture chunk with real vector, BM25 retrieval, vector kNN retrieval, hybrid RRF. Integration tests for vector search and RRF. | 50/50 (11 integration + 39 unit) | ✅ Done |
-| **Day 5** | LangGraph workflow — all 5 status codes proven deterministically with mocked providers | — | ⏳ Next |
-| **Day 6** | watsonx.ai chat generation + evidence prompt + citation validator | — | ⏳ Pending |
-| **Day 7** | Containerise + deploy to TechZone OpenShift | — | ⏳ Pending |
-| **Day 8–10** | Evaluation, hardening, demo | — | ⏳ Pending |
+| **Day 5** | LangGraph workflow status behavior hardened: valid answers, clarification, insufficient evidence, out-of-scope, invalid request, and citation validation paths tested with mocked providers. | Unit workflow tests | ✅ Done |
+| **Day 6** | watsonx.ai chat generation, grounded answer prompt, evidence formatting, citation validation, and end-to-end answer composition completed. | Unit workflow tests | ✅ Done |
+| **Day 7** | Container/deployment preparation: Docker build dependencies fixed, OpenAPI/Code Engine deployment docs prepared, FastAPI served locally on port `8001`, ngrok tunnel connected for external testing. | Local health checks | ✅ Done |
+| **Day 8** | Public API evaluation and out-of-scope hardening: deterministic policy added for ServiceNow/tickets/live clusters/latest-web requests/Db2/script-writing, public ngrok eval verified. | Out-of-scope eval passed | ✅ Done |
+| **Day 9** | COS ingestion unblocked, all 8 PDFs indexed, eval dataset corrected, retrieval retry fixed, full evaluation reached 38/40 = 95.0%, Day 9 commit created. | 92 passed, 11 skipped; eval 38/40 | ✅ Done |
+| **Day 10** | Merge branches to main by PR, demo dry run twice, README demo section, code freeze. | — | ⏳ Next |
 
 **Current branch:** `feature/dev-a-api-agent`
-**Local services:** OpenSearch on `http://localhost:9200` (Docker), watsonx.ai credentials in `.env`
+**Latest Day 9 commit:** `dbb81df Complete Day 9 ingestion and eval fixes`
+**Local services:** OpenSearch on `http://localhost:9200` (Docker), FastAPI on `http://127.0.0.1:8001`, ngrok at `https://left-appraiser-disorder.ngrok-free.dev`, watsonx.ai credentials in `.env`
 **To restore OpenSearch after reboot:** `docker start opensearch-poc`
+
+---
+
+## Latest Work Completed — COS Ingestion, Day 9 Eval, and Retrieval Fixes
+
+This section explains the newest work that was completed after Anush uploaded the PDFs to IBM Cloud Object Storage (COS). This is important because it changed the project from "backend skeleton with a retrieval pipeline" into a working, indexed, evaluated support copilot.
+
+### 1. What problem we were solving
+
+Before this work, the system had the API, graph, retrieval code, and evaluation harness, but the real PDF corpus was not fully and cleanly indexed from COS. That meant the chatbot could run, but it could not reliably answer the gold evaluation questions because OpenSearch did not yet contain the complete approved knowledge base.
+
+The Day 9 goal was:
+
+1. Point the corpus manifest to the real COS bucket.
+2. Run ingestion against all 8 PDFs.
+3. Make sure OpenSearch contains clean, current chunks.
+4. Run the full evaluation suite.
+5. Fix the known weak questions and any retrieval issues blocking the 70% target.
+6. Commit the finished Day 9 result.
+
+### 2. COS manifest was fixed
+
+File changed: [`config/corpus/ocp_sno_poc.yaml`](config/corpus/ocp_sno_poc.yaml)
+
+The manifest originally pointed at local files like:
+
+```yaml
+source_uri: local://docs/sno-installation-guide-4.16.pdf
+```
+
+Those were changed to IBM COS URIs like:
+
+```yaml
+source_uri: cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.16.pdf
+```
+
+All 8 PDFs now point to the COS bucket:
+
+1. `sno-installation-guide-4.16.pdf`
+2. `sno-installation-guide-4.14.pdf`
+3. `ocp-networking-4.16.pdf`
+4. `ocp-storage-4.16.pdf`
+5. `ocp-troubleshooting-4.16.pdf`
+6. `ocp-authentication-4.16.pdf`
+7. `ocp-operators-4.16.pdf`
+8. `ocp-updating-clusters-4.16.pdf`
+
+This matters because COS is the real source of truth for the approved documents. Local PDFs are fine for development, but the demo pipeline needs to prove that it can read from IBM Cloud storage.
+
+### 3. Ingestion pipeline was completed and hardened
+
+Files involved:
+
+- [`app/ingestion/run.py`](app/ingestion/run.py)
+- [`app/ingestion/cos_source.py`](app/ingestion/cos_source.py)
+- [`app/ingestion/pdf_parser.py`](app/ingestion/pdf_parser.py)
+- [`app/ingestion/chunker.py`](app/ingestion/chunker.py)
+- [`app/ingestion/metadata.py`](app/ingestion/metadata.py)
+- [`app/ingestion/indexer.py`](app/ingestion/indexer.py)
+
+The ingestion pipeline does this:
+
+1. Reads the manifest.
+2. Downloads each PDF from COS.
+3. Parses PDF pages into text.
+4. Splits page text into smaller overlapping chunks.
+5. Embeds each chunk with watsonx.ai.
+6. Writes document registry rows to `knowledge_documents_v1`.
+7. Writes searchable chunk rows to `knowledge_chunks_v1`.
+
+The command used was:
+
+```bash
+.venv/bin/python -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml --force
+```
+
+Final ingestion result:
+
+```text
+INDEXED: 8  SKIPPED: 0  FAILED: 0
+```
+
+OpenSearch verification:
+
+```text
+knowledge_documents_v1: 8 documents
+knowledge_chunks_v1: 15,402 chunks
+All documents: ingestion_status = INDEXED
+All documents: failed_pages = []
+```
+
+### 4. Chunking was fixed for the watsonx embedding token limit
+
+File changed: [`app/ingestion/chunker.py`](app/ingestion/chunker.py)
+
+The first ingestion attempt exposed a real production-style issue: some chunks were too large for the watsonx embedding model input limit. The embedding model can reject long text, and failed embeddings mean missing chunks in OpenSearch.
+
+The chunker was changed from a larger window to a conservative one:
+
+```python
+CHUNKER_VERSION = "chunker-v3"
+CHARS_PER_TOKEN = 2
+TARGET_MIN_TOKENS = 180
+TARGET_MAX_TOKENS = 240
+OVERLAP_TOKENS = 40
+```
+
+In plain English: we made chunks smaller so each chunk safely fits inside the embedding model limit. This prevents failed pages and gives the retriever more precise evidence.
+
+### 5. Forced reindexing was added
+
+Files changed:
+
+- [`app/ingestion/run.py`](app/ingestion/run.py)
+- [`app/ingestion/indexer.py`](app/ingestion/indexer.py)
+
+The initial ingestion showed `SKIPPED` documents because OpenSearch already had records with the same content hash. That is usually good behavior because idempotent ingestion prevents duplicate work.
+
+But for Day 9, we needed a clean reindex after fixing chunking. So `--force` was added.
+
+What `--force` does:
+
+1. Does not skip existing indexed revisions.
+2. Deletes old chunks for the same document/revision.
+3. Re-embeds and re-indexes all chunks.
+4. Leaves the document registry in a clean current state.
+
+This was necessary because a stale document registry can say a document is indexed even if old chunks had failed pages.
+
+### 6. OpenSearch bulk indexing was batched
+
+File changed: [`app/ingestion/indexer.py`](app/ingestion/indexer.py)
+
+One large PDF produced enough chunks that a single OpenSearch `_bulk` request became too large and hit a `413` payload error.
+
+The fix was to write chunks in bounded batches:
+
+```python
+OPENSEARCH_BULK_CHUNK_BATCH_SIZE = 500
+```
+
+In plain English: instead of trying to upload thousands of chunks in one giant request, the indexer uploads smaller batches. This is more reliable and closer to how production ingestion should work.
+
+### 7. Embedding calls were batched
+
+File changed: [`app/ingestion/indexer.py`](app/ingestion/indexer.py)
+
+The indexer now uses batch embedding when the provider supports it. This reduces the number of watsonx calls and makes ingestion faster.
+
+If a batch fails, it falls back to single-chunk embedding so one problematic batch does not automatically ruin the whole document.
+
+### 8. Gold questions were corrected
+
+File changed: [`tests/evaluation/gold_questions.yaml`](tests/evaluation/gold_questions.yaml)
+
+These questions were changed to expect `NEEDS_CLARIFICATION`:
+
+- `q005`
+- `q009`
+- `q010`
+- `q013`
+
+Why: the questions were too vague because they did not include enough required scope, especially OpenShift version. In a version-sensitive support system, answering without knowing the version can be unsafe.
+
+Example:
+
+```text
+What is the minimum hardware requirement for a Single Node OpenShift installation?
+```
+
+This should ask for the OCP version first, because requirements can change between OCP versions.
+
+### 9. Requested scope handling was fixed
+
+File changed: [`app/graph/nodes/classify_extract.py`](app/graph/nodes/classify_extract.py)
+
+The evaluator sends explicit scope for many questions, for example:
+
+```json
+{
+  "requested_scope": {
+    "ocp_version": "4.16"
+  }
+}
+```
+
+The classifier sometimes still asked for clarification because the raw user question did not include every scope detail. The fix lets explicit API scope satisfy the classifier's clarification request when it is enough to proceed.
+
+Important behavior:
+
+- General troubleshooting can proceed if `ocp_version` is explicitly provided.
+- Deployment-specific questions such as SNO/bootstrap still require deployment type when it matters.
+
+This is why many troubleshooting questions started passing after the fix.
+
+### 10. Deterministic out-of-scope policy was added
+
+Files changed:
+
+- [`app/policy/domain_policy.py`](app/policy/domain_policy.py)
+- [`app/graph/nodes/resolve_scope.py`](app/graph/nodes/resolve_scope.py)
+
+The LLM classifier is useful, but enterprise systems should not rely only on an LLM for safety boundaries. A deterministic policy was added for topics that are clearly outside the POC:
+
+- ServiceNow tickets
+- Jira/ticketing
+- Accessing a live cluster
+- Latest web/news questions
+- IBM Db2 questions
+- Python script/code-writing requests
+
+These now return:
+
+```text
+OUT_OF_SCOPE
+```
+
+This prevents the system from trying to answer with unrelated OpenShift documentation.
+
+### 11. Retrieval retry behavior was fixed
+
+Files changed:
+
+- [`app/services/assist_service.py`](app/services/assist_service.py)
+- [`app/graph/nodes/retrieve.py`](app/graph/nodes/retrieve.py)
+
+This was the biggest Day 9 quality improvement.
+
+Problem: some questions had evidence in OpenSearch, but the retriever returned zero candidates. Direct OpenSearch searches proved the content existed, so the issue was not ingestion. The issue was over-strict filters inferred by the LLM.
+
+Example failure pattern:
+
+1. The LLM inferred a wrong `deployment_type` or `component`.
+2. OpenSearch filtered by that wrong metadata.
+3. BM25 and vector search both returned zero.
+4. The API returned `INSUFFICIENT_EVIDENCE`.
+
+The retry logic already tried to relax filters, but it had a bug:
+
+```python
+_INFERRED_FIELDS = ["component", "domain_id"]
+```
+
+OpenSearch field name is actually:
+
+```python
+components
+```
+
+So the old retry did not remove the component filter correctly.
+
+The new behavior:
+
+1. First retrieval uses normal filters.
+2. If zero candidates are returned, retry with relaxed inferred filters.
+3. Always allow relaxing `components` and `domain_id`.
+4. Relax `deployment_type` only if the user/API did not explicitly provide it.
+5. Relax `ocp_version` only if the user/API did not explicitly provide it and the question did not mention a version.
+
+This keeps version safety while making retrieval much less brittle.
+
+### 12. Evaluation runner and Day 9 result were added
+
+Files added:
+
+- [`tests/evaluation/run_evaluation.py`](tests/evaluation/run_evaluation.py)
+- [`tests/evaluation/day9_results.md`](tests/evaluation/day9_results.md)
+- [`tests/evaluation/results/day8_eval_20260706T104637Z.json`](tests/evaluation/results/day8_eval_20260706T104637Z.json)
+
+The evaluation runner:
+
+1. Reads `tests/evaluation/gold_questions.yaml`.
+2. Calls `POST /v1/assist`.
+3. Compares actual status to expected status.
+4. Writes a timestamped JSON result file.
+
+Final Day 9 result:
+
+```text
+38 / 40 passed
+95.0% pass rate
+Target was 70%+
+```
+
+Only two questions failed:
+
+- `q026`: cross-version SNO installation comparison between OCP 4.14 and 4.16
+- `q028`: cross-version SNO hardware requirement comparison between OCP 4.14 and 4.16
+
+Those are harder because they require evidence from two different versioned documents at the same time. The normal single-question retrieval path is now working well.
+
+### 13. Tests passed
+
+Full local test result:
+
+```text
+92 passed, 11 skipped
+```
+
+The skipped tests are integration tests that depend on external services or specific setup. The unit test suite passed.
+
+### 14. Services were verified
+
+Local readiness:
+
+```text
+http://127.0.0.1:8001/readyz
+{"status":"ready","opensearch":true,"watsonx":true}
+```
+
+Public ngrok readiness:
+
+```text
+https://left-appraiser-disorder.ngrok-free.dev/readyz
+{"status":"ready","opensearch":true,"watsonx":true}
+```
+
+### 15. What we achieved overall
+
+By the end of Day 9, the system achieved the main POC milestone:
+
+- The API runs.
+- The public tunnel works.
+- The real COS PDFs are ingested.
+- OpenSearch contains all 8 documents and 15,402 searchable chunks.
+- Answers are generated from approved PDF evidence.
+- Citations are validated.
+- Ambiguous questions ask for clarification.
+- Out-of-scope questions are blocked.
+- Evaluation passed at 95%, well above the 70% target.
+- The work was committed as:
+
+```text
+dbb81df Complete Day 9 ingestion and eval fixes
+```
+
+The project is now ready for Anush-side testing, PR merge planning, README demo instructions, and Day 10 demo dry runs.
+
+### 16. Prompt to give Bob IDE for context
+
+Use this prompt when starting a fresh Bob IDE session so it understands what has already been completed:
+
+```text
+You are helping with the IBM internship project "OpenShift & SNO Support Copilot" in the repo IT-help-desk.
+
+Current branch: feature/dev-a-api-agent.
+
+Latest important commit:
+dbb81df Complete Day 9 ingestion and eval fixes
+
+What has been achieved:
+- FastAPI backend is implemented with POST /v1/assist, /healthz, /readyz, and OpenAPI docs.
+- LangGraph workflow is implemented with input_guard, classify_extract, resolve_scope, retrieve, evidence_gate, compose_answer, and validate_citations.
+- OpenSearch is used for hybrid retrieval over knowledge_chunks_v1 and knowledge_documents_v1.
+- watsonx.ai is used for embeddings and answer generation.
+- IBM COS ingestion is implemented and working.
+- config/corpus/ocp_sno_poc.yaml points all 8 PDFs to cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/<filename>.pdf.
+- Forced ingestion completed successfully with INDEXED: 8 SKIPPED: 0 FAILED: 0.
+- OpenSearch verification showed 8 documents and 15,402 chunks, all INDEXED, failed_pages empty.
+- Evaluation runner exists at tests/evaluation/run_evaluation.py.
+- Final Day 9 eval result is 38/40 passed = 95.0%, saved in tests/evaluation/results/day8_eval_20260706T104637Z.json.
+- Full pytest passed: 92 passed, 11 skipped.
+- Local API readiness was green at http://127.0.0.1:8001/readyz.
+- Public ngrok readiness was green at https://left-appraiser-disorder.ngrok-free.dev/readyz.
+
+Important fixes already made:
+- Chunker reduced chunk sizes to stay under watsonx embedding token limits.
+- Ingestion supports --force reindexing.
+- OpenSearch bulk indexing is batched to avoid 413 payload errors.
+- Embedding calls are batched with fallback to single-chunk embedding.
+- q005, q009, q010, and q013 in gold_questions.yaml now expect NEEDS_CLARIFICATION because they are too vague without version scope.
+- Deterministic out-of-scope handling was added for ServiceNow/tickets/live cluster/latest web/Db2/script-writing questions.
+- requested_scope handling was fixed so evaluator-provided OCP version/deployment type can satisfy classifier clarification prompts.
+- Retrieval retry was fixed to relax bad model-inferred filters while preserving explicit user/API version and deployment filters.
+
+Remaining known gaps:
+- q026 and q028 still fail because they are cross-version comparison questions requiring evidence from both OCP 4.14 and OCP 4.16 docs.
+- Day 10 next tasks are PR merge to main, demo dry run twice, README demo section, and code freeze.
+
+Do not redo ingestion unless explicitly asked. Do not delete untracked local PDFs or intermediate eval files unless explicitly asked. Start by checking git status and service readiness before making changes.
+```
 
 ---
 
