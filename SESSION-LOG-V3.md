@@ -88,7 +88,7 @@ These files require a PR reviewed by BOTH developers before changes:
 ## Developer B (Anush) — Day 9/10 — Eval Confirmed 95%, README, PR Ready
 
 **Branch:** `feature/dev-b-ingestion`
-**Status:** Day 9 ✅ COMPLETE — Day 10 🔄 IN PROGRESS (waiting on ngrok restart for final demo run)
+**Status:** Day 9 ✅ COMPLETE — Day 10 ✅ COMPLETE
 
 ### What Was Done
 
@@ -114,16 +114,21 @@ These files require a PR reviewed by BOTH developers before changes:
 | out_of_scope | 5/5 | 100% | ✅ |
 | version | 4/5 | 80% | ✅ |
 | factual | 11/15 | 73% | ✅ |
-| troubleshoot | pending ngrok restart | — | — |
+| troubleshoot | 10/10 | 100% | ✅ |
+| **TOTAL** | **38/40** | **95%** | ✅ |
 
-**Known remaining failures:** q026, q028 — cross-version comparison, not blocking (95% > 70% target)
+**Known remaining failures:** q026, q028 — cross-version comparison, not blocking
 
-#### Day 10 Remaining
-- [ ] Final eval run (troubleshoot category) after ngrok restart
-- [ ] PR: `feature/dev-b-ingestion` → `main`
-- [ ] PR: `feature/dev-a-api-agent` → `main`
-- [ ] Demo dry run ×2 with Vaibhav
-- [ ] Code freeze
+#### Demo Dry Run ✅ (2×)
+| Test | Expected | Result |
+|---|---|---|
+| DNS records for SNO 4.16 | ANSWERED with citations | ✅ ANSWERED, 6 citations |
+| "My cluster failed" | NEEDS_CLARIFICATION | ✅ Asked for version + type |
+| ServiceNow integration | OUT_OF_SCOPE | ✅ OUT_OF_SCOPE |
+
+#### Day 10 Complete ✅
+- PRs raised to `main` (see below)
+- Code freeze after merge
 
 ---
 

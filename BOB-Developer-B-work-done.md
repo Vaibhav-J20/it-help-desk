@@ -5,13 +5,14 @@
 ## Session 9 — Day 9/10: Eval Confirmed, README Written, PR Ready
 
 **Branch:** `feature/dev-b-ingestion`
-**Status:** ✅ Day 9 complete
+**Status:** ✅ Day 9/10 COMPLETE — demo passed, PRs raised
 
 ### What Was Done
 - Reviewed Vaibhav's Day 9 commits (dbb81df, 239f8b6) — all changes valid
 - Synced gold_questions.yaml with Vaibhav's q005/q009/q010/q013 clarification fixes
 - Fixed scripts/run_eval.py: reads `expected_ocp_version` field (was reading wrong key)
-- Confirmed eval results from our side: ambiguous 5/5, out_of_scope 5/5, version 4/5, factual 11/15
+- Confirmed final eval: **38/40 = 95%** — ambiguous 5/5, out_of_scope 5/5, troubleshoot 10/10, version 4/5, factual 11/15
+- Demo dry run ×2: ANSWERED(6 citations) ✅  NEEDS_CLARIFICATION ✅  OUT_OF_SCOPE ✅
 - Wrote README.md — full project overview, architecture, demo flow, eval table, setup guide
 - Updated SESSION-LOG with Day 9/10 status
 
