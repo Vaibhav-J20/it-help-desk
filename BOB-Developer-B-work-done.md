@@ -2,6 +2,41 @@
 
 ---
 
+## Session 8 — Day 8: Full 40-Question Eval Run
+
+**Branch:** `feature/dev-b-ingestion`
+**Status:** ✅ COMPLETE (Phase 1 — retrieval gap identified, action sent to Vaibhav)
+
+### What Was Done
+- Verified all endpoints live: `/healthz` ✅ `/readyz` ✅ (`opensearch:true, watsonx:true`)
+- Built `scripts/run_eval.py` — full eval runner with per-category filtering, pass/fail logic, report writer
+- Ran all 40 gold questions against live API
+- Wrote `docs/operations/EVAL_RESULTS.md` — full results table
+
+### Results: 7/40 passed (18%)
+| Category | Pass | Total |
+|---|---|---|
+| ambiguous | 5/5 | ✅ 100% |
+| out_of_scope | 2/5 | ⚠️ 40% |
+| factual | 0/15 | ❌ 0% |
+| troubleshoot | 0/10 | ❌ 0% |
+| version | 0/5 | ❌ 0% |
+
+### Root Cause
+Vaibhav's OpenSearch index is empty — all factual/troubleshoot/version questions return INSUFFICIENT_EVIDENCE.
+ACTION REQUIRED block written in SESSION-LOG for Vaibhav.
+
+### Files Changed
+| File | Change |
+|---|---|
+| `scripts/run_eval.py` | New — 40-question eval runner |
+| `openapi/it_helpdesk_live.json` | Live OpenAPI spec from Vaibhav's FastAPI |
+| `docs/operations/EVAL_RESULTS.md` | Full eval results (local only) |
+| `SESSION-LOG-V3.md` | Day 8 entry + ACTION REQUIRED for Vaibhav |
+| `BOB-Developer-B-work-done.md` | This entry |
+
+---
+
 ## Session 7 — Day 7: Orchestrate Tool Import + API Verified
 
 **Branch:** `feature/dev-b-ingestion`

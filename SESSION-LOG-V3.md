@@ -85,6 +85,42 @@ These files require a PR reviewed by BOTH developers before changes:
 
 ---
 
+## ⚡ ACTION REQUIRED — Developer A (Vaibhav) — Day 8 Eval Results
+
+**Triggered by:** Developer B completing Day 8 eval run
+
+### Eval Summary — 7/40 passed (18%)
+
+| Category | Pass | Total | Root Cause |
+|---|---|---|---|
+| ambiguous | 5/5 ✅ | 100% | Intent classification working perfectly |
+| out_of_scope | 2/5 ⚠️ | 40% | q036, q038, q040 misclassified |
+| factual | 0/15 ❌ | 0% | All INSUFFICIENT_EVIDENCE — retrieval miss |
+| troubleshoot | 0/10 ❌ | 0% | INSUFFICIENT_EVIDENCE or NEEDS_CLARIFICATION |
+| version | 0/5 ❌ | 0% | All INSUFFICIENT_EVIDENCE — retrieval miss |
+
+### Root Cause
+Your `/readyz` returns `"opensearch":true` but your OpenSearch index has no chunks from my corpus.
+My local OpenSearch has **5,524 chunks** across 8 PDFs — your retrieval is returning nothing.
+
+### What Vaibhav needs to do
+**Option A (preferred):** Point your FastAPI to my local OpenSearch:
+```
+OPENSEARCH_URL=https://localhost:9200
+OPENSEARCH_USERNAME=admin
+OPENSEARCH_PASSWORD=Ibm@Intern2025
+```
+Then re-run: `python3 scripts/run_eval.py` — expect 70%+ pass rate.
+
+**Option B:** Share your OpenSearch URL so I can re-index my 8 PDFs there.
+
+### Specific failures to investigate
+- q009, q010, q013 → `NEEDS_CLARIFICATION` on factual questions (vague question wording — I'll fix)
+- q036, q038, q040 → `NEEDS_CLARIFICATION` / `INSUFFICIENT_EVIDENCE` on out-of-scope (your classifier needs tuning)
+- q017–q025 → `NEEDS_CLARIFICATION` on troubleshoot (missing version in question — I'll add scope)
+
+---
+
 ## Developer B (Anush) — Day 7 — Orchestrate Tool Import Ready + API Verified
 
 **Branch:** `feature/dev-b-ingestion`
