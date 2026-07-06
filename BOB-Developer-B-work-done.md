@@ -2,6 +2,30 @@
 
 ---
 
+## Session 9 — Day 9/10: Eval Confirmed, README Written, PR Ready
+
+**Branch:** `feature/dev-b-ingestion`
+**Status:** ✅ Day 9 complete
+
+### What Was Done
+- Reviewed Vaibhav's Day 9 commits (dbb81df, 239f8b6) — all changes valid
+- Synced gold_questions.yaml with Vaibhav's q005/q009/q010/q013 clarification fixes
+- Fixed scripts/run_eval.py: reads `expected_ocp_version` field (was reading wrong key)
+- Confirmed eval results from our side: ambiguous 5/5, out_of_scope 5/5, version 4/5, factual 11/15
+- Wrote README.md — full project overview, architecture, demo flow, eval table, setup guide
+- Updated SESSION-LOG with Day 9/10 status
+
+### Files Changed
+| File | Change |
+|---|---|
+| `tests/evaluation/gold_questions.yaml` | Synced with Vaibhav — q005/q009/q010/q013 → NEEDS_CLARIFICATION |
+| `scripts/run_eval.py` | Fixed `expected_ocp_version` field reading |
+| `README.md` | New — full project README with demo section |
+| `SESSION-LOG-V3.md` | Day 9/10 entry |
+| `BOB-Developer-B-work-done.md` | This entry |
+
+---
+
 ## Session 8 — Day 8: Full 40-Question Eval Run
 
 **Branch:** `feature/dev-b-ingestion`

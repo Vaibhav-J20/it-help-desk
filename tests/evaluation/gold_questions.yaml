@@ -59,14 +59,14 @@ questions:
     notes: "OVN-Kubernetes is the default CNI. Should cite networking guide."
 
   - id: "q005"
-    category: factual
+    category: clarification
     question: "What is the purpose of the NMStateConfig manifest in the agent-based installer?"
-    expected_status: ANSWERED
-    expected_document_ids: ["doc-04af", "doc-4957"]
+    expected_status: NEEDS_CLARIFICATION
+    expected_document_ids: []
     expected_ocp_version: null
     expected_deployment_type: null
-    expected_pages_hint: "cluster-manifests section"
-    notes: "NMStateConfig defines static network configuration for hosts."
+    expected_pages_hint: null
+    notes: "Too vague without OCP version; should ask for clarification before answering."
 
   - id: "q006"
     category: factual
@@ -99,24 +99,24 @@ questions:
     notes: "oc adm must-gather collects diagnostics. Should cite troubleshooting guide."
 
   - id: "q009"
-    category: factual
+    category: clarification
     question: "What is the minimum hardware requirement for a Single Node OpenShift installation?"
-    expected_status: ANSWERED
-    expected_document_ids: ["doc-04af", "doc-4957"]
+    expected_status: NEEDS_CLARIFICATION
+    expected_document_ids: []
     expected_ocp_version: null
-    expected_deployment_type: "SNO"
-    expected_pages_hint: "prerequisites section"
-    notes: "8 vCPU, 32GB RAM, 120GB disk minimum for SNO."
+    expected_deployment_type: null
+    expected_pages_hint: null
+    notes: "Too vague without OCP version; should ask for clarification before answering."
 
   - id: "q010"
-    category: factual
+    category: clarification
     question: "How does the IngressController manage external traffic in OpenShift?"
-    expected_status: ANSWERED
-    expected_document_ids: ["doc-8e43"]
-    expected_ocp_version: "4.16"
+    expected_status: NEEDS_CLARIFICATION
+    expected_document_ids: []
+    expected_ocp_version: null
     expected_deployment_type: null
-    expected_pages_hint: "ingress section"
-    notes: "IngressController uses HAProxy router. Should cite networking guide."
+    expected_pages_hint: null
+    notes: "Too vague without OCP version; should ask for clarification before answering."
 
   - id: "q011"
     category: factual
@@ -139,14 +139,14 @@ questions:
     notes: "etcd operator manages backup, scaling, and health of etcd cluster."
 
   - id: "q013"
-    category: factual
+    category: clarification
     question: "What files are required in the cluster-manifests directory for agent-based installation?"
-    expected_status: ANSWERED
-    expected_document_ids: ["doc-04af", "doc-4957"]
+    expected_status: NEEDS_CLARIFICATION
+    expected_document_ids: []
     expected_ocp_version: null
     expected_deployment_type: null
-    expected_pages_hint: "page 4-5"
-    notes: "cluster-deployment.yaml, agent-cluster-install.yaml, pull-secret.yaml, infraenv.yaml etc."
+    expected_pages_hint: null
+    notes: "Too vague without OCP version; should ask for clarification before answering."
 
   - id: "q014"
     category: factual

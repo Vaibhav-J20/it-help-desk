@@ -46,10 +46,13 @@ def _call_api(url: str, api_key: str, question: dict) -> dict:
     payload: dict = {"question": question["question"]}
 
     scope = {}
-    if question.get("expected_version"):
-        scope["ocp_version"] = question["expected_version"]
-    if question.get("expected_deployment_type"):
-        scope["deployment_type"] = question["expected_deployment_type"]
+    # Support both field names used in gold_questions.yaml
+    version = question.get("expected_version") or question.get("expected_ocp_version")
+    if version:
+        scope["ocp_version"] = version
+    deployment = question.get("expected_deployment_type")
+    if deployment:
+        scope["deployment_type"] = deployment
     if scope:
         payload["requested_scope"] = scope
 
