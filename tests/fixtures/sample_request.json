@@ -1,0 +1,9 @@
+{
+  "question": "How do I configure DNS for SNO installation on OCP 4.16?",
+  "conversation_id": "test-session-001",
+  "conversation_context": [],
+  "requested_scope": {
+    "ocp_version": "4.16",
+    "deployment_type": "SNO"
+  }
+}

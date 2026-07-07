@@ -1,0 +1,255 @@
+openapi: 3.0.3
+info:
+  title: OpenShift & SNO Technical Support Copilot
+  description: >
+    Citation-grounded technical support for Red Hat OpenShift Container Platform
+    and Single Node OpenShift. Answers are sourced exclusively from approved
+    PDF documentation. Never fabricates answers.
+  version: 0.1.0
+
+servers:
+  - url: https://left-appraiser-disorder.ngrok-free.dev
+    description: Developer A ngrok tunnel (demo) — replace with Code Engine URL for production
+
+security:
+  - ApiKeyAuth: []
+
+paths:
+  /v1/assist:
+    post:
+      operationId: query_ocp_sno_knowledge
+      summary: Submit a technical support question
+      description: >
+        Submit an OCP/SNO technical question. Returns a citation-grounded answer,
+        a clarification request, an insufficient-evidence notice, or an
+        out-of-scope notice. Never fabricates citations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssistRequest'
+            examples:
+              factual:
+                summary: Factual question with scope
+                value:
+                  question: "How do I configure DNS for SNO installation on OCP 4.16?"
+                  requested_scope:
+                    ocp_version: "4.16"
+                    deployment_type: "SNO"
+              ambiguous:
+                summary: Ambiguous question needing clarification
+                value:
+                  question: "My cluster installation failed"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssistResponse'
+              examples:
+                answered:
+                  summary: ANSWERED with citations
+                  value:
+                    request_id: "550e8400-e29b-41d4-a716-446655440000"
+                    status: "ANSWERED"
+                    intent: "troubleshoot"
+                    answer_markdown: "### DNS Configuration\n1. Verify api.<cluster>.<domain> resolves correctly [S1]\n\n### Sources\n[S1] SNO Installation Guide — OCP 4.16, pp. 12–13"
+                    clarification_question: null
+                    citations:
+                      - citation_id: "S1"
+                        title: "SNO Installation Guide"
+                        product: "OpenShift"
+                        ocp_version: "4.16"
+                        page_start: 12
+                        page_end: 13
+                        section_path: "Installation > Bootstrap > DNS validation"
+                        document_id: "doc-8f9c"
+                    safety_note: "Guidance is based only on the approved knowledge base; verify commands in your environment."
+                    trace_id: "660e8400-e29b-41d4-a716-446655440000"
+                clarification:
+                  summary: NEEDS_CLARIFICATION
+                  value:
+                    request_id: "550e8400-e29b-41d4-a716-446655440001"
+                    status: "NEEDS_CLARIFICATION"
+                    intent: "troubleshoot"
+                    answer_markdown: null
+                    clarification_question: "Which OCP version and deployment type (SNO or standard) are you using?"
+                    citations: []
+                    safety_note: "Guidance is based only on the approved knowledge base; verify commands in your environment."
+                    trace_id: "660e8400-e29b-41d4-a716-446655440001"
+                insufficient:
+                  summary: INSUFFICIENT_EVIDENCE
+                  value:
+                    request_id: "550e8400-e29b-41d4-a716-446655440002"
+                    status: "INSUFFICIENT_EVIDENCE"
+                    intent: "qa"
+                    answer_markdown: null
+                    clarification_question: null
+                    citations: []
+                    safety_note: "Guidance is based only on the approved knowledge base; verify commands in your environment."
+                    trace_id: "660e8400-e29b-41d4-a716-446655440002"
+                out_of_scope:
+                  summary: OUT_OF_SCOPE
+                  value:
+                    request_id: "550e8400-e29b-41d4-a716-446655440003"
+                    status: "OUT_OF_SCOPE"
+                    intent: "unsupported"
+                    answer_markdown: null
+                    clarification_question: null
+                    citations: []
+                    safety_note: "Guidance is based only on the approved knowledge base; verify commands in your environment."
+                    trace_id: "660e8400-e29b-41d4-a716-446655440003"
+        '401':
+          description: Invalid or missing API key
+        '422':
+          description: Invalid request payload
+        '500':
+          description: Internal server error
+
+  /healthz:
+    get:
+      operationId: health_check
+      summary: Liveness probe
+      security: []
+      responses:
+        '200':
+          description: Service is alive
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+
+  /readyz:
+    get:
+      operationId: readiness_check
+      summary: Readiness probe
+      security: []
+      responses:
+        '200':
+          description: Service is ready
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [ready, degraded]
+                  opensearch:
+                    type: boolean
+                  watsonx:
+                    type: boolean
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  schemas:
+    AssistRequest:
+      type: object
+      required: [question]
+      properties:
+        question:
+          type: string
+          minLength: 3
+          maxLength: 2000
+          description: The technical support question
+        conversation_id:
+          type: string
+          nullable: true
+        conversation_context:
+          type: array
+          maxItems: 4
+          items:
+            $ref: '#/components/schemas/ConversationMessage'
+        requested_scope:
+          $ref: '#/components/schemas/RequestedScope'
+
+    ConversationMessage:
+      type: object
+      required: [role, content]
+      properties:
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+
+    RequestedScope:
+      type: object
+      properties:
+        ocp_version:
+          type: string
+          nullable: true
+          example: "4.16"
+        deployment_type:
+          type: string
+          enum: [SNO, standard, compact]
+          nullable: true
+        component:
+          type: string
+          nullable: true
+
+    AssistResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+        status:
+          type: string
+          enum: [ANSWERED, NEEDS_CLARIFICATION, INSUFFICIENT_EVIDENCE, OUT_OF_SCOPE, INVALID_REQUEST, ERROR]
+        intent:
+          type: string
+          enum: [qa, troubleshoot, summarize, unsupported]
+          nullable: true
+        answer_markdown:
+          type: string
+          nullable: true
+        clarification_question:
+          type: string
+          nullable: true
+        citations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Citation'
+        safety_note:
+          type: string
+        trace_id:
+          type: string
+
+    Citation:
+      type: object
+      properties:
+        citation_id:
+          type: string
+          example: "S1"
+        title:
+          type: string
+        product:
+          type: string
+        ocp_version:
+          type: string
+          nullable: true
+        page_start:
+          type: integer
+          nullable: true
+        page_end:
+          type: integer
+          nullable: true
+        section_path:
+          type: string
+          nullable: true
+        document_id:
+          type: string
+        chunk_id:
+          type: string
+          nullable: true
