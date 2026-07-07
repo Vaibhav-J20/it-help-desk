@@ -1,3 +1,6 @@
+# OpenShift & SNO Support Copilot — Python Dependencies
+# Pinned to match Developer A's requirements.txt exactly for shared container build.
+
 fastapi==0.139.0
 uvicorn[standard]==0.49.0
 pydantic==2.13.4
@@ -23,6 +26,9 @@ httpx==0.28.1
 
 # Observability
 structlog==26.1.0
+
+# IBM COS (ingestion pipeline — optional, falls back to local if not set)
+ibm-cos-sdk>=2.13.0
 
 # Testing
 pytest==9.1.1

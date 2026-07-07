@@ -8,8 +8,8 @@ info:
   version: 0.1.0
 
 servers:
-  - url: https://YOUR_CODE_ENGINE_URL
-    description: IBM Code Engine deployment
+  - url: https://left-appraiser-disorder.ngrok-free.dev
+    description: Developer A ngrok tunnel (demo) — replace with Code Engine URL for production
 
 security:
   - ApiKeyAuth: []

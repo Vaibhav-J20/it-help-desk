@@ -1,0 +1,46 @@
+{
+  "chunk_id": "ocp_sno_support:doc-04af:rev-2026-07-03-76f032e7080a:chunk-0009",
+  "document_id": "doc-04af",
+  "revision_id": "rev-2026-07-03-76f032e7080a",
+  "domain_id": "ocp_sno_support",
+  "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+  "source_uri": "local://docs/sno-installation-guide-4.14.pdf",
+  "source_type": "pdf",
+  "document_type": "installation_guide",
+  "classification": "public",
+  "access_scope": [
+    "isa_technical"
+  ],
+  "product": "OpenShift",
+  "ocp_version": "4.14",
+  "ocp_major": 4,
+  "ocp_minor": 14,
+  "deployment_type": [
+    "SNO",
+    "standard"
+  ],
+  "components": [
+    "bootstrap",
+    "dns",
+    "networking"
+  ],
+  "topic_tags": [
+    "installation",
+    "agent-based-installer",
+    "bootstrap",
+    "dns"
+  ],
+  "section_path": "1.2.1. Agent-based Installer workflow",
+  "page_start": 7,
+  "page_end": 9,
+  "chunk_ordinal": 9,
+  "chunk_text": "-manifests/cluster-deployment.yaml\n cluster-manifests/agent-cluster-install.yaml\n cluster-manifests/pull-secret.yaml\n cluster-manifests/infraenv.yaml\n cluster-manifests/cluster-image-set.yaml\n cluster-manifests/nmstateconfig.yaml\n mirror/registries.conf\n mirror/ca-bundle.crt\n 4\n\nCHAPTER 1. PREPARING TO INSTALL WITH THE AGENT-BASED INSTALLER\n 1.2.1. Agent-based Installer workflow\n One of the control plane hosts runs the Assisted Service at the start of the boot process and eventually\nbecomes the bootstrap host. This node is called the rendezvous host (node 0). The Assisted Service\nensures that all the hosts meet the requirements and triggers an OpenShift Container Platform cluster\ndeployment. All the nodes have the Red Hat Enterprise Linux CoreOS (RHCOS) image written to the\ndisk. The non-bootstrap nodes reboot and initiate a cluster deployment. Once the nodes are rebooted,\nthe rendezvous host reboots and joins the cluster. The bootstrapping is complete and the cluster is\ndeployed.\n Figure 1.1. Node installation workflow\n You can install a disconnected OpenShift Container Platform cluster through the openshift-install \nagent create image subcommand for the following topologies:\n A single-node OpenShift Container Platform cluster (SNO): A node that is both a master and\nworker.\n A three-node OpenShift Container Platform cluster : A compact cluster that has three\n 5",
+  "chunk_text_vector": "[768 floats \u2014 stub zeros for local dev, will be real watsonx.ai vectors in production]",
+  "content_hash": "sha256:dd0e2319e240a2dfb72d7e9be8625b685f7c1bf9798a7b80e5e66a91fbc46ee7",
+  "parser_version": "pdf-parser-v1",
+  "chunker_version": "chunker-v1",
+  "embedding_model_id": "ibm/slate-125m-english-rtrvr-v2",
+  "embedding_dimension": 768,
+  "ingested_at": "2026-07-03T19:35:29.956687+00:00",
+  "is_current": true
+}
