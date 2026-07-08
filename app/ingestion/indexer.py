@@ -190,8 +190,12 @@ def index_document(
     logger.info("Document registry entry created: %s / %s", document_id, revision_id)
 
     # --- Bulk index all chunks ---
-    ocp_version = metadata["ocp_version"]
+    ocp_version = metadata.get("ocp_version")
     ocp_major, ocp_minor = _parse_version(ocp_version)
+    deployment_type = metadata.get("deployment_type") or []
+    if isinstance(deployment_type, str):
+        deployment_type = [deployment_type]
+    source_type = metadata.get("source_type") or ("pdf" if parse_result.source_uri.lower().endswith(".pdf") else "web")
 
     indexed_count = 0
     vectors_by_ordinal, failed_pages = _embed_chunks(chunks, embedding_fn)
@@ -211,16 +215,16 @@ def index_document(
             "domain_id": metadata["domain_id"],
             "title": metadata["title"],
             "source_uri": parse_result.source_uri,
-            "source_type": "pdf",
+            "source_type": source_type,
             "document_type": metadata["document_type"],
             "classification": metadata["classification"],
-            "access_scope": ["isa_technical"],
+            "access_scope": metadata.get("access_scope", ["isa_technical"]),
 
             "product": metadata["product"],
             "ocp_version": ocp_version,
             "ocp_major": ocp_major,
             "ocp_minor": ocp_minor,
-            "deployment_type": metadata["deployment_type"],
+            "deployment_type": deployment_type,
             "components": metadata.get("components", []),
             "topic_tags": metadata.get("topic_tags", []),
 
@@ -277,8 +281,10 @@ def index_document(
     )
 
 
-def _parse_version(ocp_version: str) -> tuple[int, int]:
+def _parse_version(ocp_version: str | None) -> tuple[int, int]:
     """Parse '4.16' into (4, 16). Returns (0, 0) on failure."""
+    if not ocp_version:
+        return 0, 0
     try:
         parts = str(ocp_version).split(".")
         return int(parts[0]), int(parts[1])

@@ -1,0 +1,39 @@
+# Corpus Manifest — IBM watsonx Orchestrate developer documentation
+# Source strategy:
+#   - Use the official documentation index exposed at /llms.txt.
+#   - Expand the index into concrete Markdown/HTML pages at ingestion time.
+
+corpus_id: watsonx_orchestrate_docs_v1
+
+sources:
+  - source_uri: https://developer.watson-orchestrate.ibm.com/llms.txt
+    source_type: web_index
+    title: "IBM watsonx Orchestrate ADK documentation index"
+    domain_id: watsonx_orchestrate
+    product: "watsonx Orchestrate"
+    document_type: developer_docs
+    classification: public
+    access_scope: [isa_technical]
+    components:
+      - adk
+      - agents
+      - tools
+      - toolkits
+      - connections
+      - knowledge_bases
+      - channels
+      - embedded_chat
+      - evaluation
+      - mcp
+      - api
+    topic_tags:
+      - watsonx-orchestrate
+      - adk
+      - agent-development
+      - tools
+      - api
+    allowed_prefixes:
+      - https://developer.watson-orchestrate.ibm.com/
+    max_pages: 160
+    request_timeout_seconds: 12
+    is_current: true

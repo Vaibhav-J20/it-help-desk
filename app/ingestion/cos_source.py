@@ -29,6 +29,10 @@ def _is_local_uri(uri: str) -> bool:
     return uri.startswith("local://")
 
 
+def _is_web_uri(uri: str) -> bool:
+    return uri.startswith("https://") or uri.startswith("http://")
+
+
 def _cos_available() -> bool:
     return bool(
         os.getenv("COS_ENDPOINT")
@@ -37,7 +41,7 @@ def _cos_available() -> bool:
     )
 
 
-def get_document(source_uri: str) -> bytes:
+def get_document(source_uri: str, timeout: int | None = None) -> bytes:
     """
     Retrieve raw PDF bytes for a given source_uri.
 
@@ -64,6 +68,8 @@ def get_document(source_uri: str) -> bytes:
             )
             return _read_local(_cos_to_local_uri(source_uri))
         return _read_cos(source_uri)
+    elif _is_web_uri(source_uri):
+        return _read_web(source_uri, timeout=timeout)
     else:
         raise ValueError(f"Unknown URI scheme in source_uri: '{source_uri}'")
 
@@ -91,6 +97,8 @@ def _check_accessible(uri: str) -> bool:
             return path.exists() and path.is_file()
         elif _is_cos_uri(uri):
             return _cos_available()
+        elif _is_web_uri(uri):
+            return True
         return False
     except Exception:
         return False
@@ -142,3 +150,11 @@ def _read_cos(cos_uri: str) -> bytes:
     )
     response = cos_client.get_object(Bucket=bucket, Key=key)
     return response["Body"].read()
+
+
+def _read_web(uri: str, timeout: int | None = None) -> bytes:
+    """Read a public documentation page."""
+    from app.ingestion.web_source import fetch_url
+
+    logger.debug("Reading web document: %s", uri)
+    return fetch_url(uri, timeout=timeout or 30)

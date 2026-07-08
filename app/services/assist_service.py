@@ -71,8 +71,40 @@ def _scope_to_dict(request: AssistRequest) -> dict:
     if request.requested_scope.deployment_type:
         scope["deployment_type"] = request.requested_scope.deployment_type
     if request.requested_scope.component:
-        scope["component"] = request.requested_scope.component
+        scope.update(_normalise_component_scope(request.requested_scope.component))
     return scope
+
+
+def _normalise_component_scope(component: str) -> dict:
+    """
+    Orchestrate sometimes sends product/domain names in requested_scope.component.
+    Map those to domain filters so they do not become impossible component filters.
+    """
+    value = component.strip()
+    key = value.lower()
+
+    if key in {"ibm bob", "bob", "bob ide"}:
+        return {"domain_id": "ibm_bob"}
+
+    if key in {
+        "watsonx orchestrate",
+        "ibm watsonx orchestrate",
+        "orchestrate",
+        "orchestrate adk",
+    }:
+        return {"domain_id": "watsonx_orchestrate"}
+
+    if key in {
+        "openshift",
+        "open shift",
+        "ocp",
+        "openshift container platform",
+        "sno",
+        "single node openshift",
+    }:
+        return {"domain_id": "ocp_sno_support"}
+
+    return {"component": value}
 
 
 def _state_to_response(state: SupportState, request_id: str, trace_id: str) -> AssistResponse:

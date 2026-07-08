@@ -37,6 +37,7 @@ def run(state: SupportState, generate_fn=None) -> SupportState:
         k: v for k, v in {
             "ocp_version": parsed.get("ocp_version"),
             "deployment_type": parsed.get("deployment_type"),
+            "domain_id": parsed.get("domain_id"),
             "component": parsed.get("component"),
         }.items() if v is not None
     }
@@ -66,6 +67,7 @@ def run(state: SupportState, generate_fn=None) -> SupportState:
             **state.get("trace", {}),
             "classify_extract": {
                 "intent": parsed.get("intent"),
+                "domain_id": merged_scope.get("domain_id"),
                 "needs_clarification": required_clarification is not None,
             },
         },
@@ -81,6 +83,7 @@ def _parse_classification(raw: str) -> dict:
 def _safe_defaults() -> dict:
     return {
         "intent": "qa",
+        "domain_id": None,
         "ocp_version": None,
         "deployment_type": None,
         "component": None,
@@ -119,4 +122,9 @@ def _clarification_satisfied_by_scope(
     if asks_deployment and deployment_specific_question and not scope.get("deployment_type"):
         return False
 
-    return bool(scope.get("ocp_version") or scope.get("deployment_type") or scope.get("component"))
+    return bool(
+        scope.get("domain_id")
+        or scope.get("ocp_version")
+        or scope.get("deployment_type")
+        or scope.get("component")
+    )

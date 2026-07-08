@@ -14,7 +14,7 @@ router = APIRouter(prefix="/v1", tags=["assist"])
     response_model=AssistResponse,
     summary="Submit a technical support question",
     description=(
-        "Submit an OCP/SNO technical question. "
+        "Submit a technical support question for an approved domain. "
         "Returns a citation-grounded answer, a clarification request, "
         "an insufficient-evidence notice, or an out-of-scope notice."
     ),

@@ -8,9 +8,16 @@
 
 domain_id: ocp_sno_support
 
+allowed_domain_ids:
+  - ocp_sno_support
+  - watsonx_orchestrate
+  - ibm_bob
+
 allowed_products:
   - OpenShift
   - RHCOS
+  - watsonx Orchestrate
+  - IBM Bob
 
 allowed_ocp_versions:
   - "4.14"
@@ -27,8 +34,12 @@ allowed_document_types:
   - installation_guide
   - troubleshooting_runbook
   - configuration_guide
+  - developer_docs
+  - api_reference
+  - how_to_guide
   - release_notes
   - reference_manual
+  - tutorial
 
 allowed_components:
   - bootstrap
@@ -41,6 +52,33 @@ allowed_components:
   - authentication
   - monitoring
   - operators
+  - adk
+  - agents
+  - ai_builder
+  - api
+  - bob_shell
+  - channels
+  - chat
+  - cli
+  - configuration
+  - connections
+  - developer_edition
+  - embedded_chat
+  - evaluation
+  - ide
+  - knowledge_bases
+  - llm
+  - mcp
+  - modes
+  - plug-ins
+  - security
+  - skills
+  - subagents
+  - tools
+  - toolkits
+  - troubleshooting
+  - voice
+  - workspaces
 
 allowed_classifications:
   - internal

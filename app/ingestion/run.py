@@ -26,6 +26,8 @@ from app.ingestion.cos_source import get_document, list_documents
 from app.ingestion.indexer import index_document
 from app.ingestion.metadata import validate_metadata
 from app.ingestion.pdf_parser import parse_pdf
+from app.ingestion.text_parser import parse_text_document
+from app.ingestion.web_source import expand_web_sources
 
 load_dotenv()
 
@@ -101,7 +103,7 @@ def run(manifest_path: Path, dry_run: bool = False, force: bool = False) -> None
     with open(manifest_path, "r") as f:
         manifest = yaml.safe_load(f)
 
-    sources = manifest.get("sources", [])
+    sources = expand_web_sources(manifest.get("sources", []))
     if not sources:
         logger.error("No sources found in manifest: %s", manifest_path)
         sys.exit(1)
@@ -157,17 +159,21 @@ def run(manifest_path: Path, dry_run: bool = False, force: bool = False) -> None
 
         # Fetch PDF bytes
         try:
-            content = get_document(uri)
+            content = get_document(uri, timeout=_source_timeout(source))
         except FileNotFoundError as e:
             logger.error("Document not found: %s", e)
             results["FAILED"] += 1
             continue
+        except Exception as e:
+            logger.error("Document fetch failed for %s: %s", uri, e)
+            results["FAILED"] += 1
+            continue
 
-        # Parse PDF
+        # Parse source document
         try:
-            parse_result = parse_pdf(content, uri)
+            parse_result = _parse_document(content, source)
         except ValueError as e:
-            logger.error("PDF parse error for %s: %s", uri, e)
+            logger.error("Parse error for %s: %s", uri, e)
             results["FAILED"] += 1
             continue
 
@@ -214,6 +220,18 @@ def run(manifest_path: Path, dry_run: bool = False, force: bool = False) -> None
 
     if results["FAILED"] > 0:
         sys.exit(1)
+
+
+def _parse_document(content: bytes, source: dict):
+    uri = source["source_uri"]
+    source_type = source.get("source_type", "")
+    if source_type == "pdf" or uri.lower().endswith(".pdf") or content.startswith(b"%PDF"):
+        return parse_pdf(content, uri)
+    return parse_text_document(content, uri)
+
+
+def _source_timeout(source: dict) -> int:
+    return int(source.get("request_timeout_seconds", 30))
 
 
 def main() -> None:

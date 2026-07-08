@@ -3,6 +3,8 @@
 **IBM Internship POC — ISA India Division**
 A citation-grounded technical support chatbot for Red Hat OpenShift Container Platform (OCP) and Single Node OpenShift (SNO), built entirely on the IBM Watsonx platform.
 
+> **Day 11 update:** The backend has been expanded into an Enterprise IT Support Copilot with additional knowledge domains for IBM watsonx Orchestrate and IBM Bob. See `BOB-DAY11-MULTIDOMAIN-CONTEXT.md` for the current multi-domain handoff, Orchestrate UI settings, verification results, and next tasks.
+
 ---
 
 ## What It Does

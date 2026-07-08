@@ -15,10 +15,11 @@ def create_app() -> FastAPI:
     settings = get_settings()
 
     app = FastAPI(
-        title="OpenShift & SNO Technical Support Copilot",
+        title="Enterprise IT Support Copilot",
         description=(
-            "Citation-grounded technical support for OCP and SNO. "
-            "Answers are sourced exclusively from approved PDF documentation."
+            "Citation-grounded technical support for approved IT domains, "
+            "including OpenShift/SNO, watsonx Orchestrate, and IBM Bob. "
+            "Answers are sourced exclusively from approved knowledge-base documents."
         ),
         version="0.1.0",
         docs_url="/docs",

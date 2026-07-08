@@ -5,3 +5,15 @@ domains:
     active: true
     corpus_ids:
       - ocp_sno_poc_v1
+  watsonx_orchestrate:
+    label: "IBM watsonx Orchestrate Developer Support"
+    description: "IBM watsonx Orchestrate ADK, agents, tools, connections, channels, APIs, and developer documentation"
+    active: true
+    corpus_ids:
+      - watsonx_orchestrate_docs_v1
+  ibm_bob:
+    label: "IBM Bob Developer Support"
+    description: "IBM Bob IDE, modes, tools, MCP, subagents, skills, security, and developer documentation"
+    active: true
+    corpus_ids:
+      - ibm_bob_docs_v1

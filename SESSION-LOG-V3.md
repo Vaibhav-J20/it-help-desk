@@ -10,6 +10,54 @@
 
 ---
 
+## Developer A (Vaibhav + Codex) — Day 11 — Multi-Domain Web Docs Expansion
+
+**Status:** ✅ Backend working locally and through ngrok  
+**Primary context file for Bob:** `BOB-DAY11-MULTIDOMAIN-CONTEXT.md`
+
+### What Changed
+
+- Expanded the copilot from OpenShift/SNO-only support into a broader Enterprise IT Support Copilot.
+- Added two new documentation domains:
+  - IBM watsonx Orchestrate docs from `https://developer.watson-orchestrate.ibm.com/`
+  - IBM Bob IDE docs from `https://bob.ibm.com/docs/ide`
+- Added web ingestion support for HTML/Markdown/plain-text documentation.
+- Added corpus manifests:
+  - `config/corpus/watsonx_orchestrate.yaml`
+  - `config/corpus/ibm_bob.yaml`
+- Updated taxonomy, domain routing, classifier prompt, metadata validation, indexing, and answer source formatting for non-OCP domains.
+- Fixed Orchestrate frontend payload behavior where product names such as `IBM Bob` and `watsonx Orchestrate` were sent in `requested_scope.component`.
+
+### Ingestion Results
+
+| Domain | Result |
+|---|---|
+| watsonx Orchestrate | `INDEXED: 124  SKIPPED: 36  FAILED: 0` |
+| IBM Bob | `INDEXED: 30  SKIPPED: 0  FAILED: 0` |
+
+### Verification
+
+| Check | Result |
+|---|---|
+| Unit tests | `58 passed` |
+| Local `/readyz` | `{"status":"ready","opensearch":true,"watsonx":true}` |
+| ngrok `/readyz` | `{"status":"ready","opensearch":true,"watsonx":true}` |
+| SNO DNS question | ✅ ANSWERED with OpenShift citations |
+| Orchestrate ADK question | ✅ ANSWERED with watsonx Orchestrate citations |
+| IBM Bob modes question | ✅ ANSWERED with IBM Bob citations |
+
+### Known Follow-Ups
+
+- Bob crawl is currently capped at 30 pages; expand it before claiming full Bob docs coverage.
+- Add Orchestrate/Bob evaluation sets instead of relying only on manual smoke tests.
+- Regenerate/update OpenAPI metadata so the imported tool no longer says only OCP/SNO.
+- Rename the Orchestrate frontend agent to `Enterprise IT Support Copilot`.
+- Replace deprecated embedding model before 2026-08-08.
+
+Read `BOB-DAY11-MULTIDOMAIN-CONTEXT.md` before making further Day 11+ changes.
+
+---
+
 ## 🏁 SPRINT COMPLETE — Final Status Dashboard
 
 **Last updated by:** Developer B (Anush) — Day 10
@@ -207,7 +255,7 @@ Also add COS credentials to your `.env`:
 ```
 COS_ENDPOINT=https://s3.us-south.cloud-object-storage.appdomain.cloud
 COS_BUCKET=ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4
-COS_API_KEY=WppiXP9Pc5dVGNpNC5xy231k0gBNVJZW_BTAdCXmC__S
+COS_API_KEY=<redacted - use local .env, never commit real secrets>
 ```
 
 Then run:
@@ -681,4 +729,3 @@ All fields from `tests/fixtures/sample_chunk.json` are produced by `indexer.py`,
 ---
 
 *Add new entries below this line as work progresses*
-

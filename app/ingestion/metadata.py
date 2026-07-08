@@ -50,9 +50,11 @@ def validate_metadata(record: dict[str, Any]) -> ValidationResult:
     taxonomy = _load_taxonomy()
     errors: list[str] = []
 
-    # Required fields
-    required = ["domain_id", "product", "ocp_version", "deployment_type",
-                "document_type", "classification", "title", "source_uri"]
+    # Common required fields for every supported domain.
+    required = ["domain_id", "product", "document_type", "classification", "title", "source_uri"]
+    if record.get("domain_id") == taxonomy["domain_id"]:
+        required.extend(["ocp_version", "deployment_type"])
+
     for key in required:
         if not record.get(key):
             errors.append(f"Missing required field: '{key}'")
@@ -61,9 +63,10 @@ def validate_metadata(record: dict[str, Any]) -> ValidationResult:
         return ValidationResult(valid=False, errors=errors)
 
     # domain_id
-    if record["domain_id"] != taxonomy["domain_id"]:
+    allowed_domain_ids = taxonomy.get("allowed_domain_ids") or [taxonomy["domain_id"]]
+    if record["domain_id"] not in allowed_domain_ids:
         errors.append(
-            f"domain_id '{record['domain_id']}' not valid; expected '{taxonomy['domain_id']}'"
+            f"domain_id '{record['domain_id']}' not valid; expected one of {allowed_domain_ids}"
         )
 
     # product
@@ -72,17 +75,20 @@ def validate_metadata(record: dict[str, Any]) -> ValidationResult:
             f"product '{record['product']}' not in allowed_products: {taxonomy['allowed_products']}"
         )
 
-    # ocp_version
-    if str(record["ocp_version"]) not in taxonomy["allowed_ocp_versions"]:
+    # ocp_version — required for the OpenShift/SNO domain, optional for others.
+    if record.get("ocp_version") and str(record["ocp_version"]) not in taxonomy["allowed_ocp_versions"]:
         errors.append(
             f"ocp_version '{record['ocp_version']}' not in allowed_ocp_versions: {taxonomy['allowed_ocp_versions']}"
         )
 
-    # deployment_type — must be a list, all values must be in allowed list
+    # deployment_type — required for OpenShift/SNO, optional for other domains.
     dep_types = record.get("deployment_type", [])
-    if not isinstance(dep_types, list) or len(dep_types) == 0:
+    if record.get("domain_id") == taxonomy["domain_id"] and (not isinstance(dep_types, list) or len(dep_types) == 0):
         errors.append("deployment_type must be a non-empty list")
-    else:
+    elif dep_types:
+        if not isinstance(dep_types, list):
+            errors.append("deployment_type must be a list")
+            dep_types = []
         for dt in dep_types:
             if dt not in taxonomy["allowed_deployment_types"]:
                 errors.append(

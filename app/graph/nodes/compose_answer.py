@@ -48,7 +48,7 @@ def _build_evidence_blocks(candidates: list[dict]) -> str:
     for i, chunk in enumerate(candidates, start=1):
         label = f"[S{i}]"
         title = chunk.get("title", "Unknown document")
-        version = chunk.get("ocp_version", "")
+        product_label = _product_label(chunk)
         pages = ""
         if chunk.get("page_start") and chunk.get("page_end"):
             pages = f", pp. {chunk['page_start']}–{chunk['page_end']}"
@@ -56,8 +56,17 @@ def _build_evidence_blocks(candidates: list[dict]) -> str:
             pages = f", p. {chunk['page_start']}"
         section = chunk.get("section_path", "")
         text = chunk.get("chunk_text", "")
-        header = f"{label} {title} — OCP {version}{pages}"
+        header = f"{label} {title} — {product_label}{pages}"
         if section:
             header += f" ({section})"
         blocks.append(f"{header}\n{text}")
     return "\n\n".join(blocks)
+
+
+def _product_label(chunk: dict) -> str:
+    """Return a readable product/version label for source headers."""
+    product = chunk.get("product") or "Knowledge base"
+    version = chunk.get("ocp_version")
+    if version:
+        return f"{product} {version}"
+    return str(product)

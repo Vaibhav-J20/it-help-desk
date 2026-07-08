@@ -4,6 +4,49 @@
 
 ---
 
+## Latest Day 11 Update — Enterprise IT Support Expansion
+
+The project has been expanded beyond OpenShift/SNO. It now supports three approved knowledge domains:
+
+1. OpenShift / OCP / SNO
+2. IBM watsonx Orchestrate
+3. IBM Bob
+
+The detailed Bob-readable handoff for this expansion is in:
+
+```text
+BOB-DAY11-MULTIDOMAIN-CONTEXT.md
+```
+
+Major Day 11 additions:
+
+- Web documentation ingestion through `app/ingestion/web_source.py`
+- HTML/Markdown/plain-text parsing through `app/ingestion/text_parser.py`
+- New corpus manifests:
+  - `config/corpus/watsonx_orchestrate.yaml`
+  - `config/corpus/ibm_bob.yaml`
+- Multi-domain routing through classifier and scope resolver updates
+- Product-aware source labels instead of hardcoded `OCP None`
+- Orchestrate frontend guidance for Enterprise IT Support Copilot
+- Backend normalization for Orchestrate payloads that send `IBM Bob` or `watsonx Orchestrate` as `requested_scope.component`
+
+Verification after Day 11 changes:
+
+```text
+58 passed
+OpenShift/SNO smoke test: ANSWERED
+watsonx Orchestrate smoke test: ANSWERED
+IBM Bob smoke test: ANSWERED
+```
+
+Known Day 11 limitations:
+
+- IBM Bob crawl is currently capped at 30 pages.
+- Orchestrate/Bob need a formal eval set.
+- The embedding model `ibm/slate-125m-english-rtrvr-v2` must be replaced before 2026-08-08.
+
+---
+
 ## Sprint Progress — Developer A (Vaibhav)
 
 | Day | What was built | Tests | Status |

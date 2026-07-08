@@ -1,0 +1,38 @@
+# Corpus Manifest — IBM Bob developer documentation
+# Source strategy:
+#   - Start from the official IBM Bob IDE docs entrypoint.
+#   - Crawl same-site /docs/ide pages at ingestion time.
+
+corpus_id: ibm_bob_docs_v1
+
+sources:
+  - source_uri: https://bob.ibm.com/docs/ide
+    source_type: web_crawl
+    title: "IBM Bob IDE documentation"
+    domain_id: ibm_bob
+    product: "IBM Bob"
+    document_type: developer_docs
+    classification: public
+    access_scope: [isa_technical]
+    components:
+      - ide
+      - modes
+      - subagents
+      - tools
+      - mcp
+      - skills
+      - bob_shell
+      - security
+      - configuration
+      - troubleshooting
+    topic_tags:
+      - ibm-bob
+      - ide
+      - ai-sdlc
+      - developer-tools
+      - mcp
+    allowed_prefixes:
+      - https://bob.ibm.com/docs/ide
+    max_pages: 30
+    request_timeout_seconds: 8
+    is_current: true

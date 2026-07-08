@@ -2,6 +2,59 @@
 
 ---
 
+## Session 10 — Day 11: Multi-Domain Expansion Handoff From Vaibhav/Codex
+
+**Branch:** local `main` working tree at time of writing  
+**Status:** ✅ Backend working; changes not yet committed  
+**Primary handoff file:** `BOB-DAY11-MULTIDOMAIN-CONTEXT.md`
+
+### What Was Done
+- Expanded the copilot beyond OpenShift/SNO into:
+  - IBM watsonx Orchestrate
+  - IBM Bob
+- Added web documentation ingestion for HTML/Markdown/plain text.
+- Added Orchestrate and Bob corpus manifests.
+- Indexed Orchestrate docs and Bob IDE docs into OpenSearch.
+- Updated domain routing, taxonomy, metadata validation, answer formatting, and Orchestrate frontend guidance.
+- Fixed incoming Orchestrate payloads that send product names in `requested_scope.component`.
+
+### Verification
+- Focused unit tests: `58 passed`
+- Local API ready on `http://127.0.0.1:8001`
+- ngrok ready on `https://left-appraiser-disorder.ngrok-free.dev`
+- Smoke tests passed for:
+  - OpenShift/SNO DNS question
+  - watsonx Orchestrate ADK install question
+  - IBM Bob Agent mode/custom modes question
+
+### Files Bob Should Read
+Start with:
+
+```text
+BOB-DAY11-MULTIDOMAIN-CONTEXT.md
+```
+
+Then inspect:
+
+```text
+app/ingestion/web_source.py
+app/ingestion/text_parser.py
+config/corpus/watsonx_orchestrate.yaml
+config/corpus/ibm_bob.yaml
+app/services/assist_service.py
+app/graph/nodes/resolve_scope.py
+app/prompts/classify_extract.md
+config/taxonomy/ocp_sno.yaml
+```
+
+### Next Recommended Work
+- Expand Bob crawl from 30 pages.
+- Add Orchestrate/Bob eval questions.
+- Update/regenerate OpenAPI metadata for Enterprise IT Support naming.
+- Commit intended Day 11 changes carefully; do not blindly stage unrelated files.
+
+---
+
 ## Session 9 — Day 9/10: Eval Confirmed, README Written, PR Ready
 
 **Branch:** `feature/dev-b-ingestion`
