@@ -18,6 +18,13 @@
 #                     SHA-256: 755f2149fbd7459cd18238941fb6e9e701a2fff9c3af468f81315ccf601ac8d2
 #   OpenSearch:       opensearchproject/opensearch:2.15.0
 #
+# IBM MDM / endpoint-security note:
+#   Podman is NOT yet confirmed as an approved application on IBM-managed macOS
+#   laptops.  Before running this script on a corporate device, open a HelpNow
+#   ticket to confirm that Podman Desktop / Podman CLI is on the approved
+#   software catalog.  Do NOT bypass MDM controls to install it.
+#   This script is provided for use only after that approval is confirmed.
+#
 # Security note:
 #   The container binds ONLY to 127.0.0.1:9200 and disables the OpenSearch
 #   security plugin. This is intentional for loopback-only local development.
@@ -65,10 +72,12 @@ require_podman() {
 
 ensure_directories() {
   mkdir -p "$DATA_DIR" "$SNAPSHOT_DIR" "$LOG_DIR"
-  # On macOS with the applehv provider, virtiofs maps the macOS owner UID
-  # through to the guest. 700 (owner rwx only) is sufficient — the container
-  # writes through the macOS owner's credentials, not a foreign UID.
-  # The ":U" Podman flag is a no-op on macOS virtiofs mounts and is not used.
+  # On macOS with the applehv provider, virtiofs passes the macOS owner UID
+  # through to the guest unchanged, so the container process can write to
+  # these directories as the same effective owner.
+  # 700 (owner rwx, no group or other access) is the narrowest permission
+  # that still allows the container to write.  No group or world write access
+  # is needed on a single-user developer laptop.
   chmod 700 "$DATA_DIR" "$SNAPSHOT_DIR" "$LOG_DIR" 2>/dev/null || true
 }
 
@@ -142,11 +151,11 @@ start_opensearch() {
   else
     echo "Starting OpenSearch container '$CONTAINER_NAME'..."
     # UID/GID note: OpenSearch runs as UID 1000 inside the container.
-    # On macOS + applehv (virtiofs), the ":U" podman flag is not supported for
-    # host bind mounts. Instead we pre-set 777 permissions on the host dirs
-    # (done in ensure_directories) so the container UID can write freely.
-    # This is acceptable because the directories are loopback-only local dev
-    # data on a single-user macOS laptop.
+    # On macOS + applehv (virtiofs), the virtiofs uid-map causes the container
+    # process to write as the macOS owner UID.  The host directories are
+    # pre-created with 700 (owner rwx) by ensure_directories, which is
+    # sufficient.  The ":U" podman flag is a no-op for virtiofs mounts and
+    # is intentionally omitted.
     podman run --detach --name "$CONTAINER_NAME" \
       --publish 127.0.0.1:9200:9200 \
       --env "discovery.type=single-node" \
