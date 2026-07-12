@@ -86,8 +86,9 @@ def run(state: SupportState) -> SupportState:
             "trace": {**state.get("trace", {}), "resolve_scope": "needs_version_clarification"},
         }
 
-    # Build retrieval query — use original question as the retrieval query
-    retrieval_query = state["user_question"]
+    # Build retrieval query — expand known synonym mismatches between how users
+    # phrase questions and how the documentation phrases the same information.
+    retrieval_query = _expand_retrieval_query(state["user_question"])
 
     from app.retrieval.filters import build_filters
     retrieval_filters = build_filters(extracted_scope)
@@ -99,6 +100,40 @@ def run(state: SupportState) -> SupportState:
         "extracted_scope": extracted_scope,
         "trace": {**state.get("trace", {}), "resolve_scope": "in_scope"},
     }
+
+
+# Maps user-phrasing patterns to documentation-phrasing expansions.
+# Each entry: (trigger_substring, expansion_suffix).
+# The suffix is appended to the query so BM25 can also match the doc's vocabulary.
+_QUERY_EXPANSIONS: tuple[tuple[str, str], ...] = (
+    ("minimum hardware requirement",    "recommended cluster resources vCPU memory storage"),
+    ("system requirement",              "recommended cluster resources vCPU memory storage"),
+    ("hardware requirement",            "recommended cluster resources vCPU memory storage"),
+    ("how much ram",                    "recommended cluster resources memory storage vCPU"),
+    ("how much memory",                 "recommended cluster resources memory storage vCPU"),
+    ("how much storage",                "recommended cluster resources storage vCPU memory"),
+    ("how much cpu",                    "recommended cluster resources vCPU memory storage"),
+    ("how much disk",                   "recommended cluster resources storage vCPU memory"),
+    ("disk space",                      "recommended cluster resources storage vCPU memory"),
+    ("cpu core",                        "recommended cluster resources vCPU memory storage"),
+    ("supported platform",              "baremetal vsphere external none platform supported"),
+    ("supported operating system",      "RHCOS Red Hat Enterprise Linux CoreOS operating system"),
+    ("error code",                      "error message troubleshooting diagnostic"),
+    ("log location",                    "log file path journalctl debug"),
+)
+
+
+def _expand_retrieval_query(question: str) -> str:
+    """
+    Append documentation vocabulary to the retrieval query when user phrasing
+    is known to diverge from the corpus vocabulary.
+    Only the first matching expansion is applied.
+    """
+    lowered = question.lower()
+    for trigger, expansion in _QUERY_EXPANSIONS:
+        if trigger in lowered:
+            return f"{question} {expansion}"
+    return question
 
 
 def _infer_domain(question: str) -> str | None:
