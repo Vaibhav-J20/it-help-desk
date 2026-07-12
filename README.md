@@ -1,20 +1,19 @@
-# OpenShift & SNO Technical Support Copilot
+# Enterprise IT Help Desk Copilot
 
 **IBM Internship POC — ISA India Division**
-A citation-grounded technical support chatbot for Red Hat OpenShift Container Platform (OCP) and Single Node OpenShift (SNO), built entirely on the IBM Watsonx platform.
-
-> **Day 11 update:** The backend has been expanded into an Enterprise IT Support Copilot with additional knowledge domains for IBM watsonx Orchestrate and IBM Bob. See `BOB-DAY11-MULTIDOMAIN-CONTEXT.md` for the current multi-domain handoff, Orchestrate UI settings, verification results, and next tasks.
+A citation-grounded technical support assistant for IBM IT products, built on the IBM watsonx platform. Covers OpenShift/SNO, watsonx Orchestrate, and IBM Bob. Answers are grounded exclusively in approved documentation and refuse to fabricate.
 
 ---
 
 ## What It Does
 
-Users ask OpenShift/SNO technical questions in natural language. The system:
-1. Classifies intent and extracts scope (version, deployment type)
-2. Retrieves relevant chunks from an OpenSearch knowledge base (hybrid BM25 + vector)
-3. Generates a grounded answer using watsonx.ai Granite
-4. Returns the answer with exact citations — document title, OCP version, page numbers
-5. Refuses to answer when evidence is insufficient or the question is out of scope
+IBM employees ask technical IT questions in natural language. The system:
+1. Classifies intent and extracts product/version/domain scope
+2. Retrieves relevant chunks from an OpenSearch knowledge base (hybrid BM25 + kNN vector + RRF)
+3. Validates evidence sufficiency before generating any answer
+4. Generates a grounded answer using watsonx.ai
+5. Returns the answer with exact citations — document title, product, page numbers
+6. Refuses to answer when evidence is insufficient, citations are missing, or the question is out of scope
 
 ---
 
@@ -40,27 +39,46 @@ User (Orchestrate) → POST /v1/assist → FastAPI
 | UI | IBM watsonx Orchestrate |
 | API | Python 3.11 + FastAPI |
 | Agent | LangGraph bounded 7-node workflow |
-| Retrieval | OpenSearch (BM25 + kNN vector hybrid) |
-| Embeddings | watsonx.ai `ibm/slate-125m-english-rtrvr-v2` (dim=768) |
-| Generation | watsonx.ai Granite |
-| PDF Storage | IBM Cloud Object Storage |
-| Ingestion | pdfminer.six + custom chunker (350–550 tokens) |
+| Retrieval | OpenSearch (BM25 + kNN vector hybrid + RRF) |
+| Embeddings | watsonx.ai `ibm/granite-embedding-278m-multilingual` (dim=768) |
+| Generation | watsonx.ai (configurable — `meta-llama/llama-3-3-70b-instruct` default) |
+| Document Storage | IBM Cloud Object Storage |
+| Ingestion | pdfminer.six + web fetcher + custom chunker-v5 |
 
 ---
 
 ## Knowledge Base
 
-| Document | OCP Version | Chunks |
+### OpenShift & SNO (`ocp_sno_support`) — 7,940 chunks
+
+| Document | OCP Version | Status |
 |---|---|---|
-| SNO Installation Guide | 4.16 | ~158 |
-| SNO Installation Guide | 4.14 | ~138 |
-| Networking Guide | 4.16 | ~1850 |
-| Storage Guide | 4.16 | ~491 |
-| Troubleshooting / Support Guide | 4.16 | ~300 |
-| Authentication & Authorization Guide | 4.16 | ~380 |
-| Operators Guide | 4.16 | ~901 |
-| Updating Clusters Guide | 4.16 | ~306 |
-| **Total** | | **~15,400 chunks** |
+| SNO Installation Guide | 4.16 | ✅ INDEXED |
+| SNO Installation Guide | 4.14 | ✅ INDEXED |
+| Networking Guide | 4.16 | ✅ INDEXED |
+| Storage Guide | 4.16 | ⚠️ PARTIAL (577/588 — 11 dense-table pages exceed token limit; recovers at v2 re-ingestion) |
+| Troubleshooting / Support Guide | 4.16 | ✅ INDEXED |
+| Authentication & Authorization Guide | 4.16 | ✅ INDEXED |
+| Operators Guide | 4.16 | ✅ INDEXED |
+| Updating Clusters Guide | 4.16 | ✅ INDEXED |
+
+### watsonx Orchestrate (`watsonx_orchestrate`) — 4,869 chunks
+
+| Source | Type | Status |
+|---|---|---|
+| developer.watson-orchestrate.ibm.com (llms.txt) | Web / ADK docs | ✅ INDEXED |
+| watsonx Orchestrate L2 client deck | PDF (public) | ✅ INDEXED |
+| watsonx Orchestrate L2 seller deck | PDF (internal) | ✅ INDEXED |
+| watsonx Orchestrate L2 master notes | PDF (internal) | ✅ INDEXED |
+| watsonx Orchestrate L3 demo guide | PDF (internal) | ✅ INDEXED |
+
+### IBM Bob (`ibm_bob`) — 1,136 chunks
+
+| Source | Type | Status |
+|---|---|---|
+| IBM Bob developer documentation (web) | Web | ✅ INDEXED |
+
+### Total: 13,945 chunks across 198 documents
 
 ---
 
@@ -132,21 +150,24 @@ Only q026 and q028 fail — both require cross-version comparison (OCP 4.14 vs 4
 
 ```
 ├── app/
-│   ├── api/              # FastAPI routes + schemas (Developer A)
-│   ├── graph/            # LangGraph 7-node workflow (Developer A)
-│   ├── ingestion/        # PDF → chunks → OpenSearch pipeline (Developer B)
-│   ├── policy/           # Domain out-of-scope policy (Developer A)
-│   └── providers/        # watsonx.ai embeddings + generation (Developer A)
+│   ├── api/              # FastAPI routes, schemas, auth dependencies
+│   ├── graph/            # LangGraph 7-node workflow
+│   ├── ingestion/        # PDF + web → chunks → OpenSearch pipeline
+│   ├── policy/           # Domain and evidence policy
+│   ├── providers/        # watsonx.ai embeddings + generation
+│   ├── retrieval/        # Hybrid retriever, filters, RRF fusion
+│   └── services/         # assist_service, domains_service
 ├── config/
-│   ├── corpus/           # Approved PDF manifest (Developer B)
-│   └── taxonomy/         # Controlled vocabulary — locked contract
+│   ├── corpus/           # Per-domain ingestion manifests
+│   ├── domains.yaml      # Domain registry
+│   └── taxonomy/         # Controlled vocabulary
 ├── scripts/
 │   ├── create_index.py   # Creates OpenSearch indices
-│   ├── audit_chunks.py   # Chunk quality audit
-│   └── run_eval.py       # 40-question evaluation runner
+│   ├── podman_opensearch.sh  # Local Podman/OpenSearch helper
+│   └── run_eval.py       # Evaluation runner
 ├── tests/
-│   ├── unit/             # 33 unit tests (Developer B)
-│   └── evaluation/       # 40 gold questions + results
+│   ├── unit/             # 116 unit tests
+│   └── evaluation/       # Gold questions + results
 └── openapi/              # OpenAPI spec for Orchestrate import
 ```
 
@@ -156,18 +177,44 @@ Only q026 and q028 fail — both require cross-version comparison (OCP 4.14 vs 4
 
 ### Environment variables (.env — never commit)
 ```
-OPENSEARCH_URL=https://localhost:9200
-OPENSEARCH_USERNAME=admin
-OPENSEARCH_PASSWORD=<password>
+OPENSEARCH_URL=http://localhost:9200
+OPENSEARCH_USERNAME=
+OPENSEARCH_PASSWORD=
+OPENSEARCH_VERIFY_CERTS=true
 OPENSEARCH_INDEX_CHUNKS=knowledge_chunks_v1
 OPENSEARCH_INDEX_DOCS=knowledge_documents_v1
+OPENSEARCH_EMBEDDING_DIM=768
 WATSONX_URL=https://us-south.ml.cloud.ibm.com
 WATSONX_PROJECT_ID=<project-id>
-WATSONX_EMBEDDING_MODEL_ID=ibm/slate-125m-english-rtrvr-v2
+WATSONX_EMBEDDING_MODEL_ID=ibm/granite-embedding-278m-multilingual
+WATSONX_CHAT_MODEL_ID=<verified-chat-model-id>
 IBM_CLOUD_API_KEY=<api-key>
 COS_ENDPOINT=https://s3.us-south.cloud-object-storage.appdomain.cloud
 COS_BUCKET=ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4
 COS_API_KEY=<cos-api-key>
+API_KEY_SECRET=<api-key-for-x-api-key-header>
+```
+
+> **Embedding model note:** `ibm/slate-125m-english-rtrvr-v2` is **withdrawn** (2026-08-08).
+> The current model is `ibm/granite-embedding-278m-multilingual` (768-dim).
+> The existing v1 index was built with this model — no migration needed unless rebuilding to v2.
+
+### Start the server
+```bash
+.venv/bin/uvicorn app.main:app --port 8000 --reload
+```
+
+### Verify readiness
+```bash
+curl http://localhost:8000/readyz
+# Expected: {"status":"ready","opensearch":true,"watsonx":true}
+```
+
+### Expose to watsonx Orchestrate via ngrok
+```bash
+ngrok http 8000
+# Copy the https://xxxxx.ngrok-free.app URL
+# Update servers[0].url in openapi/it_helpdesk_v1.yaml before importing into Orchestrate
 ```
 
 ### Run ingestion
@@ -179,6 +226,48 @@ python3 -m app.ingestion.run --manifest config/corpus/ocp_sno_poc.yaml
 ```bash
 python3 scripts/run_eval.py --url https://<ngrok-url>
 ```
+
+### Smoke tests (multi-domain)
+```bash
+API_KEY=$(grep "^API_KEY_SECRET=" .env | cut -d= -f2)
+
+# List available domains
+curl -s http://localhost:8000/v1/domains \
+  -H "X-API-Key: $API_KEY" | python3 -m json.tool
+
+# OCP question
+curl -s -X POST http://localhost:8000/v1/assist \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: $API_KEY" \
+  -d '{"question":"How do I configure DNS for SNO installation on OCP 4.16?","requested_scope":{"domain_id":"ocp_sno_support","ocp_version":"4.16","deployment_type":"SNO"}}' | python3 -m json.tool
+
+# Orchestrate question
+curl -s -X POST http://localhost:8000/v1/assist \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: $API_KEY" \
+  -d '{"question":"How do I create a tool in watsonx Orchestrate ADK?","requested_scope":{"domain_id":"watsonx_orchestrate"}}' | python3 -m json.tool
+
+# Bob question
+curl -s -X POST http://localhost:8000/v1/assist \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: $API_KEY" \
+  -d '{"question":"How do I use subagents in IBM Bob?","requested_scope":{"domain_id":"ibm_bob"}}' | python3 -m json.tool
+```
+
+### Local OpenSearch with Podman
+
+Use the official Podman installer, then run the local helper:
+
+```bash
+scripts/podman_opensearch.sh init
+scripts/podman_opensearch.sh start
+scripts/podman_opensearch.sh verify
+```
+
+The helper uses a rootless Podman machine named `it-helpdesk`, binds data and
+snapshots under `~/.local/share/it-helpdesk/opensearch`, and only exposes
+OpenSearch on `127.0.0.1:9200`. See `docs/podman-opensearch.md` for recovery,
+snapshot, and remote TLS configuration.
 
 ---
 
