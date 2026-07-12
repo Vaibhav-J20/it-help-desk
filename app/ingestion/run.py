@@ -142,7 +142,8 @@ def run(manifest_path: Path, dry_run: bool = False, force: bool = False) -> None
 
     # Process each source
     total = len(accessible)
-    results = {"INDEXED": 0, "SKIPPED": 0, "FAILED": 0}
+    # PARTIAL = document indexed but some pages failed embedding; still searchable.
+    results = {"INDEXED": 0, "PARTIAL": 0, "SKIPPED": 0, "FAILED": 0}
 
     for i, source in enumerate(accessible, start=1):
         uri = source["source_uri"]
@@ -200,11 +201,14 @@ def run(manifest_path: Path, dry_run: bool = False, force: bool = False) -> None
                 embedding_fn=embedding_fn,
                 force_reindex=force,
             )
-            results[summary.status] += 1
-            logger.info(
-                "[%d/%d] %s → %s  (chunks: %d indexed, %d skipped)",
+            # Map any unknown status to FAILED rather than crashing with KeyError.
+            status_key = summary.status if summary.status in results else "FAILED"
+            results[status_key] += 1
+            level = logger.warning if summary.status == "PARTIAL" else logger.info
+            level(
+                "[%d/%d] %s → %s  (chunks: %d indexed, failed_pages: %s)",
                 i, total, uri, summary.status,
-                summary.chunks_indexed, summary.chunks_skipped,
+                summary.chunks_indexed, summary.error or "none",
             )
         except Exception as e:
             logger.error("Indexing failed for %s: %s", uri, e)
@@ -213,9 +217,16 @@ def run(manifest_path: Path, dry_run: bool = False, force: bool = False) -> None
     # Summary
     logger.info("=" * 60)
     logger.info(
-        "Ingestion complete — INDEXED: %d  SKIPPED: %d  FAILED: %d",
-        results["INDEXED"], results["SKIPPED"], results["FAILED"],
+        "Ingestion complete — INDEXED: %d  PARTIAL: %d  SKIPPED: %d  FAILED: %d",
+        results["INDEXED"], results["PARTIAL"], results["SKIPPED"], results["FAILED"],
     )
+    if results["PARTIAL"]:
+        logger.warning(
+            "%d document(s) indexed with partial embedding failures. "
+            "Chunks from failed pages are absent but the rest are searchable. "
+            "Re-run with chunker-v5 (OPENSEARCH_EMBEDDING_DIM set) to fix.",
+            results["PARTIAL"],
+        )
     logger.info("=" * 60)
 
     if results["FAILED"] > 0:
