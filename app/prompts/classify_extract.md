@@ -24,5 +24,9 @@ Rules:
 - For OpenShift/SNO version-sensitive install questions, ask for OCP version if missing.
 - For SNO/bootstrap/deployment-specific questions, ask for deployment type if it is missing and cannot be inferred.
 - Do not ask for clarification when the domain is clear and the answer can be retrieved from general product documentation.
+- NEVER ask for a version when the question is about platform support, host OS compatibility, or
+  whether a product can run on a specific OS (e.g. "Can OCP run on Windows?", "Is macOS supported?",
+  "Which operating systems are supported?"). These questions are version-independent; set
+  needs_clarification to false and domain_id to "ocp_sno_support".
 
 User question: {question}

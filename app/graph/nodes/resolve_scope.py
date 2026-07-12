@@ -10,11 +10,33 @@ _DEFAULT_DOMAIN = "ocp_sno_support"
 _SUPPORTED_DOMAINS = {"ocp_sno_support", "watsonx_orchestrate", "ibm_bob"}
 
 
+# Questions about which platforms/OSes are supported are version-independent —
+# never ask for an OCP version before answering them.
+_PLATFORM_SUPPORT_TERMS = (
+    "windows",
+    "macos",
+    "mac os",
+    "supported operating system",
+    "supported platform",
+    "supported os",
+    "can openshift run on",
+    "can ocp run on",
+    "can ocp be installed on",
+    "can openshift be installed on",
+    "can openshift container platform be installed on",
+)
+
+
 def _needs_version_clarification(question: str, extracted_scope: dict) -> bool:
     if extracted_scope.get("ocp_version"):
         return False
 
     lowered = question.lower()
+
+    # Platform/OS support questions are the same across all versions — never block on version.
+    if any(term in lowered for term in _PLATFORM_SUPPORT_TERMS):
+        return False
+
     version_sensitive_terms = (
         "nmstateconfig",
         "cluster-manifests",
