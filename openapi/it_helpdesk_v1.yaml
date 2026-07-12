@@ -159,22 +159,6 @@ paths:
         '500':
           description: Internal server error
 
-  /readyz:
-    get:
-      operationId: readiness_check
-      summary: Readiness probe
-      description: >
-        Returns ready when OpenSearch and watsonx.ai are reachable.
-        Returns degraded if either dependency is unavailable.
-      security: []
-      responses:
-        '200':
-          description: Readiness status
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ReadyResponse'
-
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -323,13 +307,3 @@ components:
           type: integer
           example: 7940
 
-    ReadyResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          enum: [ready, degraded]
-        opensearch:
-          type: boolean
-        watsonx:
-          type: boolean
