@@ -1,15 +1,19 @@
 openapi: 3.0.3
 info:
-  title: OpenShift & SNO Technical Support Copilot
+  title: Enterprise IT Help Desk Copilot
   description: >
-    Citation-grounded technical support for Red Hat OpenShift Container Platform
-    and Single Node OpenShift. Answers are sourced exclusively from approved
-    PDF documentation. Never fabricates answers.
-  version: 0.1.0
+    Citation-grounded technical support for approved IBM IT knowledge domains.
+    Current domains: OpenShift/SNO (OCP 4.14–4.16), watsonx Orchestrate ADK,
+    and IBM Bob. Answers are sourced exclusively from approved documentation.
+    Never fabricates citations.
+  version: 0.2.0
 
 servers:
-  - url: https://left-appraiser-disorder.ngrok-free.dev
-    description: Developer A ngrok tunnel (demo) — replace with Code Engine URL for production
+  - url: https://REPLACE_WITH_LIVE_NGROK_OR_CODE_ENGINE_URL
+    description: >
+      Replace this URL before importing into watsonx Orchestrate.
+      Local dev: start ngrok with `ngrok http 8000` and paste the https URL.
+      Production: use the IBM Code Engine application URL.
 
 security:
   - ApiKeyAuth: []
@@ -17,12 +21,15 @@ security:
 paths:
   /v1/assist:
     post:
-      operationId: query_ocp_sno_knowledge
-      summary: Submit a technical support question
+      operationId: query_enterprise_it_knowledge
+      summary: Submit a technical IT support question
       description: >
-        Submit an OCP/SNO technical question. Returns a citation-grounded answer,
-        a clarification request, an insufficient-evidence notice, or an
-        out-of-scope notice. Never fabricates citations.
+        Submit a technical support question for any approved IBM IT domain
+        (OpenShift/SNO, watsonx Orchestrate, IBM Bob). Returns a
+        citation-grounded answer, a clarification request, an
+        insufficient-evidence notice, or an out-of-scope notice.
+        Never fabricates citations. Use requested_scope.domain_id to
+        restrict results to a specific product domain.
       requestBody:
         required: true
         content:
@@ -30,13 +37,26 @@ paths:
             schema:
               $ref: '#/components/schemas/AssistRequest'
             examples:
-              factual:
-                summary: Factual question with scope
+              ocp_factual:
+                summary: OCP/SNO factual question with explicit scope
                 value:
                   question: "How do I configure DNS for SNO installation on OCP 4.16?"
                   requested_scope:
+                    domain_id: "ocp_sno_support"
                     ocp_version: "4.16"
                     deployment_type: "SNO"
+              orchestrate_question:
+                summary: watsonx Orchestrate question
+                value:
+                  question: "How do I create a tool in the watsonx Orchestrate ADK?"
+                  requested_scope:
+                    domain_id: "watsonx_orchestrate"
+              bob_question:
+                summary: IBM Bob question
+                value:
+                  question: "How do I use subagents in IBM Bob?"
+                  requested_scope:
+                    domain_id: "ibm_bob"
               ambiguous:
                 summary: Ambiguous question needing clarification
                 value:
@@ -65,7 +85,7 @@ paths:
                         page_start: 12
                         page_end: 13
                         section_path: "Installation > Bootstrap > DNS validation"
-                        document_id: "doc-8f9c"
+                        document_id: "doc-8f9c2ab513b3585d"
                     safety_note: "Guidance is based only on the approved knowledge base; verify commands in your environment."
                     trace_id: "660e8400-e29b-41d4-a716-446655440000"
                 clarification:
@@ -108,43 +128,53 @@ paths:
         '500':
           description: Internal server error
 
-  /healthz:
+  /v1/domains:
     get:
-      operationId: health_check
-      summary: Liveness probe
-      security: []
+      operationId: list_indexed_domains
+      summary: List indexed knowledge domains and chunk counts
+      description: >
+        Returns the domains currently indexed in the knowledge base with their
+        chunk counts. Use this to verify which product areas are available
+        before submitting a question, or to populate a domain picker in the UI.
+        Does not require a question; does not consume watsonx.ai tokens.
       responses:
         '200':
-          description: Service is alive
+          description: Domain list
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: ok
+                $ref: '#/components/schemas/DomainsResponse'
+              example:
+                domains:
+                  - domain_id: "ocp_sno_support"
+                    display_name: "OpenShift & SNO"
+                    chunk_count: 7940
+                  - domain_id: "watsonx_orchestrate"
+                    display_name: "watsonx Orchestrate"
+                    chunk_count: 4869
+                  - domain_id: "ibm_bob"
+                    display_name: "IBM Bob"
+                    chunk_count: 1136
+        '401':
+          description: Invalid or missing API key
+        '500':
+          description: Internal server error
 
   /readyz:
     get:
       operationId: readiness_check
       summary: Readiness probe
+      description: >
+        Returns ready when OpenSearch and watsonx.ai are reachable.
+        Returns degraded if either dependency is unavailable.
       security: []
       responses:
         '200':
-          description: Service is ready
+          description: Readiness status
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    enum: [ready, degraded]
-                  opensearch:
-                    type: boolean
-                  watsonx:
-                    type: boolean
+                $ref: '#/components/schemas/ReadyResponse'
 
 components:
   securitySchemes:
@@ -186,18 +216,37 @@ components:
 
     RequestedScope:
       type: object
+      description: >
+        Optional scope hints. Provide domain_id to restrict to a specific product.
+        OCP-specific fields (ocp_version, deployment_type) are only relevant when
+        domain_id is ocp_sno_support.
       properties:
+        domain_id:
+          type: string
+          enum: [ocp_sno_support, watsonx_orchestrate, ibm_bob]
+          nullable: true
+          description: >
+            Restrict retrieval to one product domain.
+            ocp_sno_support — OpenShift Container Platform and Single Node OpenShift.
+            watsonx_orchestrate — IBM watsonx Orchestrate ADK.
+            ibm_bob — IBM Bob developer environment.
         ocp_version:
           type: string
           nullable: true
           example: "4.16"
+          description: OCP version; only relevant when domain_id is ocp_sno_support.
         deployment_type:
           type: string
           enum: [SNO, standard, compact]
           nullable: true
+          description: OCP deployment type; only relevant when domain_id is ocp_sno_support.
         component:
           type: string
           nullable: true
+          description: >
+            Product component hint (e.g. "networking", "storage", "adk").
+            If a product name is passed here instead, it is automatically
+            mapped to the appropriate domain_id.
 
     AssistResponse:
       type: object
@@ -253,3 +302,35 @@ components:
         chunk_id:
           type: string
           nullable: true
+
+    DomainsResponse:
+      type: object
+      properties:
+        domains:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainInfo'
+
+    DomainInfo:
+      type: object
+      properties:
+        domain_id:
+          type: string
+          example: "ocp_sno_support"
+        display_name:
+          type: string
+          example: "OpenShift & SNO"
+        chunk_count:
+          type: integer
+          example: 7940
+
+    ReadyResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [ready, degraded]
+        opensearch:
+          type: boolean
+        watsonx:
+          type: boolean

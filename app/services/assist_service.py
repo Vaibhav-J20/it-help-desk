@@ -66,12 +66,24 @@ def handle_request(request: AssistRequest) -> AssistResponse:
 
 def _scope_to_dict(request: AssistRequest) -> dict:
     scope = {}
+    # domain_id from RequestedScope takes precedence over classifier inference
+    # and over any component-based domain mapping below.
+    if request.requested_scope.domain_id:
+        scope["domain_id"] = request.requested_scope.domain_id
     if request.requested_scope.ocp_version:
         scope["ocp_version"] = request.requested_scope.ocp_version
     if request.requested_scope.deployment_type:
         scope["deployment_type"] = request.requested_scope.deployment_type
     if request.requested_scope.component:
-        scope.update(_normalise_component_scope(request.requested_scope.component))
+        # Only apply component→domain mapping when no explicit domain_id was given.
+        component_scope = _normalise_component_scope(request.requested_scope.component)
+        if "domain_id" not in scope:
+            scope.update(component_scope)
+        elif "domain_id" in component_scope:
+            # Explicit domain_id wins; still carry through non-domain keys (e.g. component).
+            scope.update({k: v for k, v in component_scope.items() if k != "domain_id"})
+        else:
+            scope.update(component_scope)
     return scope
 
 

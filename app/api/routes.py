@@ -2,9 +2,10 @@
 FastAPI routes for the v1 API.
 """
 from fastapi import APIRouter, Depends
-from app.api.schemas import AssistRequest, AssistResponse
+from app.api.schemas import AssistRequest, AssistResponse, DomainsResponse
 from app.api.dependencies import verify_api_key
 from app.services.assist_service import handle_request
+from app.services.domains_service import get_domains
 
 router = APIRouter(prefix="/v1", tags=["assist"])
 
@@ -24,3 +25,18 @@ async def assist(
     _: None = Depends(verify_api_key),
 ) -> AssistResponse:
     return handle_request(request)
+
+
+@router.get(
+    "/domains",
+    response_model=DomainsResponse,
+    summary="List indexed knowledge domains",
+    description=(
+        "Returns the domains currently indexed in the knowledge base with their "
+        "chunk counts. Does not consume watsonx.ai tokens."
+    ),
+)
+async def domains(
+    _: None = Depends(verify_api_key),
+) -> DomainsResponse:
+    return get_domains()

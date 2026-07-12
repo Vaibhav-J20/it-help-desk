@@ -38,6 +38,7 @@ def test_requested_scope_optional():
     req = AssistRequest(question="How does SNO bootstrap work?")
     assert req.requested_scope.ocp_version is None
     assert req.requested_scope.deployment_type is None
+    assert req.requested_scope.domain_id is None
 
 
 def test_requested_scope_valid():
@@ -47,6 +48,23 @@ def test_requested_scope_valid():
     )
     assert req.requested_scope.ocp_version == "4.16"
     assert req.requested_scope.deployment_type == "SNO"
+
+
+def test_requested_scope_domain_id_valid():
+    for domain in ("ocp_sno_support", "watsonx_orchestrate", "ibm_bob"):
+        req = AssistRequest(
+            question="How do I use this product?",
+            requested_scope={"domain_id": domain},
+        )
+        assert req.requested_scope.domain_id == domain
+
+
+def test_requested_scope_domain_id_invalid():
+    with pytest.raises(ValidationError):
+        AssistRequest(
+            question="valid question here",
+            requested_scope={"domain_id": "not_a_real_domain"},
+        )
 
 
 def test_invalid_deployment_type():

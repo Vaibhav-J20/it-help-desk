@@ -14,6 +14,9 @@ class ConversationMessage(BaseModel):
 
 
 class RequestedScope(BaseModel):
+    # Explicit domain routing — takes precedence over classifier inference.
+    domain_id: Literal["ocp_sno_support", "watsonx_orchestrate", "ibm_bob"] | None = None
+    # OCP-specific scope fields — only relevant when domain_id is ocp_sno_support.
     ocp_version: str | None = None
     deployment_type: Literal["SNO", "standard", "compact"] | None = None
     component: str | None = None
@@ -75,3 +78,13 @@ class ReadyResponse(BaseModel):
     status: Literal["ready", "degraded"]
     opensearch: bool
     watsonx: bool
+
+
+class DomainInfo(BaseModel):
+    domain_id: str
+    display_name: str
+    chunk_count: int
+
+
+class DomainsResponse(BaseModel):
+    domains: list[DomainInfo]
