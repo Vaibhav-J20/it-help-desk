@@ -9,11 +9,10 @@ info:
   version: 0.2.0
 
 servers:
-  - url: https://REPLACE_WITH_LIVE_NGROK_OR_CODE_ENGINE_URL
+  - url: https://left-appraiser-disorder.ngrok-free.dev
     description: >
-      Replace this URL before importing into watsonx Orchestrate.
-      Local dev: start ngrok with `ngrok http 8000` and paste the https URL.
-      Production: use the IBM Code Engine application URL.
+      Active ngrok tunnel — tunnels to localhost:8000.
+      Replace with IBM Code Engine URL for production.
 
 security:
   - ApiKeyAuth: []
