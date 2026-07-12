@@ -94,3 +94,61 @@ def test_relax_inferred_never_removes_is_current():
     relaxed = relax_inferred_filters(filters, inferred_keys=["is_current", "components"])
     assert {"term": {"is_current": True}} in relaxed
     assert {"term": {"components": "dns"}} not in relaxed
+
+
+# ── classification and access_scope filters ───────────────────────────────────
+
+def test_classification_filter_added():
+    """build_filters must emit a classification term clause when provided."""
+    filters = build_filters({"classification": "public"})
+    assert {"term": {"classification": "public"}} in filters
+
+
+def test_access_scope_filter_added():
+    """build_filters must emit an access_scope term clause when provided."""
+    filters = build_filters({"access_scope": "isa_technical"})
+    assert {"term": {"access_scope": "isa_technical"}} in filters
+
+
+def test_classification_never_relaxed():
+    """classification must survive relax_inferred_filters regardless of inferred_keys.
+    Relaxing it would expose internal chunks to public callers."""
+    filters = [
+        {"term": {"classification": "public"}},
+        {"term": {"components": "dns"}},
+        {"term": {"is_current": True}},
+    ]
+    relaxed = relax_inferred_filters(
+        filters, inferred_keys=["classification", "components", "is_current"]
+    )
+    assert {"term": {"classification": "public"}} in relaxed
+    assert {"term": {"components": "dns"}} not in relaxed
+    assert {"term": {"is_current": True}} in relaxed
+
+
+def test_access_scope_never_relaxed():
+    """access_scope must survive relax_inferred_filters regardless of inferred_keys.
+    Relaxing it would expose seller-deck chunks to callers without that scope."""
+    filters = [
+        {"term": {"access_scope": "isa_technical"}},
+        {"term": {"components": "agents"}},
+        {"term": {"is_current": True}},
+    ]
+    relaxed = relax_inferred_filters(
+        filters, inferred_keys=["access_scope", "components"]
+    )
+    assert {"term": {"access_scope": "isa_technical"}} in relaxed
+    assert {"term": {"components": "agents"}} not in relaxed
+
+
+def test_classification_and_access_scope_together():
+    """Both classification and access_scope are emitted when both are in scope."""
+    filters = build_filters({
+        "domain_id": "watsonx_orchestrate",
+        "classification": "internal",
+        "access_scope": "seller_enablement",
+    })
+    assert {"term": {"classification": "internal"}} in filters
+    assert {"term": {"access_scope": "seller_enablement"}} in filters
+    assert {"term": {"domain_id": "watsonx_orchestrate"}} in filters
+    assert {"term": {"is_current": True}} in filters

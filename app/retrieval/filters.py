@@ -4,11 +4,16 @@ No I/O — fully unit testable.
 """
 
 # Fields that must never be relaxed on a zero-result retry, regardless of
-# whether they were inferred or explicitly supplied.  Removing domain_id would
-# allow a watsonx Orchestrate question to match OpenShift chunks (and
-# vice-versa), producing wrong-product citations.  Removing is_current would
-# surface superseded document revisions.
-_NEVER_RELAX = frozenset({"domain_id", "is_current"})
+# whether they were inferred or explicitly supplied.
+#
+#   domain_id      — removing it allows cross-domain chunk leakage (e.g. an
+#                    OpenShift question retrieving watsonx Orchestrate chunks).
+#   is_current     — removing it would surface superseded document revisions.
+#   classification — removing it would expose internal/confidential chunks to
+#                    callers who are only authorised for public content.
+#   access_scope   — removing it would expose restricted content (e.g.
+#                    seller_enablement) to callers without that scope.
+_NEVER_RELAX = frozenset({"domain_id", "is_current", "classification", "access_scope"})
 
 
 def build_filters(extracted_scope: dict) -> list[dict]:
@@ -17,15 +22,18 @@ def build_filters(extracted_scope: dict) -> list[dict]:
 
     Args:
         extracted_scope: dict with optional keys:
-            - ocp_version (str)   — strict: must match exactly
+            - ocp_version (str)        — strict: must match exactly
             - deployment_type (str)
             - domain_id (str)
             - component (str)
-            - is_current (bool)   — always True unless explicitly overridden
+            - classification (str)     — e.g. "public" or "internal"
+            - access_scope (str)       — a single access-scope value the caller holds
+            - is_current (bool)        — always True unless explicitly overridden
 
     Returns:
         List of OpenSearch filter clause dicts suitable for a bool query's
-        "filter" array. Returns an empty list if scope is empty.
+        "filter" array. Returns a list containing only the is_current clause
+        if no other scope is provided.
 
     Examples:
         >>> build_filters({"ocp_version": "4.16", "deployment_type": "SNO"})
@@ -49,7 +57,17 @@ def build_filters(extracted_scope: dict) -> list[dict]:
     if extracted_scope.get("component"):
         filters.append({"term": {"components": extracted_scope["component"]}})
 
-    # Always filter to current revisions only — never serve superseded content
+    # classification — restrict chunks to the caller's maximum authorised level.
+    # e.g. pass "public" for unauthenticated callers; "internal" for IBM employees.
+    if extracted_scope.get("classification"):
+        filters.append({"term": {"classification": extracted_scope["classification"]}})
+
+    # access_scope — restrict to chunks the caller is authorised to see.
+    # e.g. a caller without "seller_enablement" must not receive seller-deck chunks.
+    if extracted_scope.get("access_scope"):
+        filters.append({"term": {"access_scope": extracted_scope["access_scope"]}})
+
+    # Always filter to current revisions only — never serve superseded content.
     is_current = extracted_scope.get("is_current", True)
     filters.append({"term": {"is_current": is_current}})
 
@@ -62,9 +80,10 @@ def relax_inferred_filters(filters: list[dict], inferred_keys: list[str]) -> lis
     Used when the initial retrieval returns no results — retry with looser filters
     while keeping explicit version/product filters strict.
 
-    domain_id and is_current are NEVER relaxed regardless of inferred_keys.
-    Relaxing domain_id would allow cross-domain chunk leakage (e.g. an
-    OpenShift question retrieving watsonx Orchestrate chunks).
+    The fields in _NEVER_RELAX are ALWAYS preserved regardless of inferred_keys.
+    Relaxing domain_id  → cross-domain chunk leakage.
+    Relaxing is_current → superseded content returned.
+    Relaxing classification / access_scope → security boundary violated.
 
     Args:
         filters: the original filter list from build_filters()
