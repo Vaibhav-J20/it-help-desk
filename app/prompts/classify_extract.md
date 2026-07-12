@@ -28,5 +28,9 @@ Rules:
   whether a product can run on a specific OS (e.g. "Can OCP run on Windows?", "Is macOS supported?",
   "Which operating systems are supported?"). These questions are version-independent; set
   needs_clarification to false and domain_id to "ocp_sno_support".
+- NEVER ask for a version when the question asks about minimum or recommended hardware requirements,
+  system requirements, CPU/RAM/disk/storage requirements, or supported cluster topologies
+  (e.g. "What are the minimum hardware requirements for SNO?", "How much RAM does OCP need?").
+  These answers are consistent across versions; set needs_clarification to false.
 
 User question: {question}

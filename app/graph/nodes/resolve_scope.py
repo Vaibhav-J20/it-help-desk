@@ -10,9 +10,10 @@ _DEFAULT_DOMAIN = "ocp_sno_support"
 _SUPPORTED_DOMAINS = {"ocp_sno_support", "watsonx_orchestrate", "ibm_bob"}
 
 
-# Questions about which platforms/OSes are supported are version-independent —
-# never ask for an OCP version before answering them.
-_PLATFORM_SUPPORT_TERMS = (
+# Questions that are version-independent — never ask for OCP version before answering.
+# Covers: platform/OS support questions, hardware/system requirements.
+_NO_VERSION_CLARIFICATION_TERMS = (
+    # Platform and OS support
     "windows",
     "macos",
     "mac os",
@@ -24,7 +25,23 @@ _PLATFORM_SUPPORT_TERMS = (
     "can ocp be installed on",
     "can openshift be installed on",
     "can openshift container platform be installed on",
+    # Hardware / system requirements — corpus says "recommended cluster resources",
+    # users say "minimum hardware requirements". Answer is the same across versions.
+    "hardware requirement",
+    "system requirement",
+    "minimum requirement",
+    "how much ram",
+    "how much memory",
+    "how much cpu",
+    "how much disk",
+    "how much storage",
+    "disk space required",
+    "storage required",
+    "cpu required",
+    "ram required",
 )
+# Keep old name as alias so existing references don't break.
+_PLATFORM_SUPPORT_TERMS = _NO_VERSION_CLARIFICATION_TERMS
 
 
 def _needs_version_clarification(question: str, extracted_scope: dict) -> bool:
@@ -33,8 +50,8 @@ def _needs_version_clarification(question: str, extracted_scope: dict) -> bool:
 
     lowered = question.lower()
 
-    # Platform/OS support questions are the same across all versions — never block on version.
-    if any(term in lowered for term in _PLATFORM_SUPPORT_TERMS):
+    # Version-independent questions — never block on version clarification.
+    if any(term in lowered for term in _NO_VERSION_CLARIFICATION_TERMS):
         return False
 
     version_sensitive_terms = (
