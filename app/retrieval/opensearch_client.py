@@ -39,7 +39,7 @@ def get_opensearch_client() -> OpenSearch:
         hosts=[{"host": host, "port": port}],
         http_auth=auth,
         use_ssl=use_ssl,
-        verify_certs=False,          # set True in production with a real cert
+        verify_certs=settings.opensearch_verify_certs,
         ssl_show_warn=False,
         connection_class=RequestsHttpConnection,
         timeout=30,

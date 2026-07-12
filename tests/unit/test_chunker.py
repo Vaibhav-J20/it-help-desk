@@ -10,6 +10,12 @@ from app.ingestion.chunker import (
 )
 from app.ingestion.pdf_parser import PageRecord
 
+# If this assertion fails the version constant was not updated after a fix.
+assert CHUNKER_VERSION == "chunker-v4", (
+    f"Expected CHUNKER_VERSION='chunker-v4', got {CHUNKER_VERSION!r}. "
+    "Update the version constant when the chunker behaviour changes."
+)
+
 
 def _make_pages(texts: list[str]) -> list[PageRecord]:
     return [
@@ -80,3 +86,34 @@ class TestChunkPages:
         chunks = chunk_pages(pages)
         for chunk in chunks:
             assert chunk.text.strip() != ""
+
+    def test_page_start_resets_after_buffer_flush(self):
+        """After a buffer flush, the next chunk must use the correct page_start,
+        not the stale page_start from the previous window."""
+        # Two pages: first is large enough to fill the buffer and trigger a flush.
+        big_page = "Word sentence. " * 200   # ~3000 chars, well above TARGET_MAX_CHARS(480)
+        pages = _make_pages([big_page, "Second page content here."])
+        chunks = chunk_pages(pages)
+        # Chunks that exclusively contain second-page text must have page_start == 2.
+        second_page_chunks = [c for c in chunks if "Second page content" in c.text]
+        for c in second_page_chunks:
+            assert c.page_start == 2, (
+                f"Expected page_start=2 for second-page chunk, got {c.page_start}"
+            )
+
+    def test_page_start_resets_between_windows(self):
+        """When a large page forces a mid-page buffer flush, the next non-empty
+        page must be assigned the correct page_start, not the stale one."""
+        # Page 1 is well above TARGET_MAX_CHARS so it forces at least one flush
+        # and fully drains the buffer before page 2 is processed.
+        page1 = "INSTALLATION STEPS\n" + "Step text. " * 200  # ~2200 chars > TARGET_MAX_CHARS(480)
+        page2 = "Just page two text."
+        pages = _make_pages([page1, page2])
+        chunks = chunk_pages(pages)
+        # Any chunk whose text is exclusively from page 2 must have page_start=2.
+        page2_chunks = [c for c in chunks if "page two text" in c.text]
+        assert len(page2_chunks) > 0, "No chunk contains page-2 text"
+        for c in page2_chunks:
+            assert c.page_start == 2, (
+                f"Expected page_start=2, got {c.page_start}"
+            )

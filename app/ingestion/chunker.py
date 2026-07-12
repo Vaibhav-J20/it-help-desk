@@ -19,7 +19,7 @@ from app.ingestion.pdf_parser import PageRecord
 
 logger = logging.getLogger(__name__)
 
-CHUNKER_VERSION = "chunker-v3"
+CHUNKER_VERSION = "chunker-v4"
 
 # Token estimation: PDF docs often tokenize denser than prose, so use a
 # very conservative character window to stay under ibm/slate's 512-token
@@ -129,16 +129,23 @@ def chunk_pages(pages: list[PageRecord]) -> list[ChunkRecord]:
     chunks: list[ChunkRecord] = []
     ordinal = 0
 
-    # Accumulate pages into windows
+    # Accumulate pages into windows before splitting.
     buffer_text = ""
-    buffer_page_start = 1
-    buffer_page_end = 1
+    # buffer_page_start is only meaningful when buffer_text is non-empty.
+    # It is set when the buffer is first populated and reset when flushed.
+    buffer_page_start: int = 0
+    buffer_page_end: int = 0
     current_section = ""
 
     def flush_buffer(text: str, p_start: int, p_end: int) -> None:
-        nonlocal ordinal
+        nonlocal ordinal, current_section
         for chunk_text, cs, ce in _chunk_text(text, p_start, p_end):
+            # Prefer a heading detected within the chunk over the inherited trail.
             section = _detect_section(chunk_text) or current_section
+            # Update the running section so later chunks in the same flush
+            # inherit the last heading seen, not just the first.
+            if _detect_section(chunk_text):
+                current_section = _detect_section(chunk_text)
             content_hash = "sha256:" + hashlib.sha256(chunk_text.encode("utf-8")).hexdigest()
             chunks.append(ChunkRecord(
                 chunk_ordinal=ordinal,
@@ -156,23 +163,26 @@ def chunk_pages(pages: list[PageRecord]) -> list[ChunkRecord]:
         if not page.text:
             continue
 
-        # Detect heading at top of page to update section trail
+        # Detect heading at top of page to update the section trail.
         heading = _detect_section(page.text)
         if heading:
             current_section = heading
 
+        # Set buffer_page_start only when the buffer is empty (i.e. new window).
         if not buffer_text:
             buffer_page_start = page.page_number
 
         buffer_page_end = page.page_number
         buffer_text += "\n\n" + page.text if buffer_text else page.text
 
-        # Flush when buffer is large enough
+        # Flush when buffer is large enough, then reset both text AND page tracking.
         if len(buffer_text) >= TARGET_MAX_CHARS:
             flush_buffer(buffer_text, buffer_page_start, buffer_page_end)
             buffer_text = ""
+            # buffer_page_start will be set correctly when the next non-empty
+            # page is encountered because buffer_text is now "".
 
-    # Flush any remaining text
+    # Flush any remaining text.
     if buffer_text.strip():
         flush_buffer(buffer_text, buffer_page_start, buffer_page_end)
 

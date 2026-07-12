@@ -10,7 +10,10 @@ import re
 logger = get_logger(__name__)
 
 # OpenSearch filter fields that may be relaxed on a zero-result retry.
-_BASE_RELAXABLE_FILTER_FIELDS = ["components", "domain_id"]
+# domain_id is intentionally absent: it is in filters._NEVER_RELAX and must
+# never be relaxed — cross-domain chunk leakage would produce wrong-product
+# citations (e.g. OpenShift chunks returned for a watsonx Orchestrate query).
+_BASE_RELAXABLE_FILTER_FIELDS = ["components"]
 _VERSION_RE = re.compile(r"\b4\.(?:14|15|16|17)\b")
 _DEPLOYMENT_TERMS = (
     "sno",

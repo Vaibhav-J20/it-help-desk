@@ -160,7 +160,40 @@ def test_retrieve_relaxes_component_and_inferred_deployment_filters(monkeypatch)
     assert result["candidates"] == [{"chunk_id": "c1"}]
     assert {"term": {"components": "api_server"}} not in calls[1]
     assert {"term": {"deployment_type": "compact"}} not in calls[1]
+    # domain_id and is_current must survive the retry — never removed.
+    assert {"term": {"domain_id": "ocp_sno_support"}} in calls[1]
     assert {"term": {"is_current": True}} in calls[1]
+
+
+def test_retrieve_never_relaxes_domain_id(monkeypatch):
+    """domain_id must always be preserved on zero-hit retry to prevent cross-domain leakage."""
+    calls = []
+
+    def _hybrid_retrieve(query, filters, opensearch_client, embedding_fn):
+        calls.append(filters)
+        return []   # always empty — forces the retry path
+
+    monkeypatch.setattr(
+        "app.retrieval.hybrid_retriever.hybrid_retrieve",
+        _hybrid_retrieve,
+    )
+    state = {
+        "user_question": "How do I set up an agent in Orchestrate?",
+        "retrieval_query": "How do I set up an agent in Orchestrate?",
+        "retrieval_filters": [
+            {"term": {"domain_id": "watsonx_orchestrate"}},
+            {"term": {"components": "agents"}},
+            {"term": {"is_current": True}},
+        ],
+        "trace": {},
+    }
+
+    retrieve_node.run(state, opensearch_client=object(), embedding_fn=lambda _: [0.0])
+
+    # Both calls must have domain_id — it must never be relaxed.
+    assert len(calls) == 2
+    for call_filters in calls:
+        assert {"term": {"domain_id": "watsonx_orchestrate"}} in call_filters
 
 
 def test_retrieve_keeps_explicit_deployment_filter(monkeypatch):
@@ -243,16 +276,16 @@ def test_validate_citations_valid():
     assert result["citations"][0]["citation_id"] == "S1"
 
 
-def test_validate_citations_no_citations_in_answer():
+def test_validate_citations_no_citations_returns_insufficient():
+    """An answer with zero [S#] tags is ungrounded → INSUFFICIENT_EVIDENCE."""
     state = {
         "answer_markdown": "No citations here.",
         "candidates": [_chunk()],
         "trace": {},
     }
     result = validate_citations(state)
-    # No citations cited → answer is technically valid but empty citations list
-    assert result["status"] == "ANSWERED"
-    assert result["citations"] == []
+    assert result["status"] == "INSUFFICIENT_EVIDENCE"
+    assert result["trace"]["validate_citations"]["reason"] == "no_citations"
 
 
 def test_validate_citations_invalid_index():

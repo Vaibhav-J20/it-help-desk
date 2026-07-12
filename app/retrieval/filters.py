@@ -3,6 +3,13 @@ Pure function: build OpenSearch filter DSL from extracted scope.
 No I/O — fully unit testable.
 """
 
+# Fields that must never be relaxed on a zero-result retry, regardless of
+# whether they were inferred or explicitly supplied.  Removing domain_id would
+# allow a watsonx Orchestrate question to match OpenShift chunks (and
+# vice-versa), producing wrong-product citations.  Removing is_current would
+# surface superseded document revisions.
+_NEVER_RELAX = frozenset({"domain_id", "is_current"})
+
 
 def build_filters(extracted_scope: dict) -> list[dict]:
     """
@@ -55,16 +62,20 @@ def relax_inferred_filters(filters: list[dict], inferred_keys: list[str]) -> lis
     Used when the initial retrieval returns no results — retry with looser filters
     while keeping explicit version/product filters strict.
 
+    domain_id and is_current are NEVER relaxed regardless of inferred_keys.
+    Relaxing domain_id would allow cross-domain chunk leakage (e.g. an
+    OpenShift question retrieving watsonx Orchestrate chunks).
+
     Args:
         filters: the original filter list from build_filters()
         inferred_keys: field names that were inferred and may be relaxed
 
     Returns:
-        New filter list with inferred fields removed.
+        New filter list with inferred fields removed (excluding protected fields).
     """
     relaxed = []
     for f in filters:
         key = next(iter(f.get("term", {}).keys()), None)
-        if key not in inferred_keys:
+        if key in _NEVER_RELAX or key not in inferred_keys:
             relaxed.append(f)
     return relaxed

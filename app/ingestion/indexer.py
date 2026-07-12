@@ -40,8 +40,11 @@ class IngestionSummary:
 
 
 def _make_document_id(source_uri: str) -> str:
-    """Stable 8-char document ID from source URI hash."""
-    return "doc-" + hashlib.sha256(source_uri.encode()).hexdigest()[:4]
+    """Stable collision-resistant document ID from source URI hash.
+    Uses 16 hex characters (64 bits of SHA-256) to make collisions negligible
+    across hundreds of documents while keeping IDs human-readable.
+    """
+    return "doc-" + hashlib.sha256(source_uri.encode()).hexdigest()[:16]
 
 
 def _make_revision_id(content_hash: str) -> str:
@@ -253,8 +256,15 @@ def index_document(
     # --- Mark old revisions as superseded ---
     _mark_old_revisions_superseded(opensearch_client, document_id, revision_id)
 
-    # --- Update document registry to INDEXED ---
-    final_status = "INDEXED" if not failed_pages else "INDEXED"  # partial indexing still marked INDEXED
+    # --- Update document registry — distinguish full, partial, and failed ---
+    if indexed_count == 0 and len(chunks) > 0:
+        # Every chunk failed embedding; nothing is searchable.
+        final_status = "FAILED"
+    elif failed_pages:
+        # Some pages failed; the rest indexed successfully.
+        final_status = "PARTIAL"
+    else:
+        final_status = "INDEXED"
     opensearch_client.update(
         index=DOCS_INDEX,
         id=revision_id,

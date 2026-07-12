@@ -13,9 +13,13 @@ class Settings(BaseSettings):
     ibm_cloud_api_key: str = ""
 
     # OpenSearch
-    opensearch_url: str = "https://localhost:9200"
-    opensearch_username: str = "admin"
-    opensearch_password: str = "admin"
+    # Local Podman development uses loopback-only HTTP with the OpenSearch
+    # security plugin disabled. Remote deployments must set HTTPS, credentials,
+    # and a trusted CA explicitly in .env.
+    opensearch_url: str = "http://localhost:9200"
+    opensearch_username: str = ""
+    opensearch_password: str = ""
+    opensearch_verify_certs: bool = True
     opensearch_index_chunks: str = "knowledge_chunks_v1"
     opensearch_index_docs: str = "knowledge_documents_v1"
 

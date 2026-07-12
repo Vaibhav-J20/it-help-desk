@@ -68,4 +68,29 @@ def test_relax_inferred_keeps_explicit_version():
     ]
     relaxed = relax_inferred_filters(filters, inferred_keys=["domain_id"])
     assert {"term": {"ocp_version": "4.16"}} in relaxed
-    assert {"term": {"domain_id": "ocp_sno_support"}} not in relaxed
+    # domain_id is in _NEVER_RELAX — it must survive even when listed in inferred_keys
+    assert {"term": {"domain_id": "ocp_sno_support"}} in relaxed
+
+
+def test_relax_inferred_never_removes_domain_id():
+    """domain_id must survive relax_inferred_filters regardless of inferred_keys."""
+    filters = [
+        {"term": {"domain_id": "watsonx_orchestrate"}},
+        {"term": {"components": "adk"}},
+        {"term": {"is_current": True}},
+    ]
+    relaxed = relax_inferred_filters(filters, inferred_keys=["domain_id", "components"])
+    assert {"term": {"domain_id": "watsonx_orchestrate"}} in relaxed
+    assert {"term": {"components": "adk"}} not in relaxed
+    assert {"term": {"is_current": True}} in relaxed
+
+
+def test_relax_inferred_never_removes_is_current():
+    """is_current must survive relax_inferred_filters regardless of inferred_keys."""
+    filters = [
+        {"term": {"components": "dns"}},
+        {"term": {"is_current": True}},
+    ]
+    relaxed = relax_inferred_filters(filters, inferred_keys=["is_current", "components"])
+    assert {"term": {"is_current": True}} in relaxed
+    assert {"term": {"components": "dns"}} not in relaxed
