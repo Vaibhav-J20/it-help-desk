@@ -1,0 +1,157 @@
+{
+  "created_at": "2026-07-15T11:49:13.359898+00:00",
+  "base_url": "https://left-appraiser-disorder.ngrok-free.dev",
+  "question_file": "/Users/vaibhavjanga/projects/IT-help-desk/tests/evaluation/guardium_regression_questions.yaml",
+  "question_count": 2,
+  "passed": 2,
+  "results": [
+    {
+      "question": {
+        "id": "guardium_windows_install",
+        "category": "guardium_regression",
+        "question": "How to install Guardium on Windows?",
+        "expected_status": "ANSWERED",
+        "expected_keyword_groups": [
+          [
+            "windows"
+          ],
+          [
+            "s-tap",
+            "stap",
+            "gim"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "guardium_windows_install",
+        "category": "guardium_regression",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 4,
+        "citation_document_ids": [
+          "doc-436db489b82805d4",
+          "doc-e66984976bba80e3"
+        ],
+        "citation_products": [
+          "IBM Guardium Data Protection"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "75c22526-86da-4033-906b-c2c1722eafce",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Installing Guardium on Windows\n\nTo install Guardium on Windows, follow these steps [S2]: \n1. Plan the installation by reviewing the Windows: S-TAP monitoring mechanisms support matrix, Windows: Auto discovery of database instances during installation and upgrade, and Windows: Discover database instances [S2].\n2. Verify the prerequisites, including Windows: S-TAP disk space requirements and Windows: Guardium port requirements for S-TAP [S2].\n3. Install the S-TAP by one of the following methods: Deploy monitoring agents, use GIM to install, upgrade, uninstall the S-TAP, use interactive installer (wizard) to install and upgrade the S-TAP, or use CLI to install, upgrade, uninstall the S-TAP [S2].\n4. Configure any optional components if required, such as S-TAP installation flow on Oracle RAC or Configuring the Db2 Exit library [S2][S3].\n5. Reboot or restart if required, as described in Windows: When to restart or reboot the database server after installing or upgrading S-TAP [S2].\n6. Complete the S-TAP configuration using the S-TAP Control page or by editing the protocol 7 and protocol 8 S-TAP configuration parameters [S2].\n7. If required, configure Enterprise Load Balancing [S2].\n\n### What this does not establish\nThe provided evidence does not establish the specific commands or detailed configuration parameters required for the installation process. It also does not provide information on troubleshooting or resolving potential issues that may arise during the installation.\n\n### Sources\n[S1] Windows: S-TAP installation flow on Oracle RAC \u2014 IBM Guardium Data Protection 12.x [live IBM Docs]\n[S2] Windows: Install S-TAP agents installation flow \u2014 IBM Guardium Data Protection 12.x [live IBM Docs]\n[S3] Windows: S-TAP installation flow on Oracle RAC \u2014 IBM Guardium Data Protection 12.x [live IBM Docs]\n[S4] Windows: Install S-TAP agents installation flow \u2014 IBM Guardium Data Protection 12.x [live IBM Docs]",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Windows: S-TAP installation flow on Oracle RAC",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Windows: S-TAP installation flow on Oracle RAC > Procedure",
+              "document_id": "doc-436db489b82805d4",
+              "chunk_id": "ibm_products:live:f901c580a68f2b50e051",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=agent-windows-s-tap-installation-flow-oracle-rac"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Windows: Install S-TAP agents installation flow",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Windows: Install S-TAP agents installation flow",
+              "document_id": "doc-e66984976bba80e3",
+              "chunk_id": "ibm_products:live:f992fcd3ba20701ef2eb",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=agent-windows-install-s-tap-agents-installation-flow"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Windows: S-TAP installation flow on Oracle RAC",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Windows: S-TAP installation flow on Oracle RAC",
+              "document_id": "doc-436db489b82805d4",
+              "chunk_id": "ibm_products:live:4750a4fb9ff8770dae90",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=agent-windows-s-tap-installation-flow-oracle-rac"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Windows: Install S-TAP agents installation flow",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Windows: Install S-TAP agents installation flow",
+              "document_id": "doc-e66984976bba80e3",
+              "chunk_id": "ibm_products:live:5afd9a66af5c2ba21fb3",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=agent-windows-install-s-tap-agents-installation-flow"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "14a2df90-ea18-4748-8b8e-35ad7e82f365"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "guardium_unavailable_11_8",
+        "category": "guardium_regression",
+        "question": "Help me install Guardium 11.8",
+        "expected_status": "NEEDS_CLARIFICATION"
+      },
+      "summary": {
+        "id": "guardium_unavailable_11_8",
+        "category": "guardium_regression",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "citation_products": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "88054458-308e-489f-965e-f765c5127749",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "I have verified IBM Guardium Data Protection documentation for 12.x, but not 11.8. Did you mean 12.x, or can you confirm the exact product and version?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "afc36aa7-5d39-4c60-9cc5-a26dacb9bda0"
+        },
+        "error": null
+      }
+    }
+  ]
+}

@@ -28,6 +28,7 @@ class PageRecord:
     page_number: int   # 1-based
     text: str
     char_count: int
+    section_path: str = ""  # optional structured-document heading boundary
 
 
 @dataclass

@@ -1,0 +1,76 @@
+registry_version: "1"
+
+sources:
+  - source_id: orchestrate-adk
+    product_id: watsonx-orchestrate
+    product_name: watsonx Orchestrate
+    domain_id: watsonx_orchestrate
+    aliases:
+      - IBM watsonx Orchestrate ADK
+      - Orchestrate ADK
+      - wxo CLI
+    version_id: latest
+    product_version: current
+    source_version: "2.x"
+    origin: https://developer.watson-orchestrate.ibm.com
+    path_prefix: /
+    index_url: https://developer.watson-orchestrate.ibm.com/llms.txt
+    seed_url: https://developer.watson-orchestrate.ibm.com/getting_started/installing.md
+    index_format: llms
+    content_format: markdown
+    enabled: true
+    document_type: developer_docs
+    classification: public
+    access_scope:
+      - public
+      - isa_technical
+
+  - source_id: bob-docs
+    product_id: ibm-bob
+    product_name: IBM Bob
+    domain_id: ibm_bob
+    aliases:
+      - IBM Bob IDE
+      - Bob IDE
+      - Bob Shell
+      - bobshell
+    version_id: latest
+    product_version: current
+    source_version: current
+    origin: https://bob.ibm.com
+    path_prefix: /docs
+    index_url: https://bob.ibm.com/sitemap.xml
+    seed_url: https://bob.ibm.com/docs/ide
+    index_format: sitemap
+    content_format: html
+    enabled: true
+    document_type: developer_docs
+    classification: public
+    access_scope:
+      - public
+      - isa_technical
+
+  - source_id: verify-access-developer-docs
+    product_id: security-verify-access
+    product_name: IBM Security Verify Access
+    domain_id: ibm_products
+    aliases:
+      - IBM Verify Identity Access
+      - Verify Access
+      - IVIA
+      - ISVA
+    version_id: latest
+    product_version: current
+    source_version: current
+    origin: https://docs.verify.ibm.com
+    path_prefix: /
+    index_url: https://docs.verify.ibm.com/llms.txt
+    seed_url: https://docs.verify.ibm.com/ibm-security-verify-access/docs/overview.md
+    index_format: llms
+    content_format: markdown
+    enabled: true
+    document_type: developer_docs
+    classification: public
+    access_scope:
+      - public
+      - isa_technical

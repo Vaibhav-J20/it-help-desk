@@ -22,12 +22,14 @@ import argparse
 import os
 import sys
 import textwrap
-from datetime import datetime
+from datetime import datetime, timezone
 
 from dotenv import load_dotenv
 from opensearchpy import OpenSearch
 
 load_dotenv()
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 # ── Required fields every chunk must carry ────────────────────────────────────
 
@@ -43,10 +45,6 @@ REQUIRED_FIELDS: list[str] = [
     "classification",
     "access_scope",
     "product",
-    "ocp_version",
-    "ocp_major",
-    "ocp_minor",
-    "deployment_type",
     "components",
     "topic_tags",
     "section_path",
@@ -63,6 +61,11 @@ REQUIRED_FIELDS: list[str] = [
     "ingested_at",
     "is_current",
 ]
+
+DOMAIN_REQUIRED_FIELDS = {
+    "ocp_sno_support": ["ocp_version", "ocp_major", "ocp_minor", "deployment_type"],
+    "ibm_products": ["product_version", "locale"],
+}
 
 TYPED_FIELDS: dict[str, type | tuple] = {
     "ocp_major": int,
@@ -85,16 +88,9 @@ VECTOR_DIM = 768
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _build_client() -> OpenSearch:
-    url = os.getenv("OPENSEARCH_URL", "https://localhost:9200")
-    username = os.getenv("OPENSEARCH_USERNAME", "admin")
-    password = os.getenv("OPENSEARCH_PASSWORD", "Ibm@Intern2025!")
-    return OpenSearch(
-        hosts=[url],
-        http_auth=(username, password),
-        use_ssl=url.startswith("https"),
-        verify_certs=False,
-        ssl_show_warn=False,
-    )
+    from app.retrieval.opensearch_client import get_opensearch_client
+
+    return get_opensearch_client()
 
 
 def _list_document_ids(client: OpenSearch, index: str) -> list[str]:
@@ -104,7 +100,7 @@ def _list_document_ids(client: OpenSearch, index: str) -> list[str]:
         body={
             "size": 0,
             "query": {"term": {"is_current": True}},
-            "aggs": {"docs": {"terms": {"field": "document_id.keyword", "size": 50}}},
+            "aggs": {"docs": {"terms": {"field": "document_id", "size": 10_000}}},
         },
     )
     buckets = resp["aggregations"]["docs"]["buckets"]
@@ -122,7 +118,7 @@ def _sample_chunks(
             "query": {
                 "bool": {
                     "must": [
-                        {"term": {"document_id.keyword": doc_id}},
+                        {"term": {"document_id": doc_id}},
                         {"term": {"is_current": True}},
                     ]
                 }
@@ -140,7 +136,7 @@ def _count_chunks(client: OpenSearch, index: str, doc_id: str) -> int:
             "query": {
                 "bool": {
                     "must": [
-                        {"term": {"document_id.keyword": doc_id}},
+                        {"term": {"document_id": doc_id}},
                         {"term": {"is_current": True}},
                     ]
                 }
@@ -158,6 +154,9 @@ def _validate_chunk(chunk: dict) -> list[str]:
     for field in REQUIRED_FIELDS:
         if field not in chunk or chunk[field] is None:
             errors.append(f"missing/null: {field}")
+    for field in DOMAIN_REQUIRED_FIELDS.get(chunk.get("domain_id"), []):
+        if field not in chunk or chunk[field] is None:
+            errors.append(f"missing/null for {chunk.get('domain_id')}: {field}")
 
     # 2. Type checks
     for field, expected_type in TYPED_FIELDS.items():
@@ -208,9 +207,11 @@ def _validate_chunk(chunk: dict) -> list[str]:
     if len(parts) != 4:
         errors.append(f"chunk_id has wrong segment count: {chunk_id!r}")
 
-    # 8. domain_id must be ocp_sno_support
-    if chunk.get("domain_id") != "ocp_sno_support":
-        errors.append(f"domain_id={chunk.get('domain_id')!r}, expected 'ocp_sno_support'")
+    # 8. domain_id must be an active configured domain.
+    from app.policy.domain_policy import is_in_scope
+
+    if not is_in_scope(str(chunk.get("domain_id") or "")):
+        errors.append(f"domain_id={chunk.get('domain_id')!r} is not active in config/domains.yaml")
 
     return errors
 
@@ -274,6 +275,11 @@ def audit(
             "pass": True,
             "title": samples[0].get("title", "?") if samples else "?",
             "ocp_version": samples[0].get("ocp_version", "?") if samples else "?",
+            "display_version": (
+                samples[0].get("ocp_version")
+                or samples[0].get("product_version")
+                or "?"
+            ) if samples else "?",
         }
 
         for chunk in samples:
@@ -287,7 +293,7 @@ def audit(
         results[doc_id] = doc_result
 
         status = "PASS ✅" if doc_result["pass"] else "FAIL ❌"
-        print(f"\n  {doc_id}  ({doc_result['ocp_version']})  →  {status}")
+        print(f"\n  {doc_id}  ({doc_result['display_version']})  →  {status}")
         print(f"    Title:        {textwrap.shorten(doc_result['title'], 60)}")
         print(f"    Total chunks: {total}")
         print(f"    Sampled:      {doc_result['sampled']}")
@@ -324,8 +330,9 @@ def audit(
 def write_report(results: dict, out_path: str) -> None:
     """Write audit results as a Markdown file."""
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    now = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
-    overall = results.pop("__overall_pass", True)
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    overall = results.get("__overall_pass", True)
+    results = {key: value for key, value in results.items() if key != "__overall_pass"}
 
     lines = [
         "# Chunk Quality Audit Report",
@@ -338,14 +345,14 @@ def write_report(results: dict, out_path: str) -> None:
         "",
         "## Per-Document Results",
         "",
-        "| Document ID | OCP Version | Total Chunks | Sampled | Status |",
+        "| Document ID | Product Version | Total Chunks | Sampled | Status |",
         "|---|---|---|---|---|",
     ]
 
     for doc_id, r in results.items():
         status = "PASS ✅" if r["pass"] else "FAIL ❌"
         lines.append(
-            f"| {doc_id} | {r['ocp_version']} | {r['total_chunks']} "
+            f"| {doc_id} | {r['display_version']} | {r['total_chunks']} "
             f"| {r['sampled']} | {status} |"
         )
 
@@ -353,7 +360,7 @@ def write_report(results: dict, out_path: str) -> None:
 
     for doc_id, r in results.items():
         lines.append(f"\n### {doc_id} — {r['title']}")
-        lines.append(f"- OCP Version: `{r['ocp_version']}`")
+        lines.append(f"- Product Version: `{r['display_version']}`")
         lines.append(f"- Total chunks (is_current=True): **{r['total_chunks']}**")
         lines.append(f"- Sampled: {r['sampled']}")
 
@@ -379,7 +386,7 @@ def write_report(results: dict, out_path: str) -> None:
         "5. `page_start` ≤ `page_end`",
         "6. `chunk_text` non-empty",
         "7. `chunk_id` has 4 colon-separated segments",
-        "8. `domain_id` = `ocp_sno_support`",
+        "8. `domain_id` is active in `config/domains.yaml` and domain-specific fields exist",
         "",
         "---",
         "*Generated by `scripts/audit_chunks.py`*",

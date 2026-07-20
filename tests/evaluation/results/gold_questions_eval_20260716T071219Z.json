@@ -1,0 +1,320 @@
+{
+  "created_at": "2026-07-16T07:12:19.557529+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "question_file": "/Users/vaibhavjanga/projects/IT-help-desk/tests/evaluation/gold_questions.yaml",
+  "question_count": 3,
+  "passed": 3,
+  "results": [
+    {
+      "question": {
+        "id": "q009",
+        "category": "clarification",
+        "question": "What is the minimum hardware requirement for a Single Node OpenShift installation?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Too vague without OCP version; should ask for clarification before answering."
+      },
+      "summary": {
+        "id": "q009",
+        "category": "clarification",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "citation_products": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "5ff3ada7-3f78-4271-86b1-8677ddc08cf2",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "Which OpenShift version are you using?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "3a1aea1c-7c6e-41c7-babb-019c03cdb413"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q014",
+        "category": "factual",
+        "question": "What is the difference between a ReadWriteOnce and ReadWriteMany persistent volume in OpenShift?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "PVC access modes section",
+        "notes": "RWO = single node, RWX = multiple nodes simultaneously. Should cite storage guide."
+      },
+      "summary": {
+        "id": "q014",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-26de211138a59267"
+        ],
+        "citation_products": [
+          "OpenShift"
+        ],
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "b49a4b1b-9f4c-4346-b35f-d93a87af5023",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Difference between ReadWriteOnce and ReadWriteMany Persistent Volumes\n\nThe main difference between ReadWriteOnce (RWO) and ReadWriteMany (RWX) persistent volumes in OpenShift is the access mode [S1]. ReadWriteOnce volumes can be mounted with read and write permissions by a single node [S5], whereas ReadWriteMany volumes can be mounted with read and write permissions by multiple nodes [S2]. If a node fails, a ReadWriteOnce volume cannot be mounted on a new node because it is already assigned to the failed node [S2]. In contrast, ReadWriteMany volumes can be provisioned if the underlying vSphere environment supports the vSAN file service [S3].\n\n### What this does not establish\n\nThis does not establish the specific commands or procedures for creating ReadWriteMany volumes on all possible storage platforms, as the evidence only discusses vSphere and some other platforms [S1][S2][S3]. Additionally, the evidence does not provide a comprehensive list of all storage platforms that support ReadWriteMany volumes.\n\n### Sources\n[S1] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 28\u201328\n[S2] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 28\u201329\n[S3] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 246\u2013246\n[S4] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 56\u201356\n[S5] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 70\u201371\n[S6] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 96\u201396",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 28,
+              "page_end": 28,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0072",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 28,
+              "page_end": 29,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0073",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 246,
+              "page_end": 246,
+              "section_path": "6.21.5. ReadWriteMany vSphere volume support",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0462",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 56,
+              "page_end": 56,
+              "section_path": "4.6.2. FlexVolume driver example",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0119",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 70,
+              "page_end": 71,
+              "section_path": "1. In the OpenShift Container Platform console, click Storage \u2192 Persistent Volume Claims.",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0147",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 96,
+              "page_end": 96,
+              "section_path": "1. Define the persistent volume (PV) by creating a pv.yaml file with the PersistentVolume object",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0190",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "c1d50466-db8a-4f0b-be31-4065004bade6"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q020",
+        "category": "troubleshoot",
+        "question": "My OpenShift ingress is not routing traffic to my application. How do I debug the route?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-8e43",
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "ingress/route troubleshooting",
+        "notes": "Check Route object, IngressController logs, DNS wildcard record, service endpoints."
+      },
+      "summary": {
+        "id": "q020",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-fbc5fc6039dd18e6"
+        ],
+        "citation_products": [
+          "OpenShift"
+        ],
+        "expected_document_ids": [
+          "doc-8e43",
+          "doc-a752"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "2d195216-a897-48ce-b4f9-5ab3d08d22e2",
+          "status": "ANSWERED",
+          "intent": "troubleshoot",
+          "answer_markdown": "### Debugging OpenShift Ingress Route\n\nTo debug an OpenShift ingress route that is not routing traffic to your application, you can start by checking the route configuration [S1]. Ensure that the route is correctly defined, including the path and hostname. If you are using passthrough TLS, note that path-based routing is not available [S1]. \n\nYou can create a new route using the `oc expose` command, specifying the service name and hostname [S2]. For example:\n```bash\n$ oc expose svc <service-name> --hostname <route-name>.apps-sharded.basedomain.example.net\n```\nThe Ingress Operator manages one or more HAProxy-based Ingress Controllers to handle routing [S3]. You can use the Ingress Operator to route traffic by specifying OpenShift Container Platform Route and Kubernetes Ingress resources.\n\nAdditionally, you can check the route YAML file for annotations, such as `haproxy.router.openshift.io/h1-adjust-case`, which can affect the routing behavior [S5][S6]. For example:\n```yml\napiVersion: route.openshift.io/v1\nkind: Route\nmetadata:\n  annotations:\n    haproxy.router.openshift.io/h1-adjust-case: true\n  name: my-application\n  namespace: my-application\nspec:\n  to:\n    kind: Service\n    name: my-application\n```\n### What this does not establish\nThe provided evidence does not establish a step-by-step troubleshooting procedure for a non-routing OpenShift ingress. It also does not provide information on how to check the Ingress Controller logs or the router configuration.\n\n### Sources\n[S1] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 835\u2013835\n[S2] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 885\u2013885\n[S3] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 127\u2013127\n[S4] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 32\u201332\n[S5] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 173\u2013173\n[S6] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 172\u2013172",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 835,
+              "page_end": 835,
+              "section_path": "22.1.2. Path-based routes",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-5069",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 885,
+              "page_end": 885,
+              "section_path": "3. Create a new route by using the domain configured in the router-internal.yaml:",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-5373",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 127,
+              "page_end": 127,
+              "section_path": "5.7.1. OpenShift Container Platform Ingress Operator",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-0858",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 32,
+              "page_end": 32,
+              "section_path": "2.3. GLOSSARY OF COMMON TERMS FOR OPENSHIFT CONTAINER",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-0270",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 173,
+              "page_end": 173,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-1136",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 172,
+              "page_end": 172,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-1132",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "91d8f659-8be0-4dcd-a95d-18b98cd043ba"
+        },
+        "error": null
+      }
+    }
+  ]
+}

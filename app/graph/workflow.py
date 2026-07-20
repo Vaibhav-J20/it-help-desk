@@ -31,14 +31,19 @@ def _route_after_resolve_scope(state: SupportState) -> str:
 
 
 def _route_after_evidence_gate(state: SupportState) -> str:
-    if state.get("status") == "INSUFFICIENT_EVIDENCE":
+    if state.get("evidence_decision") == "insufficient":
         return END
     return "compose_answer"
 
 
 def _route_after_validate_citations(state: SupportState) -> str:
-    if state.get("status") == "INSUFFICIENT_EVIDENCE":
-        return END
+    trace = state.get("trace") or {}
+    if (
+        state.get("status") == "INSUFFICIENT_EVIDENCE"
+        and trace.get("adaptive_retry_requested")
+        and not trace.get("adaptive_retry_attempted")
+    ):
+        return "retrieve"
     return END
 
 

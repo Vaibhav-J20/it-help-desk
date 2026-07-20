@@ -1,0 +1,19 @@
+# Focused v2 recovery manifest for the previously PARTIAL OCP storage guide.
+# Uses the original COS URI so the stable document_id supersedes the copied
+# v1 revision instead of creating a duplicate local-source document.
+
+corpus_id: ocp_storage_v2_recovery
+
+sources:
+  - source_uri: cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf
+    title: "Storage — Configuring and Managing Storage in OpenShift (OCP 4.16)"
+    domain_id: ocp_sno_support
+    product: OpenShift
+    ocp_version: "4.16"
+    deployment_type: [standard, compact]
+    components: [storage, etcd]
+    topic_tags: [storage, persistent-volumes, etcd, csi]
+    document_type: configuration_guide
+    classification: public
+    access_scope: [public, isa_technical]
+    is_current: true

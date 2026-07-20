@@ -1,0 +1,1333 @@
+{
+  "created_at": "2026-07-06T10:34:42.671015+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "question_count": 40,
+  "results": [
+    {
+      "question": {
+        "id": "q001",
+        "category": "factual",
+        "question": "What is the rendezvous host in the Agent-based Installer workflow?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": "page 7-9",
+        "notes": "Rendezvous host (node 0) runs Assisted Service at boot. Should cite SNO installation guide."
+      },
+      "summary": {
+        "id": "q001",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q002",
+        "category": "factual",
+        "question": "What DNS records are required before starting SNO 4.16 installation?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-4957"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "early chapters",
+        "notes": "api.<cluster>.<domain> and *.apps.<cluster>.<domain> DNS records required."
+      },
+      "summary": {
+        "id": "q002",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-4957"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q003",
+        "category": "factual",
+        "question": "Which topologies are supported by the openshift-install agent create image subcommand?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": "page 5-7",
+        "notes": "SNO, 3-node compact, multi-node. Should cite installation guide."
+      },
+      "summary": {
+        "id": "q003",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q004",
+        "category": "factual",
+        "question": "What is the default network plugin used in OpenShift Container Platform 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "networking guide early chapters",
+        "notes": "OVN-Kubernetes is the default CNI. Should cite networking guide."
+      },
+      "summary": {
+        "id": "q004",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q005",
+        "category": "clarification",
+        "question": "What is the purpose of the NMStateConfig manifest in the agent-based installer?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Too vague without OCP version; should ask for clarification before answering."
+      },
+      "summary": {
+        "id": "q005",
+        "category": "clarification",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q006",
+        "category": "factual",
+        "question": "How do you enable the cluster-admin role for a user in OpenShift 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-73eb"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "RBAC section",
+        "notes": "oc adm policy add-cluster-role-to-user cluster-admin <user>. Should cite auth guide."
+      },
+      "summary": {
+        "id": "q006",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-73eb"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q007",
+        "category": "factual",
+        "question": "What storage classes are available by default in OpenShift 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "storage classes section",
+        "notes": "Should cite storage guide for default storage class options."
+      },
+      "summary": {
+        "id": "q007",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q008",
+        "category": "factual",
+        "question": "What is the must-gather command used for in OpenShift support?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "support/troubleshooting section",
+        "notes": "oc adm must-gather collects diagnostics. Should cite troubleshooting guide."
+      },
+      "summary": {
+        "id": "q008",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-a752"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q009",
+        "category": "clarification",
+        "question": "What is the minimum hardware requirement for a Single Node OpenShift installation?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Too vague without OCP version; should ask for clarification before answering."
+      },
+      "summary": {
+        "id": "q009",
+        "category": "clarification",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q010",
+        "category": "clarification",
+        "question": "How does the IngressController manage external traffic in OpenShift?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Too vague without OCP version; should ask for clarification before answering."
+      },
+      "summary": {
+        "id": "q010",
+        "category": "clarification",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q011",
+        "category": "factual",
+        "question": "What OAuth identity providers are supported in OpenShift 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-73eb"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "identity provider section",
+        "notes": "LDAP, HTPasswd, GitHub, Google, OIDC etc. Should cite auth guide."
+      },
+      "summary": {
+        "id": "q011",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-73eb"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q012",
+        "category": "factual",
+        "question": "What is the etcd operator responsible for in OpenShift?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-7a28",
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "etcd section",
+        "notes": "etcd operator manages backup, scaling, and health of etcd cluster."
+      },
+      "summary": {
+        "id": "q012",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-7a28",
+          "doc-a752"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q013",
+        "category": "clarification",
+        "question": "What files are required in the cluster-manifests directory for agent-based installation?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Too vague without OCP version; should ask for clarification before answering."
+      },
+      "summary": {
+        "id": "q013",
+        "category": "clarification",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q014",
+        "category": "factual",
+        "question": "What is the difference between a ReadWriteOnce and ReadWriteMany persistent volume in OpenShift?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "PVC access modes section",
+        "notes": "RWO = single node, RWX = multiple nodes simultaneously. Should cite storage guide."
+      },
+      "summary": {
+        "id": "q014",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q015",
+        "category": "factual",
+        "question": "How do you configure an HTPasswd identity provider in OpenShift 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-73eb"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "HTPasswd section",
+        "notes": "Create secret with htpasswd file, configure OAuth CR. Should cite auth guide."
+      },
+      "summary": {
+        "id": "q015",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-73eb"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q016",
+        "category": "troubleshoot",
+        "question": "My SNO bootstrap is timing out during OCP 4.16 installation. How do I debug it?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-4957",
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "bootstrap troubleshooting section",
+        "notes": "Should return numbered steps: check DNS, NTP, API VIP, inspect bootstrap journal logs."
+      },
+      "summary": {
+        "id": "q016",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-4957",
+          "doc-a752"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q017",
+        "category": "troubleshoot",
+        "question": "The OpenShift API server is not responding after installation. What steps should I take?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "API server troubleshooting",
+        "notes": "Should cite troubleshooting guide \u2014 check kube-apiserver pods, certificates, etcd health."
+      },
+      "summary": {
+        "id": "q017",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-a752"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q018",
+        "category": "troubleshoot",
+        "question": "How do I recover from an etcd quorum failure in OpenShift 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-a752",
+          "doc-7a28"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "etcd recovery section",
+        "notes": "Should provide steps for etcd restore from backup. Cite storage + troubleshooting guide."
+      },
+      "summary": {
+        "id": "q018",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-a752",
+          "doc-7a28"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q019",
+        "category": "troubleshoot",
+        "question": "Pods in my OpenShift cluster are stuck in Pending state. How do I troubleshoot this?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-a752",
+          "doc-7a28"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "pod scheduling troubleshooting",
+        "notes": "Check node resources, PVC binding, taints/tolerations, scheduler logs."
+      },
+      "summary": {
+        "id": "q019",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-a752",
+          "doc-7a28"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q020",
+        "category": "troubleshoot",
+        "question": "My OpenShift ingress is not routing traffic to my application. How do I debug the route?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-8e43",
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "ingress/route troubleshooting",
+        "notes": "Check Route object, IngressController logs, DNS wildcard record, service endpoints."
+      },
+      "summary": {
+        "id": "q020",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-8e43",
+          "doc-a752"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q021",
+        "category": "troubleshoot",
+        "question": "Certificate errors are appearing on the OpenShift console after installation. How do I fix this?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-a752",
+          "doc-73eb"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "certificate management section",
+        "notes": "Check cluster operator status, rotate certificates, verify SAN entries in API cert."
+      },
+      "summary": {
+        "id": "q021",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-a752",
+          "doc-73eb"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q022",
+        "category": "troubleshoot",
+        "question": "A NetworkPolicy is blocking traffic between namespaces in OCP 4.16. How do I diagnose it?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "NetworkPolicy troubleshooting",
+        "notes": "Check NetworkPolicy selectors, OVN-K logs, use network-tools debug pod."
+      },
+      "summary": {
+        "id": "q022",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q023",
+        "category": "troubleshoot",
+        "question": "The SNO node rebooted and OpenShift services are not coming back up. What should I check?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-4957",
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "SNO recovery section",
+        "notes": "Check kubelet, CRI-O, etcd health, MCO status on single node."
+      },
+      "summary": {
+        "id": "q023",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-4957",
+          "doc-a752"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q024",
+        "category": "troubleshoot",
+        "question": "How do I collect diagnostic logs from a failing OpenShift node using must-gather?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "must-gather section",
+        "notes": "oc adm must-gather --dest-dir=<dir>. Should cite troubleshooting/support guide."
+      },
+      "summary": {
+        "id": "q024",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-a752"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q025",
+        "category": "troubleshoot",
+        "question": "Persistent volume claims are stuck in Pending after storage provisioner deployment. How do I fix this?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "PVC troubleshooting section",
+        "notes": "Check StorageClass, provisioner pod logs, node storage availability."
+      },
+      "summary": {
+        "id": "q025",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q026",
+        "category": "version",
+        "question": "What changed in the SNO installation process between OCP 4.14 and OCP 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "expected_ocp_version": null,
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "installation chapters of both versions",
+        "notes": "Must cite BOTH version docs. Must NOT mix up version-specific steps."
+      },
+      "summary": {
+        "id": "q026",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q027",
+        "category": "version",
+        "question": "How do I configure DNS for SNO installation specifically on OCP 4.14?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "expected_ocp_version": "4.14",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "DNS section of 4.14 guide",
+        "notes": "Must use ONLY 4.14 doc. Must NOT cite 4.16 guide for this answer."
+      },
+      "summary": {
+        "id": "q027",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q028",
+        "category": "version",
+        "question": "What are the hardware requirements for SNO on OCP 4.16 compared to 4.14?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "expected_ocp_version": null,
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "prerequisites section of both guides",
+        "notes": "Version-sensitive \u2014 must cite both 4.14 and 4.16 docs separately, not merge them."
+      },
+      "summary": {
+        "id": "q028",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q029",
+        "category": "version",
+        "question": "What networking features are available in OCP 4.16 that were not in 4.14?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "networking guide 4.16",
+        "notes": "Should cite 4.16 networking guide. Must NOT hallucinate 4.14 networking content."
+      },
+      "summary": {
+        "id": "q029",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q030",
+        "category": "version",
+        "question": "I am running OCP 4.14 SNO. How do I configure the agent-based installer?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "expected_ocp_version": "4.14",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "agent-based installer section 4.14",
+        "notes": "Critical version safety test \u2014 must use 4.14 doc ONLY, not 4.16 procedure."
+      },
+      "summary": {
+        "id": "q030",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q031",
+        "category": "ambiguous",
+        "question": "How do I install OpenShift?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Missing version AND deployment type. Should ask: which OCP version? SNO or multi-node?"
+      },
+      "summary": {
+        "id": "q031",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q032",
+        "category": "ambiguous",
+        "question": "My cluster installation failed.",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Too vague \u2014 no version, no error, no deployment type. Should ask clarifying questions."
+      },
+      "summary": {
+        "id": "q032",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q033",
+        "category": "ambiguous",
+        "question": "How do I configure networking?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Missing version and specific networking topic. Should ask for OCP version and area."
+      },
+      "summary": {
+        "id": "q033",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q034",
+        "category": "ambiguous",
+        "question": "What is the bootstrap process?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Missing version and deployment type (SNO bootstrap differs from HA). Should clarify."
+      },
+      "summary": {
+        "id": "q034",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q035",
+        "category": "ambiguous",
+        "question": "Help me troubleshoot my storage issue.",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "No version, no specific error, no storage type. Should ask for more context."
+      },
+      "summary": {
+        "id": "q035",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q036",
+        "category": "out_of_scope",
+        "question": "How do I create a ServiceNow ticket for an OpenShift incident?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "ServiceNow is explicitly excluded. Must return OUT_OF_SCOPE, never hallucinate."
+      },
+      "summary": {
+        "id": "q036",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q037",
+        "category": "out_of_scope",
+        "question": "Can you access my live OpenShift cluster and check the node status?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Live cluster access is explicitly excluded. Must refuse cleanly."
+      },
+      "summary": {
+        "id": "q037",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q038",
+        "category": "out_of_scope",
+        "question": "How do I configure IBM Db2 on OpenShift?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Db2 is not in Phase 1 corpus (OCP/SNO only). Must return OUT_OF_SCOPE."
+      },
+      "summary": {
+        "id": "q038",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q039",
+        "category": "out_of_scope",
+        "question": "What is the latest version of Kubernetes released this week?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Requires live web search \u2014 system has no internet access. Must refuse."
+      },
+      "summary": {
+        "id": "q039",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    },
+    {
+      "question": {
+        "id": "q040",
+        "category": "out_of_scope",
+        "question": "Write me a Python script to automate OpenShift deployments.",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Code generation is out of scope \u2014 system answers from docs, not writes code."
+      },
+      "summary": {
+        "id": "q040",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": null,
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    }
+  ]
+}

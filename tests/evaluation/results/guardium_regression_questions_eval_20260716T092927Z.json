@@ -1,0 +1,182 @@
+{
+  "created_at": "2026-07-16T09:29:27.788961+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "question_file": "/Users/vaibhavjanga/projects/IT-help-desk/tests/evaluation/guardium_regression_questions.yaml",
+  "question_count": 2,
+  "passed": 2,
+  "results": [
+    {
+      "question": {
+        "id": "guardium_windows_install",
+        "category": "guardium_regression",
+        "question": "How to install Guardium on Windows?",
+        "expected_status": "ANSWERED",
+        "expected_keyword_groups": [
+          [
+            "windows"
+          ],
+          [
+            "s-tap",
+            "stap",
+            "gim"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "guardium_windows_install",
+        "category": "guardium_regression",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-43c4ceffcf7c75f5"
+        ],
+        "citation_products": [
+          "IBM Guardium Data Protection"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "32fd6f9e-51f6-49d1-8065-846e98c6b45e",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Installing Guardium on Windows\n\nTo install Guardium on Windows, you need to follow the procedure for installing the S-TAP agent using the interactive installer [S1]. This involves logging on to the database server with a system administrator account and running the Guardium Windows S-TAP Install Wizard with administrative privileges [S1]. You will then need to read and accept the license agreement, provide customer information, and select an installation type (Typical, Compact, or Custom) [S1]. \n\nDuring the installation, you will need to provide the IP address or host name of the Guardium system that will receive data from the S-TAP [S2]. You can also change some Windows S-TAP parameters from the interactive installer, but not all [S2]. After installation, you can verify that the S-TAP is communicating with the Guardium system by browsing to Manage > Activity Monitoring > S-TAP Control and reviewing the S-TAP's status and configuration [S5].\n\nBefore beginning the installation, make sure to review the Windows S-TAP installation requirements, verify that your database server and operating system are supported, and obtain the S-TAP module from either Fix Central or your Guardium representative [S4].\n\n### What this does not establish\n\nThis does not establish the specific system requirements or the Windows S-TAP monitoring mechanisms support matrix, as this information is referenced but not provided in the given evidence [S4]. Additionally, the evidence does not provide information on how to install Guardium itself, but rather the S-TAP agent, which is a component of Guardium [S1][S2][S3][S4][S5][S6].\n\n### Sources\n[S1] Windows: Installing S-TAP agent by using the interactive installer \u2014 IBM Guardium Data Protection 12.x [live IBM Docs] \n[S2] Windows: Installing S-TAP agent by using the interactive installer \u2014 IBM Guardium Data Protection 12.x [live IBM Docs] \n[S3] Windows: Installing S-TAP agent by using the interactive installer \u2014 IBM Guardium Data Protection 12.x [live IBM Docs] \n[S4] Windows: Installing S-TAP agent by using the interactive installer \u2014 IBM Guardium Data Protection 12.x [live IBM Docs] \n[S5] Windows: Installing S-TAP agent by using the interactive installer \u2014 IBM Guardium Data Protection 12.x [live IBM Docs] \n[S6] Windows: Installing S-TAP agent by using the interactive installer \u2014 IBM Guardium Data Protection 12.x [live IBM Docs]",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Windows: Installing S-TAP agent by using the interactive installer",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Windows: Installing S-TAP agent by using the interactive installer > Procedure",
+              "document_id": "doc-43c4ceffcf7c75f5",
+              "chunk_id": "ibm_products:live:60af6150d9f048134658",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=wuiiwiust-windows-installing-s-tap-agent-by-using-interactive-installer"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Windows: Installing S-TAP agent by using the interactive installer",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Windows: Installing S-TAP agent by using the interactive installer > About this task",
+              "document_id": "doc-43c4ceffcf7c75f5",
+              "chunk_id": "ibm_products:live:cc2af49e473ec31df7de",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=wuiiwiust-windows-installing-s-tap-agent-by-using-interactive-installer"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Windows: Installing S-TAP agent by using the interactive installer",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "8. Click Finish to close the installer.",
+              "document_id": "doc-43c4ceffcf7c75f5",
+              "chunk_id": "ibm_products:live:367276282ff4e79a1868",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=wuiiwiust-windows-installing-s-tap-agent-by-using-interactive-installer"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Windows: Installing S-TAP agent by using the interactive installer",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Windows: Installing S-TAP agent by using the interactive installer > Before you begin",
+              "document_id": "doc-43c4ceffcf7c75f5",
+              "chunk_id": "ibm_products:live:1c1483460800b9e83810",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=wuiiwiust-windows-installing-s-tap-agent-by-using-interactive-installer"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Windows: Installing S-TAP agent by using the interactive installer",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Windows: Installing S-TAP agent by using the interactive installer > What to do next",
+              "document_id": "doc-43c4ceffcf7c75f5",
+              "chunk_id": "ibm_products:live:50f5266f61cba0cbfd83",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=wuiiwiust-windows-installing-s-tap-agent-by-using-interactive-installer"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Windows: Installing S-TAP agent by using the interactive installer",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Windows: Installing S-TAP agent by using the interactive installer",
+              "document_id": "doc-43c4ceffcf7c75f5",
+              "chunk_id": "ibm_products:live:cf1e2826819247dc33d4",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=wuiiwiust-windows-installing-s-tap-agent-by-using-interactive-installer"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "c009653b-7e5a-43a9-ac1d-7e5b43d752fc"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "guardium_unavailable_11_8",
+        "category": "guardium_regression",
+        "question": "Help me install Guardium 11.8",
+        "expected_status": "NEEDS_CLARIFICATION"
+      },
+      "summary": {
+        "id": "guardium_unavailable_11_8",
+        "category": "guardium_regression",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "citation_products": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "0f4ae89b-a032-4e10-a139-7041f0deb2e2",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "I have verified IBM Guardium Data Protection documentation for 12.x, but not 11.8. Did you mean 12.x, or can you confirm the exact product and version?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "283a96f7-5724-494d-8482-bcfd5365bba1"
+        },
+        "error": null
+      }
+    }
+  ]
+}

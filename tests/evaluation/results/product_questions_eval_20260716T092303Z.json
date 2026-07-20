@@ -1,0 +1,146 @@
+{
+  "created_at": "2026-07-16T09:23:03.251395+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "question_file": "/Users/vaibhavjanga/projects/IT-help-desk/tests/evaluation/product_questions.yaml",
+  "question_count": 1,
+  "passed": 1,
+  "results": [
+    {
+      "question": {
+        "id": "product_cp4d_install",
+        "category": "installation",
+        "question": "What are the documented steps or commands to install IBM Cloud Pak for Data 5.4.x on OpenShift?",
+        "expected_status": "ANSWERED",
+        "expected_domain_id": "ibm_products",
+        "expected_product": "IBM Cloud Pak for Data",
+        "expected_product_version": "5.4.x",
+        "expected_keyword_groups": [
+          [
+            "install",
+            "installation"
+          ],
+          [
+            "openshift",
+            "cluster"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "product_cp4d_install",
+        "category": "installation",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-4e5dfb23107ac9ac",
+          "doc-a7d78d8f61b42360"
+        ],
+        "citation_products": [
+          "IBM Cloud Pak for Data"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "01aca7d7-80d4-449b-a8cc-d47047046e6f",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Installing IBM Cloud Pak for Data 5.4.x on OpenShift\n\nTo install IBM Cloud Pak for Data 5.4.x on OpenShift, you must first set up a client workstation that can connect to the Red Hat OpenShift Container Platform cluster [S1]. The client workstation requires the IBM Software Hub command-line interface (`cpd-cli`) version 14.4.0 or later, the OpenShift command-line interface (`oc`) at a version compatible with your cluster, and the Helm command-line interface (`helm`) at version 3.19, 3.20, or later [S1].\n\nNext, you need to install the required software on the client workstation by completing the tasks outlined in \"Setting up a client workstation\" [S1]. After setting up the client workstation, you can proceed to set up the cluster [S5]. \n\nTo set up the cluster, ensure you have an existing Red Hat OpenShift Container Platform cluster with a supported version (Version 4.16.4 or later fixes, Version 4.18.6 or later fixes, Version 4.19.0 or later fixes, Version 4.20.0 or later fixes, Version 4.21.0 or later fixes) [S5]. If your cluster version is not supported, you need to upgrade it [S5].\n\nOnce you have a supported cluster version, create namespace-scoped image pull secrets for the instance of IBM Software Hub [S2]. Then, install the required operators and custom resources for the instance [S2].\n\nAdditionally, ensure you have supported persistent storage on your cluster, such as OpenShift Data Foundation or IBM Fusion Data Foundation, and that the version is compatible with your Red Hat OpenShift Container Platform version [S3].\n\nFor specific services like IBM Knowledge Catalog Premium, IBM Knowledge Catalog Standard, Watson Discovery, or Watson Machine Learning, you may need to install prerequisite software [S4].\n\n### What this does not establish\n\nThis does not establish the exact commands to run for each step, as the evidence provided outlines the requirements and tasks but does not include the specific command sequences. Additionally, the evidence does not cover all possible configurations or troubleshooting steps that might be necessary during the installation process.\n\n### Sources\n[S1] Installing IBM Software Hub \u2014 IBM Cloud Pak for Data 5.4.x [live IBM Docs] (# Installing IBM Software)\n[S2] Installing IBM Software Hub \u2014 IBM Cloud Pak for Data 5.4.x [live IBM Docs] (# Installing IBM Software)\n[S3] Installing IBM Software Hub \u2014 IBM Cloud Pak for Data 5.4.x [live IBM Docs] (# Installing IBM Software)\n[S4] Installing IBM Software Hub \u2014 IBM Cloud Pak for Data 5.4.x [live IBM Docs] (# Installing IBM Software)\n[S5] Installing IBM Software Hub \u2014 IBM Cloud Pak for Data 5.4.x [live IBM Docs] (# Installing IBM Software)\n[S6] Overview of Cloud Pak for Data \u2014 IBM Cloud Pak for Data 5.4.x, pp. 7\u20137 (# Overview of Cloud Pak for Data > Common Core Services > Storage)",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing IBM Software\nHub",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing IBM Software",
+              "document_id": "doc-a7d78d8f61b42360",
+              "chunk_id": "ibm_products:live:1669e8aea913fb7c9801",
+              "source_uri": "https://www.ibm.com/docs/en/software-hub/5.4.x?topic=installing"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Installing IBM Software\nHub",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing IBM Software",
+              "document_id": "doc-a7d78d8f61b42360",
+              "chunk_id": "ibm_products:live:8eb8d637843151d33347",
+              "source_uri": "https://www.ibm.com/docs/en/software-hub/5.4.x?topic=installing"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Installing IBM Software\nHub",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing IBM Software",
+              "document_id": "doc-a7d78d8f61b42360",
+              "chunk_id": "ibm_products:live:f49fffcf96e15a317a05",
+              "source_uri": "https://www.ibm.com/docs/en/software-hub/5.4.x?topic=installing"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing IBM Software\nHub",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing IBM Software",
+              "document_id": "doc-a7d78d8f61b42360",
+              "chunk_id": "ibm_products:live:10d274ffb5dca8771fde",
+              "source_uri": "https://www.ibm.com/docs/en/software-hub/5.4.x?topic=installing"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Installing IBM Software\nHub",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing IBM Software",
+              "document_id": "doc-a7d78d8f61b42360",
+              "chunk_id": "ibm_products:live:1a11f7ea725b2fb2a62e",
+              "source_uri": "https://www.ibm.com/docs/en/software-hub/5.4.x?topic=installing"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Overview of Cloud Pak for Data",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 7,
+              "page_end": 7,
+              "section_path": "# Overview of Cloud Pak for Data > Common Core Services > Storage",
+              "document_id": "doc-4e5dfb23107ac9ac",
+              "chunk_id": "ibm_products:doc-4e5dfb23107ac9ac:rev-2026-07-14-92bbc5e1ee85:chunk-0007",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=overview-cloud-pak-data"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "38b22594-f3e5-422d-9076-6f92d560facd"
+        },
+        "error": null
+      }
+    }
+  ]
+}

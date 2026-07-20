@@ -43,7 +43,9 @@ Known Day 11 limitations:
 
 - IBM Bob crawl is currently capped at 30 pages.
 - Orchestrate/Bob need a formal eval set.
-- The embedding model `ibm/slate-125m-english-rtrvr-v2` must be replaced before 2026-08-08.
+- The active embedding model is `ibm/granite-embedding-278m-multilingual`
+  (768 dimensions). Verify lifecycle and regional availability before any
+  future model change, and rebuild the vector index when the model changes.
 
 ---
 
@@ -1011,11 +1013,9 @@ model_id = settings.watsonx_embedding_model_id  # from env var
 ### 10.3 Generation parameters
 
 ```python
-_GENERATE_PARAMS = {
-    MAX_NEW_TOKENS: 1024,     # maximum answer length
-    MIN_NEW_TOKENS: 10,       # don't return empty
-    TEMPERATURE: 0.0,         # deterministic — same input = same output
-    STOP_SEQUENCES: [],       # no early stopping
+chat_params = {
+    "max_tokens": settings.watsonx_chat_max_tokens,  # default: 2048
+    "temperature": settings.watsonx_chat_temperature,  # default: 0.0
 }
 ```
 

@@ -41,28 +41,58 @@ def run(state: SupportState, opensearch_client=None, embedding_fn=None) -> Suppo
         from app.providers.watsonx_embeddings import embed_text
         embedding_fn = embed_text
 
+    from app.core.config import get_settings
+
+    adaptive_trace = None
+    if get_settings().enable_adaptive_retrieval:
+        from app.retrieval.adaptive_router import AdaptiveRetrievalRouter
+
+        router = AdaptiveRetrievalRouter()
+        routed = router.retrieve(
+            state,
+            indexed_retrieve=lambda: _indexed_retrieve(
+                state, opensearch_client, embedding_fn
+            ),
+            opensearch_client=opensearch_client,
+            embedding_fn=embedding_fn,
+        )
+        candidates = routed.candidates
+        adaptive_trace = routed.trace
+    else:
+        candidates = _indexed_retrieve(state, opensearch_client, embedding_fn)
+
+    prior_trace = state.get("trace", {})
+    retry_requested = bool(prior_trace.get("adaptive_retry_requested"))
+    next_trace = {
+        **prior_trace,
+        "retrieve": {
+            "candidate_count": len(candidates),
+            **({"adaptive": adaptive_trace} if adaptive_trace is not None else {}),
+        },
+    }
+    if retry_requested:
+        next_trace["adaptive_retry_requested"] = False
+        next_trace["adaptive_retry_attempted"] = True
+
+    return {
+        **state,
+        "candidates": candidates,
+        "trace": next_trace,
+    }
+
+
+def _indexed_retrieve(state: SupportState, opensearch_client, embedding_fn) -> list[dict]:
     from app.retrieval.hybrid_retriever import hybrid_retrieve
     from app.retrieval.filters import relax_inferred_filters
 
     query = state["retrieval_query"]
     filters = list(state.get("retrieval_filters") or [])
-
     candidates = hybrid_retrieve(query, filters, opensearch_client, embedding_fn)
-
-    # Retry once with relaxed inferred filters if nothing returned
     if not candidates:
         logger.info("First retrieval returned 0 results — relaxing inferred filters and retrying")
         relaxed = relax_inferred_filters(filters, _relaxable_filter_fields(state))
         candidates = hybrid_retrieve(query, relaxed, opensearch_client, embedding_fn)
-
-    return {
-        **state,
-        "candidates": candidates,
-        "trace": {
-            **state.get("trace", {}),
-            "retrieve": {"candidate_count": len(candidates)},
-        },
-    }
+    return candidates
 
 
 def _relaxable_filter_fields(state: SupportState) -> list[str]:

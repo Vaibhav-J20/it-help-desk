@@ -1,0 +1,1109 @@
+{
+  "created_at": "2026-07-15T11:09:49.275123+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "question_file": "/Users/vaibhavjanga/projects/IT-help-desk/tests/evaluation/product_questions.yaml",
+  "question_count": 8,
+  "passed": 8,
+  "results": [
+    {
+      "question": {
+        "id": "product_orchestrate_install",
+        "category": "installation",
+        "question": "How do I install the watsonx Orchestrate ADK CLI on Windows? Give the exact commands.",
+        "expected_status": "ANSWERED",
+        "expected_domain_id": "watsonx_orchestrate",
+        "expected_product": "watsonx Orchestrate",
+        "expected_product_version": "current",
+        "expected_keyword_groups": [
+          [
+            "pip",
+            "python"
+          ],
+          [
+            "venv",
+            "virtual environment"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "product_orchestrate_install",
+        "category": "installation",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-b2fc8009a5561e3a"
+        ],
+        "citation_products": [
+          "watsonx Orchestrate"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "d0c7f646-43a2-4ebf-a3a0-e16daba79a03",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Installing the watsonx Orchestrate ADK CLI on Windows\n\nTo install the watsonx Orchestrate ADK CLI on Windows, you need to have Python 3.11 or later installed on your system [S3]. You can check your current Python version by running the command:\n```bash\npython --version\n```\nIf you have an older version of Python, you can download the installer from the official Python website and run the setup, enabling the option to add PYTHONPATH to the environment variables [S3].\n\nOnce you have the required Python version, you can install the ADK CLI using pip:\n```bash\npip install ibm-watsonx-orchestrate\n```\nAlternatively, you can use a virtual environment or a version manager like uv to control the packages you install [S1].\n\n### What this does not establish\n\nThis does not establish the exact steps for configuring the ADK CLI after installation, as the evidence only provides information on installing the ADK CLI.\n\n### Sources\n[S1] Getting started with the ADK \u2014 watsonx Orchestrate current [official product documentation] \n[S2] Getting started with the ADK \u2014 watsonx Orchestrate current [official product documentation] \n[S3] Getting started with the ADK \u2014 watsonx Orchestrate current [official product documentation] \n[S4] Getting started with the ADK \u2014 watsonx Orchestrate current [official product documentation] \n[S5] Getting started with the ADK \u2014 watsonx Orchestrate current [official product documentation] \n[S6] Getting started with the ADK \u2014 watsonx Orchestrate current [official product documentation]",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Getting started with the ADK",
+              "product": "watsonx Orchestrate",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Getting started with the ADK > Setting up and installing the ADK",
+              "document_id": "doc-b2fc8009a5561e3a",
+              "chunk_id": "watsonx_orchestrate:live:de796d0ea880b16d18fc",
+              "source_uri": "https://developer.watson-orchestrate.ibm.com/getting_started/installing.md"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Getting started with the ADK",
+              "product": "watsonx Orchestrate",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Getting started with the ADK > Setting up and installing the ADK",
+              "document_id": "doc-b2fc8009a5561e3a",
+              "chunk_id": "watsonx_orchestrate:live:e07dd81f9720dc1f16a0",
+              "source_uri": "https://developer.watson-orchestrate.ibm.com/getting_started/installing.md"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Getting started with the ADK",
+              "product": "watsonx Orchestrate",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Getting started with the ADK > Before you begin > Required software",
+              "document_id": "doc-b2fc8009a5561e3a",
+              "chunk_id": "watsonx_orchestrate:live:297c3c6e5b99b0eac1c3",
+              "source_uri": "https://developer.watson-orchestrate.ibm.com/getting_started/installing.md"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Getting started with the ADK",
+              "product": "watsonx Orchestrate",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Getting started with the ADK > Setting up and installing the ADK",
+              "document_id": "doc-b2fc8009a5561e3a",
+              "chunk_id": "watsonx_orchestrate:live:0838750b308de775e4cc",
+              "source_uri": "https://developer.watson-orchestrate.ibm.com/getting_started/installing.md"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Getting started with the ADK",
+              "product": "watsonx Orchestrate",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Getting started with the ADK > Setting up and installing the ADK",
+              "document_id": "doc-b2fc8009a5561e3a",
+              "chunk_id": "watsonx_orchestrate:live:46d7c437ab266008c650",
+              "source_uri": "https://developer.watson-orchestrate.ibm.com/getting_started/installing.md"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Getting started with the ADK",
+              "product": "watsonx Orchestrate",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "5. Restart your shell:",
+              "document_id": "doc-b2fc8009a5561e3a",
+              "chunk_id": "watsonx_orchestrate:live:48c1fef3160ffda2a210",
+              "source_uri": "https://developer.watson-orchestrate.ibm.com/getting_started/installing.md"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "78136291-0538-47f8-8353-b80db4643e9f"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "product_bob_install",
+        "category": "installation",
+        "question": "How do I install IBM Bob IDE? Include the documented installation command.",
+        "expected_status": "ANSWERED",
+        "expected_domain_id": "ibm_bob",
+        "expected_product": "IBM Bob",
+        "expected_product_version": "current",
+        "expected_keyword_groups": [
+          [
+            "install",
+            "installation"
+          ],
+          [
+            "bob"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "product_bob_install",
+        "category": "installation",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-b8173cbeef43329c",
+          "doc-db6f947925f340a4"
+        ],
+        "citation_products": [
+          "IBM Bob"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "71babf63-8782-4050-9b1e-b88047e49881",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Installing IBM Bob IDE\n\nTo install IBM Bob IDE, run the following command from the command palette: \n```\nbobide\n```\nas stated in [S1]. This command is used to install Bob IDE. \n\n### What this does not establish\nThe provided evidence does not establish the system requirements for installing IBM Bob IDE, other than the need for an IBMid for authentication [S6]. It also does not provide information on troubleshooting potential installation issues.\n\n### Sources\n[S1] Installing \u2014 IBM Bob current [official product documentation] (# Installing > Installation > Install Bob IDE)\n[S2] Installing \u2014 IBM Bob current [official product documentation] (# Installing > Installation > Using the command palette)\n[S3] Installing \u2014 IBM Bob current [official product documentation] (# Installing > Installation > Using installation scripts)\n[S4] Installing \u2014 IBM Bob current [official product documentation] (# Installing > System requirements > Package manager or Bob IDE)\n[S5] Installing \u2014 IBM Bob current [official product documentation] (# Installing > Installation)\n[S6] Installing \u2014 IBM Bob current [official product documentation] (# Installing > Sign in with your IBMid)",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing",
+              "product": "IBM Bob",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing > Installation > Install Bob IDE",
+              "document_id": "doc-db6f947925f340a4",
+              "chunk_id": "ibm_bob:live:fbfc8b0c41d90d42bf7d",
+              "source_uri": "https://bob.ibm.com/docs/shell/getting-started/install-and-setup"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Installing",
+              "product": "IBM Bob",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing > Installation > Using the command palette",
+              "document_id": "doc-db6f947925f340a4",
+              "chunk_id": "ibm_bob:live:e57cd574c3a3d07eece3",
+              "source_uri": "https://bob.ibm.com/docs/shell/getting-started/install-and-setup"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Installing",
+              "product": "IBM Bob",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing > Installation > Using installation scripts",
+              "document_id": "doc-db6f947925f340a4",
+              "chunk_id": "ibm_bob:live:22ef052e2c5865f8364c",
+              "source_uri": "https://bob.ibm.com/docs/shell/getting-started/install-and-setup"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing",
+              "product": "IBM Bob",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing > System requirements > Package manager or Bob IDE",
+              "document_id": "doc-db6f947925f340a4",
+              "chunk_id": "ibm_bob:live:5fe9b9486ad3266c2c9d",
+              "source_uri": "https://bob.ibm.com/docs/shell/getting-started/install-and-setup"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Installing",
+              "product": "IBM Bob",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing > Installation",
+              "document_id": "doc-db6f947925f340a4",
+              "chunk_id": "ibm_bob:live:b6c3747d11faa5dbae30",
+              "source_uri": "https://bob.ibm.com/docs/shell/getting-started/install-and-setup"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Installing",
+              "product": "IBM Bob",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing > Sign in with your IBMid",
+              "document_id": "doc-b8173cbeef43329c",
+              "chunk_id": "ibm_bob:live:cd1c744c2930492ca190",
+              "source_uri": "https://bob.ibm.com/docs/ide/getting-started/install"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "c4ec4da4-b6a5-4fe3-9bb7-087d0db00db2"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "product_ocp_diagnostics",
+        "category": "troubleshooting",
+        "question": "In OpenShift Container Platform 4.16, what is oc adm must-gather used for and what command do I run?",
+        "expected_status": "ANSWERED",
+        "expected_domain_id": "ocp_sno_support",
+        "expected_ocp_version": "4.16",
+        "expected_product": "OpenShift",
+        "expected_keyword_groups": [
+          [
+            "must-gather"
+          ],
+          [
+            "diagnostic",
+            "support",
+            "data"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "product_ocp_diagnostics",
+        "category": "troubleshooting",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-26de211138a59267",
+          "doc-c38a2ab513b3585d",
+          "doc-fbc5fc6039dd18e6"
+        ],
+        "citation_products": [
+          "OpenShift"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "a247aab5-3a27-4e44-b1b3-1c7211bcdbd2",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Using oc adm must-gather in OpenShift Container Platform 4.16\n\nThe `oc adm must-gather` command is used for debugging and gathering data about your cluster [S1][S4][S6]. To use this command, run `$ oc adm must-gather` [S1][S4][S6]. This command creates a namespace, cluster role binding, and pod for the plug-in image, and gathers data about your cluster [S1]. \n\nAfter running the command, you can create a compressed file from the must-gather directory by running `$ tar cvaf must-gather.tar.gz <must_gather_directory>` [S4][S6]. This compressed file can be attached to your support case on the Red Hat Customer Portal, excluding the `/auth` subdirectory [S4][S6].\n\n### What this does not establish\n\nThis does not establish the specific use cases or requirements for running the `oc adm must-gather` command beyond debugging and gathering cluster data. It also does not provide information on how to interpret the output of the command or how to troubleshoot specific issues.\n\n### Sources\n[S1] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 205\u2013205\n[S2] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 896\u2013896\n[S3] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 1046\u20131047\n[S4] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OpenShift 4.16, pp. 43\u201343\n[S5] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 230\u2013230\n[S6] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OpenShift 4.16, pp. 62\u201362",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 205,
+              "page_end": 205,
+              "section_path": "6.9.8. Amazon Elastic File Storage security",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0383",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 896,
+              "page_end": 896,
+              "section_path": "23.5.1. Using a load balancer to get traffic into the cluster",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-5438",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 1046,
+              "page_end": 1047,
+              "section_path": "METRICS TO NETWORK ATTACHMENTS",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-6309",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 43,
+              "page_end": 43,
+              "section_path": "4. If the output from the previous command indicates a failure, perform the following steps:",
+              "document_id": "doc-c38a2ab513b3585d",
+              "chunk_id": "ocp_sno_support:doc-c38a2ab513b3585d:rev-2026-07-12-b98a55079b29:chunk-0234",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.16.pdf"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 230,
+              "page_end": 230,
+              "section_path": "2. Navigate into a pod to look at the northbound database by running the following command:",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-1483",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 62,
+              "page_end": 62,
+              "section_path": "4. If the output from the previous command indicates a failure, perform the following steps:",
+              "document_id": "doc-c38a2ab513b3585d",
+              "chunk_id": "ocp_sno_support:doc-c38a2ab513b3585d:rev-2026-07-12-b98a55079b29:chunk-0343",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.16.pdf"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "3ab47cf7-d06d-4dad-bbe2-db28d82cd0c0"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "product_guardium_stap",
+        "category": "installation",
+        "question": "For IBM Guardium Data Protection 12.x, how do I install or configure an S-TAP on Linux? Include commands when the page provides them.",
+        "expected_status": "ANSWERED",
+        "expected_domain_id": "ibm_products",
+        "expected_product": "IBM Guardium Data Protection",
+        "expected_product_version": "12.x",
+        "expected_keyword_groups": [
+          [
+            "s-tap",
+            "stap"
+          ],
+          [
+            "install",
+            "configuration",
+            "configure"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "product_guardium_stap",
+        "category": "installation",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-2a63db958e53a7c1",
+          "doc-4385b574d7a73c4a",
+          "doc-c2239aabc24bc39d"
+        ],
+        "citation_products": [
+          "IBM Guardium Data Protection"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "5932720f-0c8e-4cc1-b27e-9cd0259c3d86",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Installing and Configuring S-TAP on Linux for IBM Guardium Data Protection 12.x\n\nTo install and configure S-TAPs on Linux for IBM Guardium Data Protection 12.x, follow these steps [S2]:\n1. Install S-TAPs and enable them for the Ranger integration. You may need more than one S-TAP to handle the traffic.\n2. Configure `guard_tap.ini` for auditing by adding the necessary parameters and updating the values to reflect your system. The parameters include settings for log4j such as `log4j_reader_enabled`, `log4j_port`, `log4j_listen_address`, and `log4j_num_connections`. An example configuration is provided [S2]:\n```\n; Settings for log4j \nlogging log4j_reader_enabled=1 \nlog4j_port=5555\nlog4j_listen_address=0.0.0.0 \n; Maximum number of connections to support from the log4j service\nlog4j_num_connections=50\n```\nRestart the S-TAP after updating any settings [S2].\n\n### What this does not establish\nThis does not provide detailed instructions on how to install S-TAPs from scratch, as the steps for the initial installation are not fully outlined in the provided evidence. Additionally, it does not cover all possible configurations or troubleshooting steps for S-TAPs on Linux.\n\n### Sources\n[S1] Linux-UNIX: Install and configure the Oracle Connection Manager in an Oracle RAC environment \u2014 IBM Guardium Data Protection 12.x\n[S2] Linux-UNIX: Install and configure S-TAPs \u2014 IBM Guardium Data Protection 12.x\n[S3] Linux-UNIX: Install and configure the Oracle Connection Manager on the database server \u2014 IBM Guardium Data Protection 12.x\n[S4] Linux-UNIX: Install and configure the Oracle Connection Manager in an Oracle RAC environment \u2014 IBM Guardium Data Protection 12.x\n[S5] Linux-UNIX: Install and configure the Oracle Connection Manager on the database server \u2014 IBM Guardium Data Protection 12.x\n[S6] Linux-UNIX: Install and configure S-TAPs \u2014 IBM Guardium Data Protection 12.x",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Linux-UNIX: Install and configure the Oracle Connection Manager in an Oracle RAC environment",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Linux-UNIX: Install and configure the Oracle Connection Manager in an Oracle RAC environment > Procedure",
+              "document_id": "doc-c2239aabc24bc39d",
+              "chunk_id": "ibm_products:live:538579d5b8f778b5ede0",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=lucocmmet-linux-unix-install-configure-oracle-connection-manager-in-oracle-rac-environment"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Linux-UNIX: Install and configure S-TAPs",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Linux-UNIX: Install and configure S-TAPs > Procedure",
+              "document_id": "doc-2a63db958e53a7c1",
+              "chunk_id": "ibm_products:live:53ee50640d20a0f939f2",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=monitoring-linux-unix-install-configure-s-taps"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Linux-UNIX: Install and configure the Oracle Connection Manager on the database server",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Linux-UNIX: Install and configure the Oracle Connection Manager on the database server > Procedure",
+              "document_id": "doc-4385b574d7a73c4a",
+              "chunk_id": "ibm_products:live:660a36797a6b0fa72a36",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=lucocmmet-linux-unix-install-configure-oracle-connection-manager-database-server"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Linux-UNIX: Install and configure the Oracle Connection Manager in an Oracle RAC environment",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Linux-UNIX: Install and configure the Oracle Connection Manager in an Oracle RAC environment",
+              "document_id": "doc-c2239aabc24bc39d",
+              "chunk_id": "ibm_products:live:d30bd167fb100f99a2ac",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=lucocmmet-linux-unix-install-configure-oracle-connection-manager-in-oracle-rac-environment"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Linux-UNIX: Install and configure the Oracle Connection Manager on the database server",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Linux-UNIX: Install and configure the Oracle Connection Manager on the database server > Procedure",
+              "document_id": "doc-4385b574d7a73c4a",
+              "chunk_id": "ibm_products:live:ee7ffbd10f9a2b09bf1e",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=lucocmmet-linux-unix-install-configure-oracle-connection-manager-database-server"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Linux-UNIX: Install and configure S-TAPs",
+              "product": "IBM Guardium Data Protection",
+              "ocp_version": null,
+              "product_version": "12.x",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Linux-UNIX: Install and configure S-TAPs > Before you begin",
+              "document_id": "doc-2a63db958e53a7c1",
+              "chunk_id": "ibm_products:live:a219620cf57c0cbe98b9",
+              "source_uri": "https://www.ibm.com/docs/en/gdp/12.x?topic=monitoring-linux-unix-install-configure-s-taps"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "49d29bde-ca3b-45af-867c-c1dc24fc1f61"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "product_instana_kubernetes",
+        "category": "installation",
+        "question": "How do I install the IBM Instana agent on Kubernetes? Give the documented commands or deployment steps.",
+        "expected_status": "ANSWERED",
+        "expected_domain_id": "ibm_products",
+        "expected_product": "IBM Instana Observability",
+        "expected_product_version": "current",
+        "expected_keyword_groups": [
+          [
+            "agent"
+          ],
+          [
+            "kubernetes",
+            "helm",
+            "operator"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "product_instana_kubernetes",
+        "category": "installation",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-31970f5b5a22d290",
+          "doc-4279046a087f4b2d",
+          "doc-fc7a4094a687c682"
+        ],
+        "citation_products": [
+          "IBM Instana Observability"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "5f276618-9cf2-4e67-afa6-0084d72c1c60",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Installing the IBM Instana Agent on Kubernetes\n\nTo install the IBM Instana agent on Kubernetes, the recommended way is via the Helm chart [S1]. The steps involve checking the version of Helm installed on the cluster and updating it if necessary [S1]. \n\n1. Check the version of Helm installed on the cluster with the command:\n   ```\n   helm version\n   ```\n2. If the version of Helm installed on the newly created Kubernetes cluster is older than the version of Helm installed on your workstation, update it with:\n   ```\n   helm init --upgrade\n   ```\n3. Clone the Instana Helm chart to your workstation:\n   ```\n   git clone https://github.com/instana/helm-charts\n   ```\n4. Make the cloned directory the working directory:\n   ```\n   cd helm-charts/stable/instana_agent\n   ```\n5. Edit `values.yaml` to include the unique agent key and agent endpoint from the Instana user interface [S1].\n6. Finally, install the agent using Helm:\n   ```\n   helm install --name instana-agent --namespace instana-agent .\n   ```\n\n### What this does not establish\nThis does not establish the steps for manual installation without Helm or provide details on checking the status of the host agent after installation, although it mentions that such information can be found in other sections [S3][S5].\n\n### Sources\n[S1] Installing the host agent on Oracle Container Engine for Kubernetes \u2014 IBM Instana Observability current\n[S2] Installing the host agent on Oracle Container Engine for Kubernetes \u2014 IBM Instana Observability current\n[S3] Installing the host agent on Azure Kubernetes Service (AKS) \u2014 IBM Instana Observability current\n[S4] Installing the host agent on Amazon Elastic Kubernetes Service (EKS) \u2014 IBM Instana Observability current\n[S5] Installing the host agent on Oracle Container Engine for Kubernetes \u2014 IBM Instana Observability current\n[S6] Installing the host agent on Azure Kubernetes Service (AKS) \u2014 IBM Instana Observability current",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing the host agent on Oracle Container Engine for Kubernetes\n(OKE)",
+              "product": "IBM Instana Observability",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing the host agent on Oracle Container Engine for Kubernetes",
+              "document_id": "doc-31970f5b5a22d290",
+              "chunk_id": "ibm_products:live:fbb89a096b07dd05ea17",
+              "source_uri": "https://www.ibm.com/docs/en/instana-observability?topic=agents-installing-oracle-container-engine-kubernetes-oke"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Installing the host agent on Oracle Container Engine for Kubernetes\n(OKE)",
+              "product": "IBM Instana Observability",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing the host agent on Oracle Container Engine for Kubernetes",
+              "document_id": "doc-31970f5b5a22d290",
+              "chunk_id": "ibm_products:live:479ff51ced4292303d95",
+              "source_uri": "https://www.ibm.com/docs/en/instana-observability?topic=agents-installing-oracle-container-engine-kubernetes-oke"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Installing the host agent on Azure Kubernetes Service (AKS)",
+              "product": "IBM Instana Observability",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing the host agent on Azure Kubernetes Service (AKS) > Checking the status of the host agent",
+              "document_id": "doc-fc7a4094a687c682",
+              "chunk_id": "ibm_products:live:2aec2370cd30ef91ba6a",
+              "source_uri": "https://www.ibm.com/docs/en/instana-observability?topic=agents-installing-azure-kubernetes-service-aks"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing the host agent on Amazon Elastic Kubernetes Service (EKS)",
+              "product": "IBM Instana Observability",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing the host agent on Amazon Elastic Kubernetes Service (EKS)",
+              "document_id": "doc-4279046a087f4b2d",
+              "chunk_id": "ibm_products:live:30abfb8373bd17d87928",
+              "source_uri": "https://www.ibm.com/docs/en/instana-observability?topic=agents-installing-amazon-elastic-kubernetes-service-eks"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Installing the host agent on Oracle Container Engine for Kubernetes\n(OKE)",
+              "product": "IBM Instana Observability",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing the host agent on Oracle Container Engine for Kubernetes",
+              "document_id": "doc-31970f5b5a22d290",
+              "chunk_id": "ibm_products:live:4376d39f3acbd25018bf",
+              "source_uri": "https://www.ibm.com/docs/en/instana-observability?topic=agents-installing-oracle-container-engine-kubernetes-oke"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Installing the host agent on Azure Kubernetes Service (AKS)",
+              "product": "IBM Instana Observability",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing the host agent on Azure Kubernetes Service (AKS)",
+              "document_id": "doc-fc7a4094a687c682",
+              "chunk_id": "ibm_products:live:95a7e513f024cf0c89b7",
+              "source_uri": "https://www.ibm.com/docs/en/instana-observability?topic=agents-installing-azure-kubernetes-service-aks"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "9094d8af-6bd4-4a04-8b6e-8c56bdf1cd76"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "product_verify_openshift",
+        "category": "installation",
+        "question": "How do I deploy IBM Security Verify Access on OpenShift? Give the documented steps and commands.",
+        "expected_status": "ANSWERED",
+        "expected_domain_id": "ibm_products",
+        "expected_product": "IBM Security Verify Access",
+        "expected_product_version": "10.0.9",
+        "expected_keyword_groups": [
+          [
+            "openshift"
+          ],
+          [
+            "deploy",
+            "deployment"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "product_verify_openshift",
+        "category": "installation",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-5c56775e94e67f28"
+        ],
+        "citation_products": [
+          "IBM Security Verify Access"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "d3c254cf-2594-42c4-a7d7-332277e94297",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Deploying IBM Security Verify Access on OpenShift\n\nTo deploy IBM Security Verify Access on OpenShift, follow these steps [S1][S2][S3][S4][S5][S6]:\n\n1. **Create an OpenShift Secret for Keystores, Certificates and Keys**: Use the command `oc create secret generic isvaop-keystores --from-file=./keystores` to create a Secret for keystores, certificates, and keys [S1].\n2. **Create an OpenShift Secret for Server Credentials**: Create a Secret yaml file with server credentials and use the command `oc apply -f server_secret.yml` to create the Secret [S1].\n3. **Create an OpenShift Secret for obfuscation and encryption keys**: Create a Secret yaml file with obfuscation and encryption keys and use the command `oc apply -f obf_secret.yml` to create the Secret [S4].\n4. **Create OpenShift ConfigMaps**: Create ConfigMaps for customized template pages, mapping rules, access policies, and static clients using the commands `oc create configmap isvaop-templates --from-file=./templates.zip`, `oc create configmap isvaop-mapping-rules --from-file=./mappingrule`, `oc create configmap isvaop-access-policies --from-file=./accesspolicy`, and `oc create configmap isvaop-clients --from-file=./clients` [S3][S4][S5].\n5. **Create a service account**: Use the command `oc create serviceaccount isvaop` to create a service account [S2].\n6. **Assign ConfigMap and Secret read permission to the service account**: Create a role with ConfigMap and Secret read permission using the command `oc create role view-configmap-secret --verb=get,list,watch --resource=secrets,configmaps` and assign the role to the service account [S2].\n7. **Create the main OpenShift ConfigMap with top-level configuration keys**: Create a yaml configuration file with top-level keys and use the command `oc create configmap isvaop-config --from-file=./config` to create the ConfigMap [S5].\n8. **Use OpenShift Template**: Use the command `oc process isvaop-template.yml | oc create -f -` to create the objects defined in the OpenShift template [S6].\n\n### What this does not establish\n\nThis does not establish the specific requirements for the OpenShift cluster, such as the version of OpenShift, the number of nodes, or the resources required for the deployment. Additionally, it does not provide information on how to configure the IBM Security Verify Access application itself.\n\n### Sources\n[S1] Red Hat\u00ae OpenShift\u00ae \u2014 IBM Security Verify Access current [official product documentation] (# Red Hat\u00ae OpenShift\u00ae > Approach: Using OpenShift resources > Pre-deployment steps)\n[S2] Red Hat\u00ae OpenShift\u00ae \u2014 IBM Security Verify Access current [official product documentation] (# Red Hat\u00ae OpenShift\u00ae > Approach: Using OpenShift resources > Pre-deployment steps)\n[S3] Red Hat\u00ae OpenShift\u00ae \u2014 IBM Security Verify Access current [official product documentation] (# Red Hat\u00ae OpenShift\u00ae > Approach: Using OpenShift resources > Pre-deployment steps)\n[S4] Red Hat\u00ae OpenShift\u00ae \u2014 IBM Security Verify Access current [official product documentation] (# Red Hat\u00ae OpenShift\u00ae > Approach: Using OpenShift resources > Pre-deployment steps)\n[S5] Red Hat\u00ae OpenShift\u00ae \u2014 IBM Security Verify Access current [official product documentation] (# Red Hat\u00ae OpenShift\u00ae > Approach: Using OpenShift resources > Pre-deployment steps)\n[S6] Red Hat\u00ae OpenShift\u00ae \u2014 IBM Security Verify Access current [official product documentation] (# Red Hat\u00ae OpenShift\u00ae > Approach: Using OpenShift resources > Use OpenShift Template)",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Red Hat\u00ae OpenShift\u00ae",
+              "product": "IBM Security Verify Access",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Red Hat\u00ae OpenShift\u00ae > Approach: Using OpenShift resources > Pre-deployment steps",
+              "document_id": "doc-5c56775e94e67f28",
+              "chunk_id": "ibm_products:live:03c092d86f3d9c4dd562",
+              "source_uri": "https://docs.verify.ibm.com/ibm-security-verify-access/docs/deployment-openshift.md"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Red Hat\u00ae OpenShift\u00ae",
+              "product": "IBM Security Verify Access",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Red Hat\u00ae OpenShift\u00ae > Approach: Using OpenShift resources > Pre-deployment steps",
+              "document_id": "doc-5c56775e94e67f28",
+              "chunk_id": "ibm_products:live:4058007fe59f1d9088a0",
+              "source_uri": "https://docs.verify.ibm.com/ibm-security-verify-access/docs/deployment-openshift.md"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Red Hat\u00ae OpenShift\u00ae",
+              "product": "IBM Security Verify Access",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Red Hat\u00ae OpenShift\u00ae > Approach: Using OpenShift resources > Pre-deployment steps",
+              "document_id": "doc-5c56775e94e67f28",
+              "chunk_id": "ibm_products:live:261d036be40f9ac0fea5",
+              "source_uri": "https://docs.verify.ibm.com/ibm-security-verify-access/docs/deployment-openshift.md"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Red Hat\u00ae OpenShift\u00ae",
+              "product": "IBM Security Verify Access",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Red Hat\u00ae OpenShift\u00ae > Approach: Using OpenShift resources > Pre-deployment steps",
+              "document_id": "doc-5c56775e94e67f28",
+              "chunk_id": "ibm_products:live:f5ed5560f6a20ecf0b94",
+              "source_uri": "https://docs.verify.ibm.com/ibm-security-verify-access/docs/deployment-openshift.md"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Red Hat\u00ae OpenShift\u00ae",
+              "product": "IBM Security Verify Access",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Red Hat\u00ae OpenShift\u00ae > Approach: Using OpenShift resources > Pre-deployment steps",
+              "document_id": "doc-5c56775e94e67f28",
+              "chunk_id": "ibm_products:live:34bb0c8d288973d748ab",
+              "source_uri": "https://docs.verify.ibm.com/ibm-security-verify-access/docs/deployment-openshift.md"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Red Hat\u00ae OpenShift\u00ae",
+              "product": "IBM Security Verify Access",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Red Hat\u00ae OpenShift\u00ae > Approach: Using OpenShift resources > Use OpenShift Template",
+              "document_id": "doc-5c56775e94e67f28",
+              "chunk_id": "ibm_products:live:134fed92a66c619eb61b",
+              "source_uri": "https://docs.verify.ibm.com/ibm-security-verify-access/docs/deployment-openshift.md"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "3b0a4b14-5d67-4da0-b98d-f2a6322073db"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "product_cp4d_install",
+        "category": "installation",
+        "question": "What are the documented steps or commands to install IBM Cloud Pak for Data 5.4.x on OpenShift?",
+        "expected_status": "ANSWERED",
+        "expected_domain_id": "ibm_products",
+        "expected_product": "IBM Cloud Pak for Data",
+        "expected_product_version": "5.4.x",
+        "expected_keyword_groups": [
+          [
+            "install",
+            "installation"
+          ],
+          [
+            "openshift",
+            "cluster"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "product_cp4d_install",
+        "category": "installation",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-4807b07a3bb59943",
+          "doc-4e5dfb23107ac9ac",
+          "doc-56a6f37d8b63a617",
+          "doc-cdc6156926969ced",
+          "doc-dd9da24d9898db4b"
+        ],
+        "citation_products": [
+          "IBM Cloud Pak for Data"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "bc56cfde-84bc-4dc8-a3c7-0fa3923277e6",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Installation of IBM Cloud Pak for Data 5.4.x on OpenShift\n\nThe provided evidence blocks [S1] through [S6] do not include steps or commands for installing IBM Cloud Pak for Data 5.4.x on OpenShift. They discuss various aspects of IBM Cloud Pak for Data, such as new features, fixed issues, and overview information, but do not provide installation instructions [S1][S2][S3][S4][S5][S6].\n\n### What this does not establish\n\nThis response does not establish the installation procedure for IBM Cloud Pak for Data 5.4.x on OpenShift due to the lack of relevant information in the provided evidence blocks.\n\n### Sources\n[S1] What's new and changed in Data Privacy \u2014 IBM Cloud Pak for Data 5.4.x, pp. 2\u20132\n[S2] What's new and changed in Data Replication \u2014 IBM Cloud Pak for Data 5.4.x, pp. 2\u20132\n[S3] What's new and changed in AI Factsheets \u2014 IBM Cloud Pak for Data 5.4.x, pp. 2\u20132\n[S4] Overview of Cloud Pak for Data \u2014 IBM Cloud Pak for Data 5.4.x, pp. 1\u20131\n[S5] Overview of Cloud Pak for Data \u2014 IBM Cloud Pak for Data 5.4.x, pp. 14\u201314\n[S6] What's new and changed in Analytics Engine powered by Apache Spark \u2014 IBM Cloud Pak for Data 5.4.x, pp. 2\u20132",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "What's new and changed in Data Privacy",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 2,
+              "page_end": 2,
+              "section_path": "# What's new and changed in Data Privacy > IBM Cloud Pak for Data Version 5.4.0",
+              "document_id": "doc-4807b07a3bb59943",
+              "chunk_id": "ibm_products:doc-4807b07a3bb59943:rev-2026-07-14-ebe1f78ee045:chunk-0001",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=new-data-privacy"
+            },
+            {
+              "citation_id": "S2",
+              "title": "What's new and changed in Data Replication",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 2,
+              "page_end": 2,
+              "section_path": "# What's new and changed in Data Replication > IBM Cloud Pak for Data Version 5.4.0",
+              "document_id": "doc-cdc6156926969ced",
+              "chunk_id": "ibm_products:doc-cdc6156926969ced:rev-2026-07-14-6823dc21b217:chunk-0001",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=new-data-replication"
+            },
+            {
+              "citation_id": "S3",
+              "title": "What's new and changed in AI Factsheets",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 2,
+              "page_end": 2,
+              "section_path": "# What's new and changed in AI Factsheets > IBM Cloud Pak for Data Version 5.4.0",
+              "document_id": "doc-56a6f37d8b63a617",
+              "chunk_id": "ibm_products:doc-56a6f37d8b63a617:rev-2026-07-14-1390debf23f3:chunk-0001",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=new-ai-factsheets"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Overview of Cloud Pak for Data",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 1,
+              "page_end": 1,
+              "section_path": "# Overview of Cloud Pak for Data",
+              "document_id": "doc-4e5dfb23107ac9ac",
+              "chunk_id": "ibm_products:doc-4e5dfb23107ac9ac:rev-2026-07-14-92bbc5e1ee85:chunk-0000",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=overview-cloud-pak-data"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Overview of Cloud Pak for Data",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 14,
+              "page_end": 14,
+              "section_path": "# Overview of Cloud Pak for Data > Learn more",
+              "document_id": "doc-4e5dfb23107ac9ac",
+              "chunk_id": "ibm_products:doc-4e5dfb23107ac9ac:rev-2026-07-14-92bbc5e1ee85:chunk-0014",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=overview-cloud-pak-data"
+            },
+            {
+              "citation_id": "S6",
+              "title": "What's new and changed in Analytics Engine powered by Apache Spark",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 2,
+              "page_end": 2,
+              "section_path": "# What's new and changed in Analytics Engine powered by Apache Spark > IBM Cloud Pak for Data Version 5.4.0",
+              "document_id": "doc-dd9da24d9898db4b",
+              "chunk_id": "ibm_products:doc-dd9da24d9898db4b:rev-2026-07-14-e3fffaf8856e:chunk-0001",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=new-analytics-engine-powered-by-apache-spark"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "170518ac-26e0-4085-8228-823ac3d760a8"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "product_cp4i_install",
+        "category": "installation",
+        "question": "How do I install IBM Cloud Pak for Integration 16.1.3? Include the documented commands or ordered steps.",
+        "expected_status": "ANSWERED",
+        "expected_domain_id": "ibm_products",
+        "expected_product": "IBM Cloud Pak for Integration",
+        "expected_product_version": "16.1.3",
+        "expected_keyword_groups": [
+          [
+            "install",
+            "installation"
+          ],
+          [
+            "operator",
+            "openshift",
+            "cluster"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "product_cp4i_install",
+        "category": "installation",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-6dd61d2a9de8275e",
+          "doc-d05ded292f40997a"
+        ],
+        "citation_products": [
+          "IBM Cloud Pak for Integration"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "8bd2c0b5-2036-4e5e-9afb-2038c125bebb",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Installing IBM Cloud Pak for Integration 16.1.3\n\nTo install IBM Cloud Pak for Integration 16.1.3, follow these steps [S1][S4]. \n\n1. Create a namespace for the IBM Cloud Pak for Integration operator: \n```\nkubectl create namespace integration\n```\n2. Set the namespace for the current context:\n```\nkubectl config set-context --current --namespace=integration\n```\n3. Install the IBM Cloud Pak for Integration operator using the Helm chart. You can either use the IBM Helm chart repository [S4] or download the Helm chart archive from the IBM Github repo [S4]. To install from the repository, run:\n```\nhelm install ibm-integration ibm-helm/ibm-integration --set operator.installMode=\"AllNamespaces\"\n```\nAlternatively, if you have downloaded the Helm chart archive, you can install using:\n```\nhelm install ibm-integration ./ibm-integration-<version info>.tgz\n```\nReplace `<version info>` with the actual version information of the downloaded archive.\n\n4. Verify the installation by listing the Helm releases:\n```\nhelm ls\n```\nThis should show the `ibm-integration` release with a `deployed` status.\n\n### What this does not establish\n\nThis procedure does not cover the deployment of the Platform UI or instances and integrations [S6]. Additionally, it assumes that you have already set up your AKS cluster and have the necessary prerequisites in place. The steps for finding and applying your entitlement key are mentioned but not detailed in this context [S5][S6].\n\n### Sources\n[S1] Installing operators on AKS \u2014 IBM Cloud Pak for Integration 16.1.3\n[S2] Installing operators on AKS \u2014 IBM Cloud Pak for Integration 16.1.3\n[S3] Installing operators on AKS \u2014 IBM Cloud Pak for Integration 16.1.3\n[S4] Installing operators on AKS \u2014 IBM Cloud Pak for Integration 16.1.3\n[S5] Finding and applying your entitlement key by using the CLI (online installation) \u2014 IBM Cloud Pak for Integration 16.1.3\n[S6] Installing operators on AKS \u2014 IBM Cloud Pak for Integration 16.1.3",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing operators on AKS",
+              "product": "IBM Cloud Pak for Integration",
+              "ocp_version": null,
+              "product_version": "16.1.3",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing operators on AKS > Install the IBM Cloud Pak for Integration operator",
+              "document_id": "doc-d05ded292f40997a",
+              "chunk_id": "ibm_products:live:3eceb35b90d81ac4304b",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-integration/16.1.3?topic=aks-installing-operators"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Installing operators on AKS",
+              "product": "IBM Cloud Pak for Integration",
+              "ocp_version": null,
+              "product_version": "16.1.3",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "5. To uninstall the operator, run the following command: helm uninstall ibm-integration",
+              "document_id": "doc-d05ded292f40997a",
+              "chunk_id": "ibm_products:live:bd746668695e974386ed",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-integration/16.1.3?topic=aks-installing-operators"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Installing operators on AKS",
+              "product": "IBM Cloud Pak for Integration",
+              "ocp_version": null,
+              "product_version": "16.1.3",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "Installing operators on AKS > Install the IBM Cloud Pak for Integration operator > Additional configuration parameters",
+              "document_id": "doc-d05ded292f40997a",
+              "chunk_id": "ibm_products:live:4971f148a33555be6f63",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-integration/16.1.3?topic=aks-installing-operators"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing operators on AKS",
+              "product": "IBM Cloud Pak for Integration",
+              "ocp_version": null,
+              "product_version": "16.1.3",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing operators on AKS > Providing access to the Helm chart",
+              "document_id": "doc-d05ded292f40997a",
+              "chunk_id": "ibm_products:live:a71a6b0c5115e17b7fa9",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-integration/16.1.3?topic=aks-installing-operators"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Finding and applying your entitlement key by using the CLI (online installation)",
+              "product": "IBM Cloud Pak for Integration",
+              "ocp_version": null,
+              "product_version": "16.1.3",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "4. When all nodes are back online, run this command (which makes status updates in real time) to",
+              "document_id": "doc-6dd61d2a9de8275e",
+              "chunk_id": "ibm_products:live:e7eff1dcd04dc1bb7cca",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-integration/16.1.3?topic=fayekoi-finding-applying-your-entitlement-key-by-using-cli-online-installation"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Installing operators on AKS",
+              "product": "IBM Cloud Pak for Integration",
+              "ocp_version": null,
+              "product_version": "16.1.3",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Installing operators on AKS > What to do next",
+              "document_id": "doc-d05ded292f40997a",
+              "chunk_id": "ibm_products:live:11d8a4da8f1a7cb7bb8a",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-integration/16.1.3?topic=aks-installing-operators"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "117d7855-5072-4db0-a21a-f5b46efdaa94"
+        },
+        "error": null
+      }
+    }
+  ]
+}

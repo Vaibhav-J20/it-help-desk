@@ -11,12 +11,6 @@ from app.observability.logging import get_logger
 
 logger = get_logger(__name__)
 
-_CHAT_PARAMS = {
-    "max_tokens": 1024,
-    "temperature": 0.0,
-}
-
-
 @lru_cache(maxsize=1)
 def _get_model() -> ModelInference:
     settings = get_settings()
@@ -47,6 +41,11 @@ def generate(prompt: str) -> str:
         Generated text string.
     """
     model = _get_model()
+    settings = get_settings()
+    chat_params = {
+        "max_tokens": max(256, settings.watsonx_chat_max_tokens),
+        "temperature": min(2.0, max(0.0, settings.watsonx_chat_temperature)),
+    }
     messages = [{"role": "user", "content": prompt}]
-    response = model.chat(messages=messages, params=_CHAT_PARAMS)
+    response = model.chat(messages=messages, params=chat_params)
     return response["choices"][0]["message"]["content"]

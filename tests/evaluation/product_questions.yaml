@@ -1,0 +1,94 @@
+# Product-level acceptance set for the metadata-first hybrid retrieval path.
+# Each question supplies explicit scope so the test measures retrieval and
+# grounding, not classifier variability. A passing ANSWERED response must have
+# an answer, citations from the expected product, and one term from every
+# expected keyword group.
+
+questions:
+  - id: product_orchestrate_install
+    category: installation
+    question: "How do I install the watsonx Orchestrate ADK CLI on Windows? Give the exact commands."
+    expected_status: ANSWERED
+    expected_domain_id: watsonx_orchestrate
+    expected_product: watsonx Orchestrate
+    expected_product_version: current
+    expected_keyword_groups:
+      - [pip, python]
+      - [venv, virtual environment]
+
+  - id: product_bob_install
+    category: installation
+    question: "How do I install IBM Bob IDE? Include the documented installation command."
+    expected_status: ANSWERED
+    expected_domain_id: ibm_bob
+    expected_product: IBM Bob
+    expected_product_version: current
+    expected_keyword_groups:
+      - [install, installation]
+      - [bob]
+
+  - id: product_ocp_diagnostics
+    category: troubleshooting
+    question: "In OpenShift Container Platform 4.16, what is oc adm must-gather used for and what command do I run?"
+    expected_status: ANSWERED
+    expected_domain_id: ocp_sno_support
+    expected_ocp_version: "4.16"
+    expected_product: OpenShift
+    expected_keyword_groups:
+      - [must-gather]
+      - [diagnostic, support, data]
+
+  - id: product_guardium_stap
+    category: installation
+    question: "For IBM Guardium Data Protection 12.x, how do I install or configure an S-TAP on Linux? Include commands when the page provides them."
+    expected_status: ANSWERED
+    expected_domain_id: ibm_products
+    expected_product: IBM Guardium Data Protection
+    expected_product_version: 12.x
+    expected_keyword_groups:
+      - [s-tap, stap]
+      - [install, configuration, configure]
+
+  - id: product_instana_kubernetes
+    category: installation
+    question: "How do I install the IBM Instana agent on Kubernetes? Give the documented commands or deployment steps."
+    expected_status: ANSWERED
+    expected_domain_id: ibm_products
+    expected_product: IBM Instana Observability
+    expected_product_version: current
+    expected_keyword_groups:
+      - [agent]
+      - [kubernetes, helm, operator]
+
+  - id: product_verify_openshift
+    category: installation
+    question: "How do I deploy IBM Security Verify Access on OpenShift? Give the documented steps and commands."
+    expected_status: ANSWERED
+    expected_domain_id: ibm_products
+    expected_product: IBM Security Verify Access
+    expected_product_version: 10.0.9
+    expected_keyword_groups:
+      - [openshift]
+      - [deploy, deployment]
+
+  - id: product_cp4d_install
+    category: installation
+    question: "What are the documented steps or commands to install IBM Cloud Pak for Data 5.4.x on OpenShift?"
+    expected_status: ANSWERED
+    expected_domain_id: ibm_products
+    expected_product: IBM Cloud Pak for Data
+    expected_product_version: 5.4.x
+    expected_keyword_groups:
+      - [install, installation]
+      - [openshift, cluster]
+
+  - id: product_cp4i_install
+    category: installation
+    question: "How do I install IBM Cloud Pak for Integration 16.1.3? Include the documented commands or ordered steps."
+    expected_status: ANSWERED
+    expected_domain_id: ibm_products
+    expected_product: IBM Cloud Pak for Integration
+    expected_product_version: 16.1.3
+    expected_keyword_groups:
+      - [install, installation]
+      - [operator, openshift, cluster]

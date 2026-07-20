@@ -1,0 +1,433 @@
+{
+  "created_at": "2026-07-06T09:23:30.652866+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "question_count": 5,
+  "results": [
+    {
+      "question": {
+        "id": "q026",
+        "category": "version",
+        "question": "What changed in the SNO installation process between OCP 4.14 and OCP 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "expected_ocp_version": null,
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "installation chapters of both versions",
+        "notes": "Must cite BOTH version docs. Must NOT mix up version-specific steps."
+      },
+      "summary": {
+        "id": "q026",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "835fcff6-cd7e-407a-83ce-d6a5121f22cf",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "summarize",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "c505e2c4-0448-455b-81f0-0eeccc42f38d"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q027",
+        "category": "version",
+        "question": "How do I configure DNS for SNO installation specifically on OCP 4.14?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "expected_ocp_version": "4.14",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "DNS section of 4.14 guide",
+        "notes": "Must use ONLY 4.14 doc. Must NOT cite 4.16 guide for this answer."
+      },
+      "summary": {
+        "id": "q027",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-0c0c"
+        ],
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "3510db30-13e5-4203-b841-d74d6243257c",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Configuring DNS for SNO Installation on OCP 4.14\n\nTo configure DNS for a Single Node OpenShift (SNO) installation on OpenShift Container Platform (OCP) 4.14, you need to specify the DNS records in the `install-config.yaml` file [S2]. The DNS configuration includes setting up records for the API server, application ingress load balancer, control plane nodes, and worker nodes [S3]. \n\nFor example, you need to create DNS A/AAAA or CNAME records and DNS PTR records to identify each machine for the control plane nodes and worker nodes [S3]. The API server must be able to resolve the worker nodes by the hostnames that are recorded in Kubernetes [S3].\n\nHere are the steps to configure DNS for SNO installation on OCP 4.14:\n1. Specify the cluster name and base domain in the `install-config.yaml` file [S2].\n2. Create DNS A/AAAA or CNAME records and DNS PTR records for the API server, application ingress load balancer, control plane nodes, and worker nodes [S3].\n3. Ensure that the DNS records are resolvable by the nodes within the cluster [S3].\n4. Verify the DNS configuration using the `dig` command [S3].\n\n### What this does not establish\nThis does not provide information on how to configure DNS records for a specific DNS server or provider. It also does not provide details on how to troubleshoot DNS issues during the SNO installation process.\n\n### Sources\n[S1] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 68\u201369\n[S2] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 76\u201377\n[S3] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 18\u201319\n[S4] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 38\u201339\n[S5] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 40\u201341\n[S6] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 64\u201365",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 68,
+              "page_end": 69,
+              "section_path": "CLUSTER FOR THE MULTICLUSTER ENGINE FOR",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0107"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 76,
+              "page_end": 77,
+              "section_path": "13. Wait for the managed cluster to be created.",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0120"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 18,
+              "page_end": 19,
+              "section_path": "1.7.1.1. Example DNS configuration for platform \"none\" clusters",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0025"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 38,
+              "page_end": 39,
+              "section_path": "3.2.3. Creating and booting the agent image",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0060"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 40,
+              "page_end": 41,
+              "section_path": "3.2.3. Creating and booting the agent image",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0064"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 64,
+              "page_end": 65,
+              "section_path": "CONTAINER PLATFORM",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0101"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "4a667a4c-da9f-45cf-8967-fe9169f5ecf8"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q028",
+        "category": "version",
+        "question": "What are the hardware requirements for SNO on OCP 4.16 compared to 4.14?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "expected_ocp_version": null,
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "prerequisites section of both guides",
+        "notes": "Version-sensitive \u2014 must cite both 4.14 and 4.16 docs separately, not merge them."
+      },
+      "summary": {
+        "id": "q028",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-c38a"
+        ],
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "ab340de6-311b-4e09-8299-a94cccc646d7",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Hardware Requirements for SNO on OCP 4.16\n\nThe hardware requirements for a Single Node OpenShift (SNO) cluster on OpenShift Container Platform (OCP) 4.16 include 8 vCPUs, 16 GB of RAM, and 120 GB of storage [S1]. The system architecture can be amd64, arm64, ppc64le, or s390x [S3]. \n\nFor SNO on OCP 4.14, the hardware requirements are not specified in the provided evidence blocks. \n\n### What this does not establish\n\nThis does not establish the hardware requirements for SNO on OCP 4.14, as the provided evidence blocks only discuss OCP 4.16. Additionally, it does not provide a comparison of the hardware requirements between OCP 4.16 and 4.14.\n\n### Sources\n[S1] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 10\u201311\n[S2] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 86\u201387\n[S3] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 45\u201346\n[S4] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 63\u201364\n[S5] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 65\u201366\n[S6] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 47\u201348",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 10,
+              "page_end": 11,
+              "section_path": "BASED INSTALLER",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0011"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 86,
+              "page_end": 87,
+              "section_path": "13. Wait for the managed cluster to be created.",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0131"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 45,
+              "page_end": 46,
+              "section_path": "1. Log in to the OpenShift CLI (oc).",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0070"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 63,
+              "page_end": 64,
+              "section_path": "CONTAINER PLATFORM",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0099"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 65,
+              "page_end": 66,
+              "section_path": "CONTAINER PLATFORM",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0101"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 47,
+              "page_end": 48,
+              "section_path": "1. Log in to the OpenShift CLI (oc).",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0072"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "7bc44341-f110-4818-9594-162ac7309808"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q029",
+        "category": "version",
+        "question": "What networking features are available in OCP 4.16 that were not in 4.14?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "networking guide 4.16",
+        "notes": "Should cite 4.16 networking guide. Must NOT hallucinate 4.14 networking content."
+      },
+      "summary": {
+        "id": "q029",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-c38a"
+        ],
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "f259b6ec-b351-4d4a-bd8f-064ff6cd19e3",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Networking Features in OCP 4.16\n\nThe networking features available in OCP 4.16 include support for IPv4 and IPv6 address families with the OVN-Kubernetes network plugin [S3], dual-stack networking with IPv4 and IPv6 in parallel [S6], and configuration of IP address endpoints for cluster nodes in three ways: IPv4, IPv6, or dual-stack [S6]. Additionally, the network configuration can be customized based on the requirements of the existing network infrastructure, including expanding the IP address block for the cluster network or configuring different IP address blocks than the defaults [S3]. The `networkConfig` field includes information about the network configuration of the host, with subfields including `interfaces`, `dns-resolver`, and `routes` [S2].\n\n### What this does not establish\n\nThis does not establish what specific networking features were available in OCP 4.14, as the provided evidence only discusses OCP 4.16 [S1][S2][S3][S4][S5][S6]. It also does not provide a comprehensive list of all networking features available in OCP 4.16, as the provided evidence only highlights a few specific features.\n\n### Sources\n[S1] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 103\u2013104\n[S2] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 28\u201329\n[S3] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 82\u201383\n[S4] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 39\u201340\n[S5] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 30\u201330\n[S6] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 47\u201348",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 103,
+              "page_end": 104,
+              "section_path": "7.2. AVAILABLE AGENT CONFIGURATION PARAMETERS",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0157"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 28,
+              "page_end": 29,
+              "section_path": "1.5. HOST CONFIGURATION",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0040"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 82,
+              "page_end": 83,
+              "section_path": "13. Wait for the managed cluster to be created.",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0125"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 39,
+              "page_end": 40,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0060"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 30,
+              "page_end": 30,
+              "section_path": "1.5. HOST CONFIGURATION",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0043"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 47,
+              "page_end": 48,
+              "section_path": "1. Log in to the OpenShift CLI (oc).",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0072"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "30057dc9-abe1-4b4e-8336-c5707d066c4c"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q030",
+        "category": "version",
+        "question": "I am running OCP 4.14 SNO. How do I configure the agent-based installer?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "expected_ocp_version": "4.14",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "agent-based installer section 4.14",
+        "notes": "Critical version safety test \u2014 must use 4.14 doc ONLY, not 4.16 procedure."
+      },
+      "summary": {
+        "id": "q030",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "293f4973-5388-4943-8c95-d7b7ee3b6307",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "58d849e2-1f1b-4a3c-8ff8-5f0a31be66ac"
+        },
+        "error": null
+      }
+    }
+  ]
+}

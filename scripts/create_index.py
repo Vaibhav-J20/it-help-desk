@@ -55,6 +55,8 @@ def _build_chunks_mapping(embedding_dim: int) -> dict:
 
                 # Taxonomy filters — all keyword for exact match
                 "product":            {"type": "keyword"},
+                "product_version":    {"type": "keyword"},
+                "locale":             {"type": "keyword"},
                 "ocp_version":        {"type": "keyword"},
                 "ocp_major":          {"type": "integer"},
                 "ocp_minor":          {"type": "integer"},
@@ -131,7 +133,12 @@ DOCS_MAPPING = {
 }
 
 
-def create_indices(recreate: bool = False) -> None:
+def create_indices(
+    recreate: bool = False,
+    *,
+    chunks_index: str | None = None,
+    docs_index: str | None = None,
+) -> None:
     settings = get_settings()
     client = get_opensearch_client()
     embedding_dim = settings.opensearch_embedding_dim
@@ -139,8 +146,8 @@ def create_indices(recreate: bool = False) -> None:
     chunks_mapping = _build_chunks_mapping(embedding_dim)
 
     for index_name, mapping in [
-        (settings.opensearch_index_chunks, chunks_mapping),
-        (settings.opensearch_index_docs, DOCS_MAPPING),
+        (chunks_index or settings.opensearch_index_chunks, chunks_mapping),
+        (docs_index or settings.opensearch_index_docs, DOCS_MAPPING),
     ]:
         exists = client.indices.exists(index=index_name)
 
@@ -160,8 +167,14 @@ def create_indices(recreate: bool = False) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create OpenSearch indices for the IT Help Desk Copilot")
     parser.add_argument("--recreate", action="store_true", help="Drop and recreate existing indices")
+    parser.add_argument("--chunks-index", help="Override the chunks index name")
+    parser.add_argument("--docs-index", help="Override the documents index name")
     args = parser.parse_args()
 
     print(f"Creating indices (recreate={args.recreate})...")
-    create_indices(recreate=args.recreate)
+    create_indices(
+        recreate=args.recreate,
+        chunks_index=args.chunks_index,
+        docs_index=args.docs_index,
+    )
     print("Done.")

@@ -13,7 +13,10 @@ No I/O — fully unit testable.
 #                    callers who are only authorised for public content.
 #   access_scope   — removing it would expose restricted content (e.g.
 #                    seller_enablement) to callers without that scope.
-_NEVER_RELAX = frozenset({"domain_id", "is_current", "classification", "access_scope"})
+_NEVER_RELAX = frozenset({
+    "domain_id", "product", "product_version", "is_current", "classification",
+    "access_scope"
+})
 
 
 def build_filters(extracted_scope: dict) -> list[dict]:
@@ -26,6 +29,8 @@ def build_filters(extracted_scope: dict) -> list[dict]:
             - deployment_type (str)
             - domain_id (str)
             - component (str)
+            - product (str)          — strict product isolation for generic IBM docs
+            - product_version (str)  — strict when the user names a version
             - classification (str)     — e.g. "public" or "internal"
             - access_scope (str)       — a single access-scope value the caller holds
             - is_current (bool)        — always True unless explicitly overridden
@@ -48,6 +53,9 @@ def build_filters(extracted_scope: dict) -> list[dict]:
     if extracted_scope.get("ocp_version"):
         filters.append({"term": {"ocp_version": extracted_scope["ocp_version"]}})
 
+    if extracted_scope.get("ocp_versions"):
+        filters.append({"terms": {"ocp_version": extracted_scope["ocp_versions"]}})
+
     if extracted_scope.get("deployment_type"):
         filters.append({"term": {"deployment_type": extracted_scope["deployment_type"]}})
 
@@ -56,6 +64,12 @@ def build_filters(extracted_scope: dict) -> list[dict]:
 
     if extracted_scope.get("component"):
         filters.append({"term": {"components": extracted_scope["component"]}})
+
+    if extracted_scope.get("product"):
+        filters.append({"term": {"product": extracted_scope["product"]}})
+
+    if extracted_scope.get("product_version"):
+        filters.append({"term": {"product_version": extracted_scope["product_version"]}})
 
     # classification — restrict chunks to the caller's maximum authorised level.
     # e.g. pass "public" for unauthenticated callers; "internal" for IBM employees.
@@ -81,7 +95,7 @@ def relax_inferred_filters(filters: list[dict], inferred_keys: list[str]) -> lis
     while keeping explicit version/product filters strict.
 
     The fields in _NEVER_RELAX are ALWAYS preserved regardless of inferred_keys.
-    Relaxing domain_id  → cross-domain chunk leakage.
+    Relaxing domain_id/product → cross-domain or cross-product chunk leakage.
     Relaxing is_current → superseded content returned.
     Relaxing classification / access_scope → security boundary violated.
 
@@ -94,7 +108,8 @@ def relax_inferred_filters(filters: list[dict], inferred_keys: list[str]) -> lis
     """
     relaxed = []
     for f in filters:
-        key = next(iter(f.get("term", {}).keys()), None)
+        clause = f.get("term") or f.get("terms") or {}
+        key = next(iter(clause.keys()), None)
         if key in _NEVER_RELAX or key not in inferred_keys:
             relaxed.append(f)
     return relaxed

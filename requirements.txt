@@ -23,6 +23,7 @@ pdfminer.six==20231228
 # Config / serialization
 pyyaml==6.0.3
 httpx==0.28.1
+beautifulsoup4==4.14.3
 
 # Observability
 structlog==26.1.0

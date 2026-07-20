@@ -1,0 +1,145 @@
+{
+  "created_at": "2026-07-15T11:25:24.829377+00:00",
+  "base_url": "https://left-appraiser-disorder.ngrok-free.dev",
+  "question_file": "/Users/vaibhavjanga/projects/IT-help-desk/tests/evaluation/product_questions.yaml",
+  "question_count": 1,
+  "passed": 1,
+  "results": [
+    {
+      "question": {
+        "id": "product_orchestrate_install",
+        "category": "installation",
+        "question": "How do I install the watsonx Orchestrate ADK CLI on Windows? Give the exact commands.",
+        "expected_status": "ANSWERED",
+        "expected_domain_id": "watsonx_orchestrate",
+        "expected_product": "watsonx Orchestrate",
+        "expected_product_version": "current",
+        "expected_keyword_groups": [
+          [
+            "pip",
+            "python"
+          ],
+          [
+            "venv",
+            "virtual environment"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "product_orchestrate_install",
+        "category": "installation",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-b2fc8009a5561e3a"
+        ],
+        "citation_products": [
+          "watsonx Orchestrate"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "ef7af3ce-c767-4673-86c4-7fe18ce698fa",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Installing the watsonx Orchestrate ADK CLI on Windows\n\nTo install the watsonx Orchestrate ADK CLI on Windows, you first need to ensure you have Python 3.11 or later installed on your system [S3]. You can check your current Python version by running:\n```bash\npython --version\n```\nIf you have an older version, you can download the installer from the official Python website and run the setup, making sure to enable the option to add PYTHONPATH to the environment variables [S3].\n\nOnce you have the required Python version, you can install the ADK CLI using pip [S1][S2]. The command to install the ADK is:\n```bash\npip install --upgrade ibm-watsonx-orchestrate\n```\nAlternatively, you can use a virtual environment or a version manager like uv to control the packages you install [S1].\n\nFor a virtual environment, you can create one by running:\n```powershell\n.\\.venv\\Scripts\\activate\n```\nThen, install the ADK with:\n```bash\npip install ibm-watsonx-orchestrate\n```\nUsing uv, after installing it, you can initialize your project with:\n```bash\nuv init\n```\nAdd the ADK to your dependencies:\n```bash\nuv add ibm-watsonx-orchestrate\n```\nAnd activate your environment [S1].\n\n### What this does not establish\n\nThis does not establish the exact configuration steps after installing the ADK CLI, such as setting up environments or agents, which are covered in other parts of the documentation [S4][S5][S6].\n\n### Sources\n[S1] Getting started with the ADK \u2014 watsonx Orchestrate current [official product documentation] (# Getting started with the ADK > Setting up and installing the ADK)\n[S2] Getting started with the ADK \u2014 watsonx Orchestrate current [official product documentation] (# Getting started with the ADK > Setting up and installing the ADK)\n[S3] Getting started with the ADK \u2014 watsonx Orchestrate current [official product documentation] (# Getting started with the ADK > Before you begin > Required software)\n[S4] Getting started with the ADK \u2014 watsonx Orchestrate current [official product documentation] (# Getting started with the ADK > Setting up and installing the ADK)\n[S5] Getting started with the ADK \u2014 watsonx Orchestrate current [official product documentation] (# Getting started with the ADK > Setting up and installing the ADK)\n[S6] Getting started with the ADK \u2014 watsonx Orchestrate current [official product documentation] (5. Restart your shell:)",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Getting started with the ADK",
+              "product": "watsonx Orchestrate",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Getting started with the ADK > Setting up and installing the ADK",
+              "document_id": "doc-b2fc8009a5561e3a",
+              "chunk_id": "watsonx_orchestrate:live:de796d0ea880b16d18fc",
+              "source_uri": "https://developer.watson-orchestrate.ibm.com/getting_started/installing.md"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Getting started with the ADK",
+              "product": "watsonx Orchestrate",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Getting started with the ADK > Setting up and installing the ADK",
+              "document_id": "doc-b2fc8009a5561e3a",
+              "chunk_id": "watsonx_orchestrate:live:e07dd81f9720dc1f16a0",
+              "source_uri": "https://developer.watson-orchestrate.ibm.com/getting_started/installing.md"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Getting started with the ADK",
+              "product": "watsonx Orchestrate",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Getting started with the ADK > Before you begin > Required software",
+              "document_id": "doc-b2fc8009a5561e3a",
+              "chunk_id": "watsonx_orchestrate:live:297c3c6e5b99b0eac1c3",
+              "source_uri": "https://developer.watson-orchestrate.ibm.com/getting_started/installing.md"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Getting started with the ADK",
+              "product": "watsonx Orchestrate",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Getting started with the ADK > Setting up and installing the ADK",
+              "document_id": "doc-b2fc8009a5561e3a",
+              "chunk_id": "watsonx_orchestrate:live:0838750b308de775e4cc",
+              "source_uri": "https://developer.watson-orchestrate.ibm.com/getting_started/installing.md"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Getting started with the ADK",
+              "product": "watsonx Orchestrate",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "# Getting started with the ADK > Setting up and installing the ADK",
+              "document_id": "doc-b2fc8009a5561e3a",
+              "chunk_id": "watsonx_orchestrate:live:46d7c437ab266008c650",
+              "source_uri": "https://developer.watson-orchestrate.ibm.com/getting_started/installing.md"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Getting started with the ADK",
+              "product": "watsonx Orchestrate",
+              "ocp_version": null,
+              "product_version": "current",
+              "page_start": null,
+              "page_end": null,
+              "section_path": "5. Restart your shell:",
+              "document_id": "doc-b2fc8009a5561e3a",
+              "chunk_id": "watsonx_orchestrate:live:48c1fef3160ffda2a210",
+              "source_uri": "https://developer.watson-orchestrate.ibm.com/getting_started/installing.md"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "b35793fb-0089-474d-be2c-ac56a9f9c9a4"
+        },
+        "error": null
+      }
+    }
+  ]
+}

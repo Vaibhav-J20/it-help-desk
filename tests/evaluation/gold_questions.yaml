@@ -411,12 +411,12 @@ questions:
   - id: "q038"
     category: out_of_scope
     question: "How do I configure IBM Db2 on OpenShift?"
-    expected_status: OUT_OF_SCOPE
+    expected_status: NEEDS_CLARIFICATION
     expected_document_ids: []
     expected_ocp_version: null
     expected_deployment_type: null
     expected_pages_hint: null
-    notes: "Db2 is not in Phase 1 corpus (OCP/SNO only). Must return OUT_OF_SCOPE."
+    notes: "Db2 is supported by the global IBM Docs graph, but this broad cross-product request must clarify product and OpenShift versions and the configuration goal."
 
   - id: "q039"
     category: out_of_scope

@@ -13,9 +13,19 @@ logger = get_logger(__name__)
 def run(state: SupportState) -> SupportState:
     candidates = list(state.get("candidates") or [])
     extracted_scope = state.get("extracted_scope") or {}
-    requested_version = extracted_scope.get("ocp_version")
+    if extracted_scope.get("ocp_version"):
+        requested_version = extracted_scope["ocp_version"]
+        version_field = "ocp_version"
+    else:
+        requested_version = extracted_scope.get("product_version")
+        version_field = "product_version" if requested_version else None
 
-    sufficient, reason = is_evidence_sufficient(candidates, requested_version)
+    sufficient, reason = is_evidence_sufficient(
+        candidates,
+        requested_version,
+        state.get("user_question", ""),
+        version_field=version_field,
+    )
 
     if not sufficient:
         logger.info(f"evidence_gate: insufficient — reason={reason}")

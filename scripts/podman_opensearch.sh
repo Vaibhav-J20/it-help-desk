@@ -189,7 +189,7 @@ verify() {
   start_opensearch
 
   echo "--- Writing persistence-test document ---"
-  curl --silent --show-error --fail \
+  curl --silent --show-error --fail-with-body \
     -X PUT "$URL/podman_persistence_check/_doc/persistence" \
     -H 'Content-Type: application/json' \
     -d '{"runtime":"podman","provider":"applehv","persistent":true,"version":"5.7.1"}' \
@@ -200,7 +200,7 @@ verify() {
   wait_for_opensearch
 
   echo "--- Verifying document survives container restart ---"
-  curl --silent --show-error --fail \
+  curl --silent --show-error --fail-with-body \
     "$URL/podman_persistence_check/_doc/persistence?pretty"
   echo ""
   echo "Container-restart persistence: PASSED"
@@ -211,15 +211,16 @@ snapshot() {
   start_opensearch
 
   echo "--- Registering filesystem snapshot repository ---"
-  curl --silent --show-error --fail \
+  curl --silent --show-error --fail-with-body \
     -X PUT "$URL/_snapshot/local_repo" \
     -H 'Content-Type: application/json' \
     -d '{"type":"fs","settings":{"location":"/usr/share/opensearch/snapshots","compress":true}}' \
     | python3 -m json.tool
 
-  local snap_name="it-helpdesk-$(date +%Y%m%dT%H%M%S)"
+  # OpenSearch snapshot names must be lowercase.
+  local snap_name="it-helpdesk-$(date +%Y%m%dt%H%M%S)"
   echo "--- Creating snapshot: $snap_name ---"
-  curl --silent --show-error --fail \
+  curl --silent --show-error --fail-with-body \
     -X PUT "$URL/_snapshot/local_repo/${snap_name}?wait_for_completion=true" \
     | python3 -m json.tool
 

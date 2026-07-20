@@ -14,10 +14,10 @@ from __future__ import annotations
 import hashlib
 import logging
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime, timezone
 
-from app.ingestion.chunker import ChunkRecord
+from app.ingestion.chunker import ChunkRecord, estimate_tokens
 from app.ingestion.pdf_parser import ParseResult
 
 logger = logging.getLogger(__name__)
@@ -31,7 +31,7 @@ OPENSEARCH_BULK_CHUNK_BATCH_SIZE = int(os.getenv("OPENSEARCH_BULK_CHUNK_BATCH_SI
 @dataclass
 class IngestionSummary:
     source_uri: str
-    status: str          # INDEXED | SKIPPED | FAILED
+    status: str          # INDEXED | PARTIAL | SKIPPED | FAILED
     document_id: str
     revision_id: str
     chunks_indexed: int
@@ -58,8 +58,18 @@ def _make_chunk_id(domain_id: str, document_id: str, revision_id: str, ordinal: 
     return f"{domain_id}:{document_id}:{revision_id}:chunk-{ordinal:04d}"
 
 
+def _make_document_record_id(document_id: str, revision_id: str) -> str:
+    """Avoid collisions when two source URLs have identical content."""
+    return f"{document_id}:{revision_id}"
+
+
 def _get_embedding_model_id() -> str:
-    model_id = os.getenv("WATSONX_EMBEDDING_MODEL_ID")
+    # FastAPI loads .env through pydantic Settings rather than mutating
+    # os.environ. Background live-indexing runs inside that process, so a
+    # direct os.getenv lookup incorrectly treated a configured model as absent.
+    from app.core.config import get_settings
+
+    model_id = get_settings().watsonx_embedding_model_id
     if not model_id:
         raise EnvironmentError(
             "WATSONX_EMBEDDING_MODEL_ID env var is not set. "
@@ -69,7 +79,7 @@ def _get_embedding_model_id() -> str:
 
 
 def _mark_old_revisions_superseded(
-    client, document_id: str, current_revision_id: str
+    client, document_id: str, current_revision_id: str, chunks_index: str = CHUNKS_INDEX
 ) -> int:
     """Set is_current=false on all chunks from previous revisions of this document."""
     query = {
@@ -84,14 +94,19 @@ def _mark_old_revisions_superseded(
         },
         "script": {"source": "ctx._source.is_current = false", "lang": "painless"},
     }
-    resp = client.update_by_query(index=CHUNKS_INDEX, body=query, refresh=True)
+    resp = client.update_by_query(index=chunks_index, body=query, refresh=True)
     updated = resp.get("updated", 0)
     if updated:
         logger.info("Marked %d old chunks as is_current=false for document %s", updated, document_id)
     return updated
 
 
-def _delete_existing_revision_chunks(client, document_id: str, revision_id: str) -> int:
+def _delete_existing_revision_chunks(
+    client,
+    document_id: str,
+    revision_id: str,
+    chunks_index: str = CHUNKS_INDEX,
+) -> int:
     """Remove existing chunk docs for a revision before an explicit re-index."""
     query = {
         "query": {
@@ -104,7 +119,7 @@ def _delete_existing_revision_chunks(client, document_id: str, revision_id: str)
         }
     }
     resp = client.delete_by_query(
-        index=CHUNKS_INDEX,
+        index=chunks_index,
         body=query,
         refresh=True,
         conflicts="proceed",
@@ -127,6 +142,8 @@ def index_document(
     opensearch_client,
     embedding_fn,
     force_reindex: bool = False,
+    chunks_index: str | None = None,
+    docs_index: str | None = None,
 ) -> IngestionSummary:
     """
     Index a parsed document and its chunks into OpenSearch.
@@ -144,11 +161,27 @@ def index_document(
     """
     document_id = _make_document_id(parse_result.source_uri)
     revision_id = _make_revision_id(parse_result.content_hash)
+    document_record_id = _make_document_record_id(document_id, revision_id)
     embedding_model_id = _get_embedding_model_id()
+    # Resolve at call time because the ingestion CLI loads .env after module
+    # imports. Import-time constants alone can otherwise write to stale v1 names.
+    chunks_index = chunks_index or os.getenv("OPENSEARCH_INDEX_CHUNKS", CHUNKS_INDEX)
+    docs_index = docs_index or os.getenv("OPENSEARCH_INDEX_DOCS", DOCS_INDEX)
 
     # --- Idempotency check: skip if same content_hash already indexed ---
     try:
-        existing = opensearch_client.get(index=DOCS_INDEX, id=revision_id, ignore=[404])
+        existing = opensearch_client.get(
+            index=docs_index, id=document_record_id, ignore=[404]
+        )
+        if not existing.get("found"):
+            # Read compatibility for v1 document records, which used revision_id
+            # alone. Only accept the legacy record when its source-derived
+            # document_id also matches; otherwise identical-content URLs collide.
+            legacy = opensearch_client.get(
+                index=docs_index, id=revision_id, ignore=[404]
+            )
+            if legacy.get("found") and legacy.get("_source", {}).get("document_id") == document_id:
+                existing = legacy
         if (
             existing.get("found")
             and existing["_source"].get("ingestion_status") == "INDEXED"
@@ -172,7 +205,9 @@ def index_document(
     now_iso = datetime.now(timezone.utc).isoformat()
 
     if force_reindex:
-        _delete_existing_revision_chunks(opensearch_client, document_id, revision_id)
+        _delete_existing_revision_chunks(
+            opensearch_client, document_id, revision_id, chunks_index
+        )
 
     # --- Write document registry entry (status: PARSED) ---
     doc_record = {
@@ -189,7 +224,7 @@ def index_document(
         "last_error": None,
         "ingested_at": now_iso,
     }
-    opensearch_client.index(index=DOCS_INDEX, id=revision_id, body=doc_record)
+    opensearch_client.index(index=docs_index, id=document_record_id, body=doc_record)
     logger.info("Document registry entry created: %s / %s", document_id, revision_id)
 
     # --- Bulk index all chunks ---
@@ -200,15 +235,14 @@ def index_document(
         deployment_type = [deployment_type]
     source_type = metadata.get("source_type") or ("pdf" if parse_result.source_uri.lower().endswith(".pdf") else "web")
 
+    embedded_chunks, failures = _embed_chunks_with_recovery(chunks, embedding_fn)
+    failed_pages = sorted({page for failure in failures for page in failure.pages})
+    failure_messages = [failure.error for failure in failures]
     indexed_count = 0
-    vectors_by_ordinal, failed_pages = _embed_chunks(chunks, embedding_fn)
 
     bulk_body = []
-    for chunk in chunks:
+    for chunk, vector in embedded_chunks:
         chunk_id = _make_chunk_id(metadata["domain_id"], document_id, revision_id, chunk.chunk_ordinal)
-        vector = vectors_by_ordinal.get(chunk.chunk_ordinal)
-        if vector is None:
-            continue
 
         chunk_doc = {
             "chunk_id": chunk_id,
@@ -224,6 +258,8 @@ def index_document(
             "access_scope": metadata.get("access_scope", ["isa_technical"]),
 
             "product": metadata["product"],
+            "product_version": metadata.get("product_version"),
+            "locale": metadata.get("locale"),
             "ocp_version": ocp_version,
             "ocp_major": ocp_major,
             "ocp_minor": ocp_minor,
@@ -247,14 +283,16 @@ def index_document(
             "ingested_at": now_iso,
             "is_current": True,
         }
-        bulk_body.append({"index": {"_index": CHUNKS_INDEX, "_id": chunk_id}})
+        bulk_body.append({"index": {"_index": chunks_index, "_id": chunk_id}})
         bulk_body.append(chunk_doc)
         indexed_count += 1
 
     _bulk_index_chunks(opensearch_client, bulk_body)
 
     # --- Mark old revisions as superseded ---
-    _mark_old_revisions_superseded(opensearch_client, document_id, revision_id)
+    _mark_old_revisions_superseded(
+        opensearch_client, document_id, revision_id, chunks_index
+    )
 
     # --- Update document registry — distinguish full, partial, and failed ---
     if indexed_count == 0 and len(chunks) > 0:
@@ -266,12 +304,13 @@ def index_document(
     else:
         final_status = "INDEXED"
     opensearch_client.update(
-        index=DOCS_INDEX,
-        id=revision_id,
+        index=docs_index,
+        id=document_record_id,
         body={"doc": {
             "ingestion_status": final_status,
             "chunk_count": indexed_count,
             "failed_pages": failed_pages,
+            "last_error": "; ".join(failure_messages)[:4000] or None,
         }},
     )
 
@@ -321,47 +360,126 @@ def _bulk_index_chunks(client, bulk_body: list[dict]) -> None:
             raise RuntimeError("OpenSearch bulk indexing failed")
 
 
-def _embed_chunks(chunks: list[ChunkRecord], embedding_fn) -> tuple[dict[int, list[float]], list[int]]:
-    """
-    Embed chunks in batches when the provider supports it.
-    Falls back to single-chunk embedding for any failed batch.
-    """
-    vectors: dict[int, list[float]] = {}
-    failed_pages: list[int] = []
-    batch_fn = getattr(embedding_fn, "batch", None)
+@dataclass(frozen=True)
+class EmbeddingFailure:
+    pages: tuple[int, ...]
+    error: str
 
-    if batch_fn is None:
-        for chunk in chunks:
-            _embed_one(chunk, embedding_fn, vectors, failed_pages)
-        return vectors, failed_pages
+
+def _embed_chunks_with_recovery(
+    chunks: list[ChunkRecord],
+    embedding_fn,
+) -> tuple[list[tuple[ChunkRecord, list[float]]], list[EmbeddingFailure]]:
+    """Embed chunks, recursively splitting only provider-reported length failures."""
+    embedded: list[tuple[ChunkRecord, list[float]]] = []
+    failures: list[EmbeddingFailure] = []
+    batch_fn = getattr(embedding_fn, "batch", None)
 
     for start in range(0, len(chunks), EMBEDDING_BATCH_SIZE):
         batch = chunks[start:start + EMBEDDING_BATCH_SIZE]
-        try:
-            batch_vectors = batch_fn([chunk.text for chunk in batch])
-            for chunk, vector in zip(batch, batch_vectors, strict=True):
-                vectors[chunk.chunk_ordinal] = vector
-        except Exception as e:
-            logger.warning(
-                "Batch embedding failed for chunks %d-%d: %s — falling back to single chunks",
-                batch[0].chunk_ordinal,
-                batch[-1].chunk_ordinal,
-                e,
+        if batch_fn is not None:
+            try:
+                vectors = batch_fn([chunk.text for chunk in batch])
+                if len(vectors) != len(batch):
+                    raise ValueError(
+                        f"embedding batch returned {len(vectors)} vectors for {len(batch)} chunks"
+                    )
+                embedded.extend(zip(batch, vectors, strict=True))
+                continue
+            except Exception as exc:
+                logger.warning(
+                    "Batch embedding failed for chunks %d-%d: %s; retrying individually",
+                    batch[0].chunk_ordinal,
+                    batch[-1].chunk_ordinal,
+                    exc,
+                )
+        for chunk in batch:
+            recovered, recovered_failures = _embed_one_with_recovery(
+                chunk, embedding_fn, depth=0
             )
-            for chunk in batch:
-                _embed_one(chunk, embedding_fn, vectors, failed_pages)
+            embedded.extend(recovered)
+            failures.extend(recovered_failures)
 
-    return vectors, failed_pages
+    # Recovery can turn one source chunk into multiple chunks. Assign final,
+    # deterministic ordinals only after the full document has been processed.
+    reordinaled = [
+        (replace(chunk, chunk_ordinal=ordinal), vector)
+        for ordinal, (chunk, vector) in enumerate(embedded)
+    ]
+    return reordinaled, failures
 
 
-def _embed_one(
+def _embed_one_with_recovery(
     chunk: ChunkRecord,
     embedding_fn,
-    vectors: dict[int, list[float]],
-    failed_pages: list[int],
-) -> None:
+    *,
+    depth: int,
+) -> tuple[list[tuple[ChunkRecord, list[float]]], list[EmbeddingFailure]]:
     try:
-        vectors[chunk.chunk_ordinal] = embedding_fn(chunk.text)
-    except Exception as e:
-        logger.error("Embedding failed for chunk ordinal %s: %s", chunk.chunk_ordinal, e)
-        failed_pages.extend(range(chunk.page_start, chunk.page_end + 1))
+        return [(chunk, embedding_fn(chunk.text))], []
+    except Exception as exc:
+        if _is_input_length_error(exc) and depth < 5 and len(chunk.text) >= 160:
+            children = _split_chunk_for_embedding(chunk)
+            if len(children) > 1:
+                recovered: list[tuple[ChunkRecord, list[float]]] = []
+                failures: list[EmbeddingFailure] = []
+                for child in children:
+                    child_vectors, child_failures = _embed_one_with_recovery(
+                        child, embedding_fn, depth=depth + 1
+                    )
+                    recovered.extend(child_vectors)
+                    failures.extend(child_failures)
+                return recovered, failures
+
+        pages = tuple(range(chunk.page_start, chunk.page_end + 1))
+        message = f"chunk {chunk.chunk_ordinal} pages {pages}: {type(exc).__name__}: {exc}"
+        logger.error("Embedding failed for %s", message)
+        return [], [EmbeddingFailure(pages=pages, error=message)]
+
+
+def _split_chunk_for_embedding(chunk: ChunkRecord) -> list[ChunkRecord]:
+    text = chunk.text
+    midpoint = len(text) // 2
+    candidates = [
+        text.rfind("\n\n", 0, midpoint + 1),
+        text.find("\n\n", midpoint),
+        text.rfind("\n", 0, midpoint + 1),
+        text.find("\n", midpoint),
+        text.rfind(" ", 0, midpoint + 1),
+        text.find(" ", midpoint),
+    ]
+    valid = [point for point in candidates if len(text) // 4 <= point <= 3 * len(text) // 4]
+    cut = min(valid, key=lambda point: abs(point - midpoint)) if valid else midpoint
+    left_text = text[:cut].strip()
+    right_text = text[cut:].strip()
+    if not left_text or not right_text or max(len(left_text), len(right_text)) >= len(text):
+        return [chunk]
+
+    children = []
+    for child_text in (left_text, right_text):
+        children.append(replace(
+            chunk,
+            text=child_text,
+            content_hash="sha256:" + hashlib.sha256(child_text.encode("utf-8")).hexdigest(),
+            chunker_version=f"{chunk.chunker_version}+embedding-recovery",
+            token_estimate=estimate_tokens(child_text),
+        ))
+    return children
+
+
+def _is_input_length_error(exc: Exception) -> bool:
+    response = getattr(exc, "response", None)
+    status_code = getattr(response, "status_code", None)
+    if status_code == 413:
+        return True
+    message = str(exc).lower()
+    markers = (
+        "token limit", "maximum token", "max token", "too many token",
+        "input is too long", "input too long", "maximum context", "context length",
+        "sequence length", "exceeds 512", "more than 512", "request entity too large",
+    )
+    return (
+        any(marker in message for marker in markers)
+        or ("token" in message and "exceed" in message)
+        or ("512" in message and ("token" in message or "input" in message))
+    )

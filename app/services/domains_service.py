@@ -13,6 +13,7 @@ _DISPLAY_NAMES: dict[str, str] = {
     "ocp_sno_support": "OpenShift & SNO",
     "watsonx_orchestrate": "watsonx Orchestrate",
     "ibm_bob": "IBM Bob",
+    "ibm_products": "IBM Product Documentation",
 }
 
 

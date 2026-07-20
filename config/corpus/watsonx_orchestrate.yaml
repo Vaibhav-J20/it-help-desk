@@ -37,3 +37,117 @@ sources:
     max_pages: 160
     request_timeout_seconds: 12
     is_current: true
+
+  - source_uri: local://docs/watsonx_orchestrate_l2/client_presentation_watsonx_orchestrate_l2.pdf
+    source_type: pdf
+    title: "Client presentation - watsonx Orchestrate Level 2"
+    domain_id: watsonx_orchestrate
+    product: "watsonx Orchestrate"
+    document_type: reference_manual
+    classification: public
+    access_scope: [isa_technical, client_enablement]
+    components:
+      - agents
+      - ai_builder
+      - connections
+      - knowledge_bases
+      - tools
+      - toolkits
+      - evaluation
+    topic_tags:
+      - watsonx-orchestrate
+      - level-2
+      - client-presentation
+      - agentic-orchestration
+      - business-value
+    is_current: false
+    source_date: "2025-11-07"
+    notes: "Client-facing Level 2 presentation. Use for product framing and business-value context; verify current feature availability before external use."
+
+  - source_uri: local://docs/watsonx_orchestrate_l2/seller_presentation_watsonx_orchestrate_l2.pdf
+    source_type: pdf
+    title: "Seller presentation - watsonx Orchestrate Level 2"
+    domain_id: watsonx_orchestrate
+    product: "watsonx Orchestrate"
+    document_type: reference_manual
+    classification: internal
+    access_scope: [isa_technical, seller_enablement]
+    components:
+      - agents
+      - ai_builder
+      - connections
+      - knowledge_bases
+      - tools
+      - toolkits
+      - evaluation
+      - security
+      - troubleshooting
+    topic_tags:
+      - watsonx-orchestrate
+      - level-2
+      - seller-enablement
+      - agentic-orchestration
+      - agentops
+      - pricing-packaging
+    is_current: false
+    source_date: "2025-07-17"
+    notes: "IBM and Business Partner internal-use seller deck. Treat roadmap, pricing, packaging, compliance, regions, and availability as dated study context until verified against current approved sources."
+
+  - source_uri: local://docs/watsonx_orchestrate_l2/watsonx_orchestrate_l2_master_notes.pdf
+    source_type: pdf
+    title: "watsonx Orchestrate Level 2 Master Notes"
+    domain_id: watsonx_orchestrate
+    product: "watsonx Orchestrate"
+    document_type: reference_manual
+    classification: internal
+    access_scope: [isa_technical, study_notes]
+    components:
+      - agents
+      - ai_builder
+      - connections
+      - knowledge_bases
+      - tools
+      - toolkits
+      - evaluation
+      - security
+      - troubleshooting
+    topic_tags:
+      - watsonx-orchestrate
+      - level-2
+      - study-notes
+      - agentic-orchestration
+      - agentops
+      - sales-playbook
+    is_current: false
+    source_date: "2026-06-22"
+    notes: "Compressed study guide synthesized from the client and seller Level 2 decks. Prefer this for quick recall, but keep source-deck guardrails when answering."
+
+  - source_uri: local://docs/watsonx_orchestrate_l2/watsonx_orchestrate_l3_demo_guide.pdf
+    source_type: pdf
+    title: "watsonx Orchestrate Level 3 Demo Guide"
+    domain_id: watsonx_orchestrate
+    product: "watsonx Orchestrate"
+    document_type: tutorial
+    classification: internal
+    access_scope: [isa_technical, seller_enablement, demo_guide]
+    components:
+      - agents
+      - ai_builder
+      - chat
+      - connections
+      - knowledge_bases
+      - tools
+      - evaluation
+      - security
+      - troubleshooting
+    topic_tags:
+      - watsonx-orchestrate
+      - level-3
+      - demo-guide
+      - askibm
+      - askhr
+      - askit
+      - stand-and-deliver
+    is_current: false
+    source_date: "2026-01-05"
+    notes: "Hands-on Level 3 demo guide for technical sellers. Use for demo flow, prompts, and narration; validate current UI and demo-environment behavior before delivery."

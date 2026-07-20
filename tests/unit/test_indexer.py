@@ -1,12 +1,15 @@
 """Unit tests for app/ingestion/indexer.py — ID generation and status logic."""
 import hashlib
 import pytest
+import app.ingestion.indexer as indexer_module
 
 from app.ingestion.indexer import (
+    _embed_chunks_with_recovery,
     _make_document_id,
     _make_revision_id,
     _make_chunk_id,
 )
+from app.ingestion.chunker import ChunkRecord
 
 
 # ── document ID ───────────────────────────────────────────────────────────────
@@ -63,3 +66,46 @@ def test_chunk_id_format():
 def test_chunk_id_ordinal_zero_padded():
     cid = _make_chunk_id("ibm_bob", "doc-1234567890abcdef", "rev-2026-01-01-aaaaaaaaaaaa", 42)
     assert cid.endswith(":chunk-0042")
+
+
+def test_embedding_length_error_is_split_and_recovered():
+    text = "curl https://example.test/v1?a=1&b=2 --header x:y\n" * 40
+    chunk = ChunkRecord(
+        chunk_ordinal=0,
+        text=text,
+        page_start=7,
+        page_end=7,
+        section_path="Install > Commands",
+        content_hash="sha256:" + hashlib.sha256(text.encode()).hexdigest(),
+        chunker_version="chunker-v6",
+        token_estimate=800,
+    )
+
+    def embed(value: str) -> list[float]:
+        if len(value) > 300:
+            raise ValueError("input exceeds 512 token limit")
+        return [1.0, 2.0]
+
+    embedded, failures = _embed_chunks_with_recovery([chunk], embed)
+    assert not failures
+    assert len(embedded) > 1
+    assert [item[0].chunk_ordinal for item in embedded] == list(range(len(embedded)))
+    assert all(item[0].page_start == 7 for item in embedded)
+
+
+def test_transient_embedding_error_is_not_split():
+    text = "A normal chunk"
+    chunk = ChunkRecord(0, text, 2, 2, "", "sha256:x", "chunker-v6", 3)
+
+    def embed(_value: str) -> list[float]:
+        raise RuntimeError("provider temporarily unavailable")
+
+    embedded, failures = _embed_chunks_with_recovery([chunk], embed)
+    assert embedded == []
+    assert len(failures) == 1
+    assert failures[0].pages == (2,)
+
+
+def test_obsolete_embedding_path_is_absent():
+    assert not hasattr(indexer_module, "_embed_chunks")
+    assert not hasattr(indexer_module, "_embed_one")

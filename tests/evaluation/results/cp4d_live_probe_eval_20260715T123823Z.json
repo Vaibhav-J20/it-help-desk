@@ -1,0 +1,151 @@
+{
+  "created_at": "2026-07-15T12:38:23.485077+00:00",
+  "base_url": "https://left-appraiser-disorder.ngrok-free.dev",
+  "question_file": "/private/tmp/cp4d_live_probe.yaml",
+  "question_count": 1,
+  "passed": 1,
+  "results": [
+    {
+      "question": {
+        "id": "cp4d_live_certificate_rotation",
+        "category": "live_retrieval_probe",
+        "question": "In IBM Cloud Pak for Data 5.4.x, how do I rotate the internal TLS certificates? Give the exact cpd-cli commands and prerequisites.",
+        "expected_status": "ANSWERED",
+        "expected_domain_id": "ibm_products",
+        "expected_product": "IBM Cloud Pak for Data",
+        "expected_product_version": "5.4.x",
+        "expected_keyword_groups": [
+          [
+            "certificate",
+            "certificates",
+            "tls"
+          ],
+          [
+            "cpd-cli",
+            "rotate",
+            "rotation"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "cp4d_live_certificate_rotation",
+        "category": "live_retrieval_probe",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-3058a39c14e0bd7a",
+          "doc-4807b07a3bb59943",
+          "doc-4e5dfb23107ac9ac",
+          "doc-56a6f37d8b63a617",
+          "doc-fbe0e2a19588cece"
+        ],
+        "citation_products": [
+          "IBM Cloud Pak for Data"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "9cdc3a99-83d1-4ee9-b788-d796de79514d",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Rotating Internal TLS Certificates in IBM Cloud Pak for Data 5.4.x\n\nThe provided evidence does not include specific instructions or commands for rotating internal TLS certificates in IBM Cloud Pak for Data 5.4.x [S1][S2][S3][S4][S5][S6]. The evidence primarily discusses new features, changes, and services available in IBM Cloud Pak for Data 5.4.x, but it does not cover the process of rotating internal TLS certificates.\n\n### What this does not establish\n\nThis response does not establish the exact `cpd-cli` commands or prerequisites for rotating internal TLS certificates in IBM Cloud Pak for Data 5.4.x, as the necessary information is not provided in the evidence.\n\n### Sources\n[S1] What's new and changed in Data Gate \u2014 IBM Cloud Pak for Data 5.4.x, pp. 2\u20132\n[S2] What's new and changed in Data Privacy \u2014 IBM Cloud Pak for Data 5.4.x, pp. 2\u20132\n[S3] What's new and changed in AI Factsheets \u2014 IBM Cloud Pak for Data 5.4.x, pp. 2\u20132\n[S4] Overview of Cloud Pak for Data \u2014 IBM Cloud Pak for Data 5.4.x, pp. 7\u20137\n[S5] What's new \u2014 IBM Cloud Pak for Data 5.4.x, pp. 2\u20132\n[S6] Overview of Cloud Pak for Data \u2014 IBM Cloud Pak for Data 5.4.x, pp. 2\u20132",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "What's new and changed in Data Gate",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 2,
+              "page_end": 2,
+              "section_path": "# What's new and changed in Data Gate > IBM Cloud Pak for Data Version 5.4.0",
+              "document_id": "doc-3058a39c14e0bd7a",
+              "chunk_id": "ibm_products:doc-3058a39c14e0bd7a:rev-2026-07-14-ea659a183167:chunk-0001",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=new-data-gate"
+            },
+            {
+              "citation_id": "S2",
+              "title": "What's new and changed in Data Privacy",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 2,
+              "page_end": 2,
+              "section_path": "# What's new and changed in Data Privacy > IBM Cloud Pak for Data Version 5.4.0",
+              "document_id": "doc-4807b07a3bb59943",
+              "chunk_id": "ibm_products:doc-4807b07a3bb59943:rev-2026-07-14-ebe1f78ee045:chunk-0001",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=new-data-privacy"
+            },
+            {
+              "citation_id": "S3",
+              "title": "What's new and changed in AI Factsheets",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 2,
+              "page_end": 2,
+              "section_path": "# What's new and changed in AI Factsheets > IBM Cloud Pak for Data Version 5.4.0",
+              "document_id": "doc-56a6f37d8b63a617",
+              "chunk_id": "ibm_products:doc-56a6f37d8b63a617:rev-2026-07-14-1390debf23f3:chunk-0001",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=new-ai-factsheets"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Overview of Cloud Pak for Data",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 7,
+              "page_end": 7,
+              "section_path": "# Overview of Cloud Pak for Data > Common Core Services > Storage",
+              "document_id": "doc-4e5dfb23107ac9ac",
+              "chunk_id": "ibm_products:doc-4e5dfb23107ac9ac:rev-2026-07-14-92bbc5e1ee85:chunk-0007",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=overview-cloud-pak-data"
+            },
+            {
+              "citation_id": "S5",
+              "title": "What's new",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 2,
+              "page_end": 2,
+              "section_path": "# What's new > Cloud Pak for Data services",
+              "document_id": "doc-fbe0e2a19588cece",
+              "chunk_id": "ibm_products:doc-fbe0e2a19588cece:rev-2026-07-14-a890237679d4:chunk-0001",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=data-whats-new"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Overview of Cloud Pak for Data",
+              "product": "IBM Cloud Pak for Data",
+              "ocp_version": null,
+              "product_version": "5.4.x",
+              "page_start": 2,
+              "page_end": 2,
+              "section_path": "# Overview of Cloud Pak for Data > Platform architecture",
+              "document_id": "doc-4e5dfb23107ac9ac",
+              "chunk_id": "ibm_products:doc-4e5dfb23107ac9ac:rev-2026-07-14-92bbc5e1ee85:chunk-0001",
+              "source_uri": "https://www.ibm.com/docs/en/cloud-paks/cp-data/5.4.x?topic=overview-cloud-pak-data"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "a9ae8433-1162-4a66-a7bd-6979e7b50206"
+        },
+        "error": null
+      }
+    }
+  ]
+}

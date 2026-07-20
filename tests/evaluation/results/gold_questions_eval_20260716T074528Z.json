@@ -1,0 +1,540 @@
+{
+  "created_at": "2026-07-16T07:45:28.087787+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "question_file": "/Users/vaibhavjanga/projects/IT-help-desk/tests/evaluation/gold_questions.yaml",
+  "question_count": 4,
+  "passed": 4,
+  "results": [
+    {
+      "question": {
+        "id": "q014",
+        "category": "factual",
+        "question": "What is the difference between a ReadWriteOnce and ReadWriteMany persistent volume in OpenShift?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "PVC access modes section",
+        "notes": "RWO = single node, RWX = multiple nodes simultaneously. Should cite storage guide."
+      },
+      "summary": {
+        "id": "q014",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-26de211138a59267"
+        ],
+        "citation_products": [
+          "OpenShift"
+        ],
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "a2cbb2d5-fdac-446d-92bc-80dd70cefb40",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Difference between ReadWriteOnce and ReadWriteMany Persistent Volumes\n\nThe main difference between ReadWriteOnce (RWO) and ReadWriteMany (RWX) persistent volumes in OpenShift is the access mode [S1]. ReadWriteOnce volumes can be mounted with read and write permissions by a single node [S5], whereas ReadWriteMany volumes can be mounted with read and write permissions by multiple nodes [S2]. If a node fails, a ReadWriteOnce volume cannot be mounted on a new node because it is already assigned to the failed node, which may lead to data loss in critical workloads [S2]. In contrast, ReadWriteMany volumes can be provisioned and used by multiple nodes simultaneously, but this requires specific support from the underlying storage infrastructure, such as vSAN file service in a vSphere environment [S3].\n\n### What this does not establish\n\nThis does not establish the specific commands or configurations required to create or manage ReadWriteMany volumes on all possible storage platforms supported by OpenShift, as the evidence primarily focuses on vSphere and general concepts [S1][S2][S3]. Additionally, it does not provide a comprehensive list of all storage plugins that support ReadWriteMany access mode, although it mentions several, including NFS, AWS EFS, Azure File, and others [S1].\n\n### Sources\n[S1] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 28\u201328\n[S2] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 28\u201329\n[S3] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 246\u2013246\n[S4] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 56\u201356\n[S5] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 70\u201371\n[S6] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OpenShift 4.16, pp. 96\u201396",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 28,
+              "page_end": 28,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0072",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 28,
+              "page_end": 29,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0073",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 246,
+              "page_end": 246,
+              "section_path": "6.21.5. ReadWriteMany vSphere volume support",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0462",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 56,
+              "page_end": 56,
+              "section_path": "4.6.2. FlexVolume driver example",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0119",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 70,
+              "page_end": 71,
+              "section_path": "1. In the OpenShift Container Platform console, click Storage \u2192 Persistent Volume Claims.",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0147",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 96,
+              "page_end": 96,
+              "section_path": "1. Define the persistent volume (PV) by creating a pv.yaml file with the PersistentVolume object",
+              "document_id": "doc-26de211138a59267",
+              "chunk_id": "ocp_sno_support:doc-26de211138a59267:rev-2026-07-15-653ccfb5f146:chunk-0190",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-storage-4.16.pdf"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "575e2160-076b-47df-8317-a02a50b20f74"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q022",
+        "category": "troubleshoot",
+        "question": "A NetworkPolicy is blocking traffic between namespaces in OCP 4.16. How do I diagnose it?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "NetworkPolicy troubleshooting",
+        "notes": "Check NetworkPolicy selectors, OVN-K logs, use network-tools debug pod."
+      },
+      "summary": {
+        "id": "q022",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-fbc5fc6039dd18e6"
+        ],
+        "citation_products": [
+          "OpenShift"
+        ],
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "8dafc6be-ad57-401d-bec0-b0217ae9209e",
+          "status": "ANSWERED",
+          "intent": "troubleshoot",
+          "answer_markdown": "### Diagnosing NetworkPolicy Issues in OCP 4.16\n\nTo diagnose a NetworkPolicy that is blocking traffic between namespaces in OCP 4.16, you can follow these steps [S1][S2][S4][S6]:\n1. **View network policies**: Use the CLI to view network policies in the namespace where the issue is occurring [S2]. This will help you understand which policies are applied and their configurations.\n2. **Check policy configuration**: Examine the network policy configuration to ensure it allows traffic between the namespaces [S1][S4]. Pay attention to the `ingress.ports` and selector configurations.\n3. **Verify network plugin**: Confirm that your cluster uses a network plugin that supports NetworkPolicy objects, such as the OVN-Kubernetes network plugin or the OpenShift SDN network plugin with mode: NetworkPolicy set [S4].\n4. **Check for default deny all policy**: Be aware that a default deny all network policy can block all cross-pod networking unless explicitly allowed by other network policies [S5].\n5. **Consider external IPs and OVN-Kubernetes**: If a service is exposed using an external IP, a network policy can block access from other namespaces unless explicitly configured to allow traffic [S6].\n\n### What this does not establish\nThis procedure does not establish how to create or delete network policies, although it references the existence of such procedures [S1][S3][S4][S5]. Additionally, it does not provide information on troubleshooting network issues unrelated to NetworkPolicies.\n\n### Sources\n[S1] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 240\u2013240\n[S2] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 250\u2013250\n[S3] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 253\u2013253\n[S4] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 518\u2013518\n[S5] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 242\u2013242\n[S6] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OpenShift 4.16, pp. 238\u2013238",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 240,
+              "page_end": 240,
+              "section_path": "7.3.2.2. Creating a network policy using the CLI",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-1546",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 250,
+              "page_end": 250,
+              "section_path": "7.3.3.2. Viewing network policies using the CLI",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-1597",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 253,
+              "page_end": 253,
+              "section_path": "7.3.4.3. Additional resources",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-1614",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 518,
+              "page_end": 518,
+              "section_path": "18.6.3.1. Creating a multi-network policy using the CLI",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-3150",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 242,
+              "page_end": 242,
+              "section_path": "7.3.2.3. Creating a default deny all network policy",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-1558",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 238,
+              "page_end": 238,
+              "section_path": "7.3.1.3.1. NetworkPolicy CR and external IPs in OVN-Kubernetes",
+              "document_id": "doc-fbc5fc6039dd18e6",
+              "chunk_id": "ocp_sno_support:doc-fbc5fc6039dd18e6:rev-2026-07-12-5faebd3a56c1:chunk-1537",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/ocp-networking-4.16.pdf"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "8079cc34-0620-4359-a822-c57ad4bfddaa"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q026",
+        "category": "version",
+        "question": "What changed in the SNO installation process between OCP 4.14 and OCP 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "expected_ocp_version": null,
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "installation chapters of both versions",
+        "notes": "Must cite BOTH version docs. Must NOT mix up version-specific steps."
+      },
+      "summary": {
+        "id": "q026",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-0c0cecaf4b5b8cf8",
+          "doc-c38a2ab513b3585d"
+        ],
+        "citation_products": [
+          "OpenShift"
+        ],
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "08499e1d-98a5-4d9a-8424-30c3829224aa",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Changes in SNO Installation Process between OCP 4.14 and OCP 4.16\n\nThe provided evidence does not explicitly state the changes in the SNO installation process between OCP 4.14 and OCP 4.16 [S1][S3]. However, it can be observed that the `repositoryDigestMirrors` section in the installation configuration remains the same between OCP 4.14 [S1] and OCP 4.16 [S3], suggesting that the mirroring process for images has not changed. Additionally, the `imageContentSources` section in the `install-config.yaml` file is mentioned in OCP 4.14 [S5], but there is no corresponding information in OCP 4.16 to compare.\n\n### What this does not establish\n\nThis does not establish the specific changes in the SNO installation process between OCP 4.14 and OCP 4.16, as the provided evidence does not contain a direct comparison of the two versions. The evidence is also limited to the agent-based installer and does not cover other aspects of the installation process.\n\n### Sources\n[S1] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OpenShift 4.14, pp. 34\u201334\n[S2] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OpenShift 4.14, pp. 26\u201326\n[S3] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OpenShift 4.16, pp. 34\u201334\n[S4] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OpenShift 4.14, pp. 68\u201368\n[S5] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OpenShift 4.14, pp. 32\u201333\n[S6] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OpenShift 4.14, pp. 57\u201357",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "product_version": null,
+              "page_start": 34,
+              "page_end": 34,
+              "section_path": "2.1. MIRRORING IMAGES FOR A DISCONNECTED INSTALLATION",
+              "document_id": "doc-0c0cecaf4b5b8cf8",
+              "chunk_id": "ocp_sno_support:doc-0c0cecaf4b5b8cf8:rev-2026-07-12-76f032e7080a:chunk-0180",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.14.pdf"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "product_version": null,
+              "page_start": 26,
+              "page_end": 26,
+              "section_path": "1.9. EXAMPLE: BONDS AND SR-IOV DUAL-NIC NODE NETWORK",
+              "document_id": "doc-0c0cecaf4b5b8cf8",
+              "chunk_id": "ocp_sno_support:doc-0c0cecaf4b5b8cf8:rev-2026-07-12-76f032e7080a:chunk-0136",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.14.pdf"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "product_version": null,
+              "page_start": 34,
+              "page_end": 34,
+              "section_path": "2.2. ABOUT MIRRORING THE OPENSHIFT CONTAINER PLATFORM",
+              "document_id": "doc-c38a2ab513b3585d",
+              "chunk_id": "ocp_sno_support:doc-c38a2ab513b3585d:rev-2026-07-12-b98a55079b29:chunk-0180",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.16.pdf"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "product_version": null,
+              "page_start": 68,
+              "page_end": 68,
+              "section_path": "1. Create an <assets_directory> folder to contain valid install-config.yaml and agent-",
+              "document_id": "doc-0c0cecaf4b5b8cf8",
+              "chunk_id": "ocp_sno_support:doc-0c0cecaf4b5b8cf8:rev-2026-07-12-76f032e7080a:chunk-0363",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.14.pdf"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "product_version": null,
+              "page_start": 32,
+              "page_end": 33,
+              "section_path": "2.1. MIRRORING IMAGES FOR A DISCONNECTED INSTALLATION",
+              "document_id": "doc-0c0cecaf4b5b8cf8",
+              "chunk_id": "ocp_sno_support:doc-0c0cecaf4b5b8cf8:rev-2026-07-12-76f032e7080a:chunk-0177",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.14.pdf"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "product_version": null,
+              "page_start": 57,
+              "page_end": 57,
+              "section_path": "4.3. SAMPLE GITOPS ZTP CUSTOM RESOURCES",
+              "document_id": "doc-0c0cecaf4b5b8cf8",
+              "chunk_id": "ocp_sno_support:doc-0c0cecaf4b5b8cf8:rev-2026-07-12-76f032e7080a:chunk-0314",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.14.pdf"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "5be40bf7-5cda-4279-b341-4a5bb594423c"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q027",
+        "category": "version",
+        "question": "How do I configure DNS for SNO installation specifically on OCP 4.14?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "expected_ocp_version": "4.14",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "DNS section of 4.14 guide",
+        "notes": "Must use ONLY 4.14 doc. Must NOT cite 4.16 guide for this answer."
+      },
+      "summary": {
+        "id": "q027",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "answer_pass": true,
+        "citations_pass": true,
+        "product_pass": true,
+        "keyword_groups_pass": true,
+        "pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-0c0cecaf4b5b8cf8"
+        ],
+        "citation_products": [
+          "OpenShift"
+        ],
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "b54dc44a-8f6b-45a3-8e64-cd7a285e4f1f",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Configuring DNS for SNO Installation on OCP 4.14\n\nTo configure DNS for a Single Node OpenShift (SNO) installation on OpenShift Container Platform (OCP) 4.14, you need to ensure that the API server can resolve the worker nodes by their hostnames recorded in Kubernetes [S5]. This involves creating DNS A/AAAA or CNAME records, and a DNS PTR record, to internally identify the API load balancer [S5]. These records must be resolvable from all nodes within the cluster [S5]. The cluster's DNS records are all subdomains of `{{.metadata.name}}.{{.baseDomain}}` [S6].\n\n### What this does not establish\n\nThe provided evidence does not establish the exact steps for configuring DNS for SNO installation on OCP 4.14, such as the specific commands or configuration files required. It also does not provide information on how to update the DNS records or configure the API load balancer.\n\n### Sources\n[S1] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OpenShift 4.14, pp. 68\u201368\n[S2] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OpenShift 4.14, pp. 34\u201334\n[S3] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OpenShift 4.14, pp. 68\u201368\n[S4] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OpenShift 4.14, pp. 69\u201369\n[S5] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OpenShift 4.14, pp. 18\u201318\n[S6] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OpenShift 4.14, pp. 76\u201376",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "product_version": null,
+              "page_start": 68,
+              "page_end": 68,
+              "section_path": "1. Create an <assets_directory> folder to contain valid install-config.yaml and agent-",
+              "document_id": "doc-0c0cecaf4b5b8cf8",
+              "chunk_id": "ocp_sno_support:doc-0c0cecaf4b5b8cf8:rev-2026-07-12-76f032e7080a:chunk-0363",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.14.pdf"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "product_version": null,
+              "page_start": 34,
+              "page_end": 34,
+              "section_path": "2.1. MIRRORING IMAGES FOR A DISCONNECTED INSTALLATION",
+              "document_id": "doc-0c0cecaf4b5b8cf8",
+              "chunk_id": "ocp_sno_support:doc-0c0cecaf4b5b8cf8:rev-2026-07-12-76f032e7080a:chunk-0180",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.14.pdf"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "product_version": null,
+              "page_start": 68,
+              "page_end": 68,
+              "section_path": "4. Update the registry and certificate in the install-config.yaml file:",
+              "document_id": "doc-0c0cecaf4b5b8cf8",
+              "chunk_id": "ocp_sno_support:doc-0c0cecaf4b5b8cf8:rev-2026-07-12-76f032e7080a:chunk-0367",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.14.pdf"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "product_version": null,
+              "page_start": 69,
+              "page_end": 69,
+              "section_path": "4. Update the registry and certificate in the install-config.yaml file:",
+              "document_id": "doc-0c0cecaf4b5b8cf8",
+              "chunk_id": "ocp_sno_support:doc-0c0cecaf4b5b8cf8:rev-2026-07-12-76f032e7080a:chunk-0369",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.14.pdf"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "product_version": null,
+              "page_start": 18,
+              "page_end": 18,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-0c0cecaf4b5b8cf8",
+              "chunk_id": "ocp_sno_support:doc-0c0cecaf4b5b8cf8:rev-2026-07-12-76f032e7080a:chunk-0088",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.14.pdf"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "product_version": null,
+              "page_start": 76,
+              "page_end": 76,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-0c0cecaf4b5b8cf8",
+              "chunk_id": "ocp_sno_support:doc-0c0cecaf4b5b8cf8:rev-2026-07-12-76f032e7080a:chunk-0402",
+              "source_uri": "cos://ithelpdeskfinal-donotdelete-pr-9yawx7m9f3akb4/sno-installation-guide-4.14.pdf"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "e049a2b6-3287-4473-9f75-7cd4b596e3f3"
+        },
+        "error": null
+      }
+    }
+  ]
+}

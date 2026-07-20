@@ -1,0 +1,16 @@
+# Regression checks for question-only Guardium routing. These requests do not
+# supply requested_scope, matching the chatbot requests that exposed the bugs.
+
+questions:
+  - id: guardium_windows_install
+    category: guardium_regression
+    question: "How to install Guardium on Windows?"
+    expected_status: ANSWERED
+    expected_keyword_groups:
+      - [windows]
+      - [s-tap, stap, gim]
+
+  - id: guardium_unavailable_11_8
+    category: guardium_regression
+    question: "Help me install Guardium 11.8"
+    expected_status: NEEDS_CLARIFICATION

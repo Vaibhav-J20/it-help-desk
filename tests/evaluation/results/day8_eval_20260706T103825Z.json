@@ -1,0 +1,2670 @@
+{
+  "created_at": "2026-07-06T10:38:25.803846+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "question_count": 40,
+  "results": [
+    {
+      "question": {
+        "id": "q001",
+        "category": "factual",
+        "question": "What is the rendezvous host in the Agent-based Installer workflow?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": "page 7-9",
+        "notes": "Rendezvous host (node 0) runs Assisted Service at boot. Should cite SNO installation guide."
+      },
+      "summary": {
+        "id": "q001",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "e00d9c07-b308-4537-bb34-082ad75573d6",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "4216a690-445e-4099-870c-3ce66f3d799d"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q002",
+        "category": "factual",
+        "question": "What DNS records are required before starting SNO 4.16 installation?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-4957"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "early chapters",
+        "notes": "api.<cluster>.<domain> and *.apps.<cluster>.<domain> DNS records required."
+      },
+      "summary": {
+        "id": "q002",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-c38a",
+          "doc-fbc5"
+        ],
+        "expected_document_ids": [
+          "doc-4957"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "7114a43d-26fd-4054-841f-113c074efc8c",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Required DNS Records for SNO 4.16 Installation\n\nThe required DNS records for SNO 4.16 installation include the Kubernetes API record, which takes the form `api.<cluster_name>.<base_domain>` [S1]. Additionally, reverse DNS resolution is required for the Kubernetes API, the control plane machines, and the compute machines [S6]. The DNS records must be in place before installation [S1][S2].\n\n### What this does not establish\nThis does not establish the specific steps for creating the DNS records, although it mentions the use of the External DNS Operator for managing external name resolution [S3][S4][S5]. It also does not provide information on how to configure the DNS records for a specific cloud provider or infrastructure.\n\n### Sources\n[S1] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 18\u201318\n[S2] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 18\u201318\n[S3] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 82\u201382\n[S4] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 74\u201374\n[S5] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 68\u201368\n[S6] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 18\u201318",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 18,
+              "page_end": 18,
+              "section_path": "1.5. HOST CONFIGURATION",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0087"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 18,
+              "page_end": 18,
+              "section_path": "1.5. HOST CONFIGURATION",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0086"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 82,
+              "page_end": 82,
+              "section_path": "5.3.8. Creating DNS records on Infoblox",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-0565"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 74,
+              "page_end": 74,
+              "section_path": "5.3.5. Creating DNS records on AWS",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-0521"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 68,
+              "page_end": 68,
+              "section_path": "5.3.3. Installing the External DNS Operator",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-0491"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 18,
+              "page_end": 18,
+              "section_path": "1.5. HOST CONFIGURATION",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0084"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "15c8bf06-8223-4d6d-9dc3-aa3ec6ee42a7"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q003",
+        "category": "factual",
+        "question": "Which topologies are supported by the openshift-install agent create image subcommand?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": "page 5-7",
+        "notes": "SNO, 3-node compact, multi-node. Should cite installation guide."
+      },
+      "summary": {
+        "id": "q003",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "427928d7-8724-49b1-9b16-22569e675607",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "a4353fbb-1b21-4b87-9782-453e229a71f4"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q004",
+        "category": "factual",
+        "question": "What is the default network plugin used in OpenShift Container Platform 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "networking guide early chapters",
+        "notes": "OVN-Kubernetes is the default CNI. Should cite networking guide."
+      },
+      "summary": {
+        "id": "q004",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-fbc5"
+        ],
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "664d56ee-9351-4256-95b0-4d1aa4d50495",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Default Network Plugin in OpenShift Container Platform 4.16\n\nThe default network plugin used in OpenShift Container Platform 4.16 is the OVN-Kubernetes network plugin [S1][S2]. This plugin is based on Open Virtual Network (OVN) and provides an overlay-based networking implementation [S2]. It is the default network provider for OpenShift Container Platform [S1] and is also used in single-node OpenShift deployments [S2].\n\n### What this does not establish\n\nThis does not establish the configuration process for the OVN-Kubernetes network plugin or how to troubleshoot issues with the plugin, as this information is not provided in the given evidence blocks.\n\n### Sources\n[S1] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 662\u2013663 \n[S2] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 662\u2013663 \n[S3] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 806\u2013806 \n[S4] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 796\u2013796 \n[S5] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 664\u2013664 \n[S6] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 472\u2013473",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 662,
+              "page_end": 663,
+              "section_path": "20.1. ABOUT THE OVN-KUBERNETES NETWORK PLUGIN",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-3994"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 662,
+              "page_end": 663,
+              "section_path": "20.1. ABOUT THE OVN-KUBERNETES NETWORK PLUGIN",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-3995"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 806,
+              "page_end": 806,
+              "section_path": "21.2.1.2.2. Google Cloud IP address capacity limits",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-4890"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 796,
+              "page_end": 796,
+              "section_path": "21.1. ABOUT THE OPENSHIFT SDN NETWORK PLUGIN",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-4821"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 664,
+              "page_end": 664,
+              "section_path": "20.1.1. OVN-Kubernetes purpose",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-4002"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 472,
+              "page_end": 473,
+              "section_path": "18.1. UNDERSTANDING MULTIPLE NETWORKS",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-2886"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "843e82f7-9332-49c8-a66a-3fc6e1ba449e"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q005",
+        "category": "clarification",
+        "question": "What is the purpose of the NMStateConfig manifest in the agent-based installer?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Too vague without OCP version; should ask for clarification before answering."
+      },
+      "summary": {
+        "id": "q005",
+        "category": "clarification",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "790102e6-be79-416a-9e61-2f8ce9c9fe4d",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "Which OpenShift version are you using?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "ddbd198d-9a0d-4822-a45c-f69b03e91c22"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q006",
+        "category": "factual",
+        "question": "How do you enable the cluster-admin role for a user in OpenShift 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-73eb"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "RBAC section",
+        "notes": "oc adm policy add-cluster-role-to-user cluster-admin <user>. Should cite auth guide."
+      },
+      "summary": {
+        "id": "q006",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-26de",
+          "doc-85b8",
+          "doc-fbc5"
+        ],
+        "expected_document_ids": [
+          "doc-73eb"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "0a155681-4356-48ea-b820-575b466e9dd9",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Enabling Cluster-Admin Role for a User in OpenShift 4.16\n\nTo enable the cluster-admin role for a user in OpenShift 4.16, you must have created a user to define as the cluster admin [S2]. The procedure involves using the OpenShift CLI (oc) command `oc adm policy add-cluster-role-to-user cluster-admin <user>` [S1][S2]. This command adds the cluster-admin role to the specified user, allowing them to perform administrator-level tasks on the OpenShift Container Platform cluster [S2].\n\n### What this does not establish\nThis does not establish the specific prerequisites for creating a user or the implications of modifying default cluster roles, beyond the recommendation not to manually modify them [S3]. Additionally, it does not cover the process of logging in to the cluster with the newly assigned cluster-admin role or using it for specific administrative tasks beyond the command to assign the role.\n\n### Sources\n[S1] Authentication and Authorization \u2014 Configuring User Authentication (OCP 4.16) \u2014 OCP 4.16, pp. 103\u2013103\n[S2] Authentication and Authorization \u2014 Configuring User Authentication (OCP 4.16) \u2014 OCP 4.16, pp. 103\u2013103\n[S3] Authentication and Authorization \u2014 Configuring User Authentication (OCP 4.16) \u2014 OCP 4.16, pp. 86\u201386\n[S4] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 788\u2013788\n[S5] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 133\u2013133\n[S6] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 705\u2013705",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Authentication and Authorization \u2014 Configuring User Authentication (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 103,
+              "page_end": 103,
+              "section_path": "8.12. CLUSTER ROLE BINDINGS FOR UNAUTHENTICATED GROUPS",
+              "document_id": "doc-85b8",
+              "chunk_id": "ocp_sno_support:doc-85b8:rev-2026-07-06-3bd8ac361124:chunk-0619"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Authentication and Authorization \u2014 Configuring User Authentication (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 103,
+              "page_end": 103,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-85b8",
+              "chunk_id": "ocp_sno_support:doc-85b8:rev-2026-07-06-3bd8ac361124:chunk-0618"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Authentication and Authorization \u2014 Configuring User Authentication (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 86,
+              "page_end": 86,
+              "section_path": "3. Deny by default.",
+              "document_id": "doc-85b8",
+              "chunk_id": "ocp_sno_support:doc-85b8:rev-2026-07-06-3bd8ac361124:chunk-0513"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 788,
+              "page_end": 788,
+              "section_path": "# crictl inspect -o yaml bac9fae69ddb6 | grep 'pid:' | awk '{print $2}'",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-4778"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 133,
+              "page_end": 133,
+              "section_path": "1. Log in to the OpenShift CLI (oc).",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-0776"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 705,
+              "page_end": 705,
+              "section_path": "20.5.1.5.1. Checking cluster resources before initiating the limited live migration",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-4262"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "0df6a0a0-cc36-41f0-9d6e-eef85c3e580b"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q007",
+        "category": "factual",
+        "question": "What storage classes are available by default in OpenShift 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "storage classes section",
+        "notes": "Should cite storage guide for default storage class options."
+      },
+      "summary": {
+        "id": "q007",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-26de"
+        ],
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "d12e3cfa-38eb-4d01-b922-e5b873582450",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Available Storage Classes in OpenShift 4.16\n\nThe available storage classes in OpenShift 4.16 are not explicitly listed in the provided evidence blocks [S1][S2][S3][S4][S5][S6]. However, it is mentioned that the default storage class is the CSI storage class for new installations of OpenShift Container Platform 4.13 and later [S3]. Additionally, storage classes such as \"gp3\" and \"standard\" are mentioned as examples of storage classes that can be created and managed in OpenShift [S2]. \n\n### What this does not establish\nThis does not establish a comprehensive list of available storage classes in OpenShift 4.16, as the evidence blocks only provide information on default storage classes and examples of storage classes that can be created.\n\n### Sources\n[S1] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 276\u2013276\n[S2] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 186\u2013186\n[S3] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 187\u2013187\n[S4] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 208\u2013208\n[S5] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 158\u2013158\n[S6] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 184\u2013184",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 276,
+              "page_end": 276,
+              "section_path": "2. Add the cluster role to the service account:",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-1655"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 186,
+              "page_end": 186,
+              "section_path": "NAME TYPE",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-1087"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 187,
+              "page_end": 187,
+              "section_path": "6.7.2. Storage class implications",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-1096"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 208,
+              "page_end": 208,
+              "section_path": "6.10.3. Creating a storage class with storage account type",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-1231"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 158,
+              "page_end": 158,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-0908"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 184,
+              "page_end": 184,
+              "section_path": "1. Create and save a file with the PersistentVolumeClaim object described by the following",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-1075"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "c39a2bc2-be23-440a-b2e8-133333a2d8f8"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q008",
+        "category": "factual",
+        "question": "What is the must-gather command used for in OpenShift support?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "support/troubleshooting section",
+        "notes": "oc adm must-gather collects diagnostics. Should cite troubleshooting guide."
+      },
+      "summary": {
+        "id": "q008",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-26de",
+          "doc-cca5"
+        ],
+        "expected_document_ids": [
+          "doc-a752"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "2445f689-3c38-468b-aecb-6ffa11adebc4",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Must-Gather Command in OpenShift Support\n\nThe `oc adm must-gather` command is used to collect debugging information about an OpenShift cluster for Red Hat Support [S1][S3][S6]. This command can be run with various options, such as `--image` or `--image-stream`, to collect data about specific features [S1][S2][S5]. The command creates a namespace and pod to collect the data, and the resulting data can be used to troubleshoot issues in the cluster [S4]. To collect data about more than one feature, a single command can be run with multiple `--image` options [S5]. The `--run-namespace` option can be used to run the command in a specific namespace [S2].\n\n### What this does not establish\n\nThis does not establish the exact format of the output data collected by the `oc adm must-gather` command, or how the data is used by Red Hat Support to troubleshoot issues. Additionally, the evidence does not provide information on how to interpret the output of the command or how to use the collected data to resolve specific issues.\n\n### Sources\n[S1] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 64\u201364\n[S2] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 60\u201360\n[S3] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 60\u201360\n[S4] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 205\u2013205\n[S5] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 61\u201361\n[S6] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 60\u201360",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 64,
+              "page_end": 64,
+              "section_path": "1. Navigate to the directory where you want to store the must-gather data.",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0397"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 60,
+              "page_end": 60,
+              "section_path": "NAMESPACE NAME READY STATUS RESTARTS AGE",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0374"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 60,
+              "page_end": 60,
+              "section_path": "2. Run the oc adm must-gather command:",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0377"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 205,
+              "page_end": 205,
+              "section_path": "6.9.7. Creating static PVs with Amazon Elastic File Storage",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-1212"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 61,
+              "page_end": 61,
+              "section_path": "NAMESPACE NAME READY STATUS RESTARTS AGE",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0383"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 60,
+              "page_end": 60,
+              "section_path": "5.1.1. Gathering data about your cluster for Red Hat Support",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0375"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "b1c47342-bf14-4117-995a-f444c54a5e70"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q009",
+        "category": "clarification",
+        "question": "What is the minimum hardware requirement for a Single Node OpenShift installation?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Too vague without OCP version; should ask for clarification before answering."
+      },
+      "summary": {
+        "id": "q009",
+        "category": "clarification",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "7650b747-4a69-464c-88cc-3667e4fefaf9",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you planning to install?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "c274c154-2ded-491a-ad0a-442a5dbeb4ae"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q010",
+        "category": "clarification",
+        "question": "How does the IngressController manage external traffic in OpenShift?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Too vague without OCP version; should ask for clarification before answering."
+      },
+      "summary": {
+        "id": "q010",
+        "category": "clarification",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "45721fc3-8493-457f-bc4b-1b568830be12",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you using?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "e5fec2d1-faf8-4aa7-9691-5ddd0c302374"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q011",
+        "category": "factual",
+        "question": "What OAuth identity providers are supported in OpenShift 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-73eb"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "identity provider section",
+        "notes": "LDAP, HTPasswd, GitHub, Google, OIDC etc. Should cite auth guide."
+      },
+      "summary": {
+        "id": "q011",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-73eb"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "2414f410-8a46-41b4-95db-1c84802d4984",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "54ae91a2-f666-473d-9851-194545cc4fa4"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q012",
+        "category": "factual",
+        "question": "What is the etcd operator responsible for in OpenShift?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-7a28",
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "etcd section",
+        "notes": "etcd operator manages backup, scaling, and health of etcd cluster."
+      },
+      "summary": {
+        "id": "q012",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-cca5"
+        ],
+        "expected_document_ids": [
+          "doc-7a28",
+          "doc-a752"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "934f91d7-b0ac-4312-8f43-0b23db53f907",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Etcd Operator Responsibilities\n\nThe etcd operator is responsible for managing the EtcdCluster CRD [S2]. This includes ensuring the proper functioning of etcd pods and handling uninstallation issues [S2]. The operator also plays a role in the installation and maintenance of etcd, with troubleshooting steps available for etcd installation issues [S3][S4]. Additionally, the etcd operator is involved in the management of etcd members and objects stored in the etcd cluster [S5]. However, the exact scope of its responsibilities is not fully detailed in the provided evidence.\n\n### What this does not establish\n\nThis does not establish a comprehensive list of the etcd operator's responsibilities or its role in the overall OpenShift architecture. The evidence provided is primarily focused on troubleshooting and support procedures, rather than the operator's core functions.\n\n### Sources\n[S1] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 94\u201394\n[S2] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 142\u2013142\n[S3] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 94\u201394\n[S4] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 94\u201394\n[S5] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 18\u201318\n[S6] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 94\u201394",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 94,
+              "page_end": 94,
+              "section_path": "2. If any of the pods listed by the previous commands are not showing a Running or a Completed",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0593"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 142,
+              "page_end": 142,
+              "section_path": "NAME DATA AGE",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0892"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 94,
+              "page_end": 94,
+              "section_path": "7.1.9. Investigating etcd installation issues",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0591"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 94,
+              "page_end": 94,
+              "section_path": "7.1.9. Investigating etcd installation issues",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0592"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 18,
+              "page_end": 18,
+              "section_path": "4.1.1. About Telemetry",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0107"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 94,
+              "page_end": 94,
+              "section_path": "3. If the API is not functional, review etcd pod and container logs on each control plane node by",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0595"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "84e7ced6-8341-4dbb-bb9b-a7addf624519"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q013",
+        "category": "clarification",
+        "question": "What files are required in the cluster-manifests directory for agent-based installation?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Too vague without OCP version; should ask for clarification before answering."
+      },
+      "summary": {
+        "id": "q013",
+        "category": "clarification",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "869c892d-3184-40be-8819-b78144616ce6",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you using for the agent-based installation?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "5142f2de-4d6a-4c51-99f4-ba75497409a7"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q014",
+        "category": "factual",
+        "question": "What is the difference between a ReadWriteOnce and ReadWriteMany persistent volume in OpenShift?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "PVC access modes section",
+        "notes": "RWO = single node, RWX = multiple nodes simultaneously. Should cite storage guide."
+      },
+      "summary": {
+        "id": "q014",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "6a7d4d90-86ac-4baf-9ca3-4d3d0bd871ef",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "e66ae52c-88e6-48cc-ba40-2cd33a817606"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q015",
+        "category": "factual",
+        "question": "How do you configure an HTPasswd identity provider in OpenShift 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-73eb"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "HTPasswd section",
+        "notes": "Create secret with htpasswd file, configure OAuth CR. Should cite auth guide."
+      },
+      "summary": {
+        "id": "q015",
+        "category": "factual",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-73eb"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "74baab35-c4fb-4838-a21a-ede2e8134fa0",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "f27c6ebe-105d-4b91-bbcd-5e663595ac48"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q016",
+        "category": "troubleshoot",
+        "question": "My SNO bootstrap is timing out during OCP 4.16 installation. How do I debug it?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-4957",
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "bootstrap troubleshooting section",
+        "notes": "Should return numbered steps: check DNS, NTP, API VIP, inspect bootstrap journal logs."
+      },
+      "summary": {
+        "id": "q016",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-c38a",
+          "doc-cca5"
+        ],
+        "expected_document_ids": [
+          "doc-4957",
+          "doc-a752"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "9d941e61-9cc4-4019-ae3b-c4c85f138941",
+          "status": "ANSWERED",
+          "intent": "troubleshoot",
+          "answer_markdown": "### Debugging SNO Bootstrap Timeout\n\nTo debug the SNO bootstrap timeout during OCP 4.16 installation, follow these steps: \n1. Run the command `$ ssh core@<node-ip> agent-gather -O >agent-gather.tar.xz` to connect to the rendezvous host and collect the output [S1].\n2. Gather logs from the failed installation by running the command `$ ./openshift-install --dir <installation_directory> agent wait-for bootstrap-complete --log-level=debug` [S4].\n3. Increase the openshift-install log level to debug when starting the installation again [S5].\n4. Obtain a list of cluster nodes by running the command `$ oc get nodes` [S3].\n5. Enter into a debug session on the target node by running the command `$ oc debug node/my-cluster-node` [S3].\n\n### What this does not establish\nThe provided evidence does not establish the root cause of the bootstrap timeout or provide a direct solution to resolve the issue. It only provides steps to gather diagnostic data and increase the log level for further debugging.\n\n### Sources\n[S1] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 62\u201362\n[S2] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 104\u2013104\n[S3] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 70\u201370\n[S4] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 42\u201342\n[S5] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 86\u201386\n[S6] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 83\u201384",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 62,
+              "page_end": 62,
+              "section_path": "2. If the output from the previous command indicates a failure, or if the bootstrap is not",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0340"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 104,
+              "page_end": 104,
+              "section_path": "7.1.13. Gathering logs from a failed installation",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0658"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 70,
+              "page_end": 70,
+              "section_path": "1. Obtain a list of cluster nodes:",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0434"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 42,
+              "page_end": 42,
+              "section_path": "1. Run the following command and collect the output:",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0229"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 86,
+              "page_end": 86,
+              "section_path": "2. Verify that the load balancer is listening on the required ports. The following example",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0538"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 83,
+              "page_end": 84,
+              "section_path": "1. Ignition configuration files are created.",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0518"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "eb7d6e42-1e56-4da0-9c88-bce2c82f60ba"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q017",
+        "category": "troubleshoot",
+        "question": "The OpenShift API server is not responding after installation. What steps should I take?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "API server troubleshooting",
+        "notes": "Should cite troubleshooting guide \u2014 check kube-apiserver pods, certificates, etcd health."
+      },
+      "summary": {
+        "id": "q017",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-a752"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "ef446be3-9d61-49df-834a-d597cccbcc1e",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "troubleshoot",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "b6b298e1-766c-40e6-ae87-2d2f5908b483"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q018",
+        "category": "troubleshoot",
+        "question": "How do I recover from an etcd quorum failure in OpenShift 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-a752",
+          "doc-7a28"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "etcd recovery section",
+        "notes": "Should provide steps for etcd restore from backup. Cite storage + troubleshooting guide."
+      },
+      "summary": {
+        "id": "q018",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-26de",
+          "doc-cca5"
+        ],
+        "expected_document_ids": [
+          "doc-a752",
+          "doc-7a28"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "2e594934-f827-4863-a7a6-0213bbb36f90",
+          "status": "ANSWERED",
+          "intent": "troubleshoot",
+          "answer_markdown": "### Recovering from etcd Quorum Failure in OpenShift 4.16\n\nTo recover from an etcd quorum failure in OpenShift 4.16, you should first investigate etcd installation issues [S1]. This involves checking etcd pod status and collecting etcd pod logs, as well as verifying etcd DNS records and checking DNS availability on control plane nodes [S1]. You can check the status of etcd pods by running the command `$ oc get pods -n openshift-etcd` [S3]. If any pods are not showing a Running or Completed status, gather diagnostic information for the pod by reviewing events for the pod with `$ oc describe pod/<pod_name> -n <namespace>` [S4].\n\nHowever, the provided evidence does not specifically outline the steps for recovering from an etcd quorum failure. The information provided focuses on investigating etcd installation issues [S1], collecting logs [S2], and checking etcd pod status [S3][S4]. For storage-related issues, there are troubleshooting guides available, such as recovering from a missing storage class, node failure, or disk failure [S5], but these do not directly address etcd quorum failure.\n\n### What this does not establish\n\nThe provided evidence does not establish a clear procedure for recovering from an etcd quorum failure in OpenShift 4.16. It lacks specific steps or commands to restore etcd quorum, which is critical for cluster stability and operation.\n\n### Sources\n[S1] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 94\u201394\n[S2] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 72\u201372\n[S3] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 94\u201394\n[S4] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 94\u201394\n[S5] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 8\u20138\n[S6] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 266\u2013266",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 94,
+              "page_end": 94,
+              "section_path": "7.1.9. Investigating etcd installation issues",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0591"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 72,
+              "page_end": 72,
+              "section_path": "2. Collect logs from the bootstrap node containers using podman on the bootstrap node. Replace",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0450"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 94,
+              "page_end": 94,
+              "section_path": "7.1.9. Investigating etcd installation issues",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0592"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 94,
+              "page_end": 94,
+              "section_path": "2. If any of the pods listed by the previous commands are not showing a Running or a Completed",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0593"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 8,
+              "page_end": 8,
+              "section_path": "5.4.17. Troubleshooting persistent storage",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-0037"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 266,
+              "page_end": 266,
+              "section_path": "8.6. RECOVERING FROM FAILURE WHEN EXPANDING VOLUMES",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-1597"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "0e7d9893-b5b8-45ed-be33-64fad8239e50"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q019",
+        "category": "troubleshoot",
+        "question": "Pods in my OpenShift cluster are stuck in Pending state. How do I troubleshoot this?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-a752",
+          "doc-7a28"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "pod scheduling troubleshooting",
+        "notes": "Check node resources, PVC binding, taints/tolerations, scheduler logs."
+      },
+      "summary": {
+        "id": "q019",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-a752",
+          "doc-7a28"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "234368c3-381c-4aad-90a0-479a020f3f9b",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "troubleshoot",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "9f7518ae-552d-4b00-a457-33e22360c8c7"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q020",
+        "category": "troubleshoot",
+        "question": "My OpenShift ingress is not routing traffic to my application. How do I debug the route?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-8e43",
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "ingress/route troubleshooting",
+        "notes": "Check Route object, IngressController logs, DNS wildcard record, service endpoints."
+      },
+      "summary": {
+        "id": "q020",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-fbc5"
+        ],
+        "expected_document_ids": [
+          "doc-8e43",
+          "doc-a752"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "34e689b3-5b2a-46a0-adda-25d5dba9607b",
+          "status": "ANSWERED",
+          "intent": "troubleshoot",
+          "answer_markdown": "### Debugging OpenShift Ingress Route\n\nTo debug the route, first, ensure you have installed the OpenShift CLI (oc) and are logged in as a project administrator [S1]. Then, check that the route has the Admitted status and includes metadata for the custom Ingress Controller using the command `$ oc get route/<route_name> -o json | jq '.status.ingress'` [S5]. You can also verify the route configuration by checking the annotations, such as `haproxy.router.openshift.io/h1-adjust-case`, in the route YAML file [S4][S6]. Additionally, you can manage symmetric routing with MetallB [S3] and configure Ingress Controller sharding to isolate traffic for specific workloads or tenants [S1][S2].\n\n### What this does not establish\nThis does not establish the specific steps to take if the route is not admitted or if the Ingress Controller is not serving the route, as this information is not provided in the given evidence blocks.\n\n### Sources\n[S1] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 835\u2013835\n[S2] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 885\u2013885\n[S3] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 29\u201330\n[S4] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 173\u2013173\n[S5] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 894\u2013894\n[S6] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 172\u2013172",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 835,
+              "page_end": 835,
+              "section_path": "22.1. CREATING BASIC ROUTES",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-5070"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 885,
+              "page_end": 885,
+              "section_path": "1. Edit the router-internal.yaml file:",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-5374"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 29,
+              "page_end": 30,
+              "section_path": "28.7. MANAGING SYMMETRIC ROUTING WITH METALLB",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-0257"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 173,
+              "page_end": 173,
+              "section_path": "# ...",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-1136"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 894,
+              "page_end": 894,
+              "section_path": "9. Check that the route has the Admitted status and that it includes metadata for the custom",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-5428"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 172,
+              "page_end": 172,
+              "section_path": "# ...",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-1132"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "44fa3e62-2be0-4eaa-997f-2c06f7f6d0a0"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q021",
+        "category": "troubleshoot",
+        "question": "Certificate errors are appearing on the OpenShift console after installation. How do I fix this?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-a752",
+          "doc-73eb"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "certificate management section",
+        "notes": "Check cluster operator status, rotate certificates, verify SAN entries in API cert."
+      },
+      "summary": {
+        "id": "q021",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-a752",
+          "doc-73eb"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "0882ee0e-6117-49a8-bfaa-48f9fc810876",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "troubleshoot",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "51bf3fc4-5805-4d66-a93c-f28936111a1c"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q022",
+        "category": "troubleshoot",
+        "question": "A NetworkPolicy is blocking traffic between namespaces in OCP 4.16. How do I diagnose it?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "NetworkPolicy troubleshooting",
+        "notes": "Check NetworkPolicy selectors, OVN-K logs, use network-tools debug pod."
+      },
+      "summary": {
+        "id": "q022",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "2a908792-335b-450c-8b18-ed8b3953f3ca",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "troubleshoot",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "0f378f51-0271-4382-908a-794767450c49"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q023",
+        "category": "troubleshoot",
+        "question": "The SNO node rebooted and OpenShift services are not coming back up. What should I check?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-4957",
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "SNO recovery section",
+        "notes": "Check kubelet, CRI-O, etcd health, MCO status on single node."
+      },
+      "summary": {
+        "id": "q023",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-4049",
+          "doc-cca5",
+          "doc-fbc5"
+        ],
+        "expected_document_ids": [
+          "doc-4957",
+          "doc-a752"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "bb7d8cbe-401f-4b8d-a73f-185c7d185ae8",
+          "status": "ANSWERED",
+          "intent": "troubleshoot",
+          "answer_markdown": "### Troubleshooting SNO Node Reboot\n\nTo troubleshoot the issue with OpenShift services not coming back up after a Single Node OpenShift (SNO) node reboot, you should check the status of the cluster Operators and the node itself [S4]. First, verify that the reboot is finished by running the command `oc get mcp` [S4]. Then, check that all cluster Operators are available by running `oc get co` [S4]. Additionally, you can review the status of the OpenShift SDN components, such as the sdn-controller, sdn, and ovs daemon sets, in the openshift-sdn namespace [S6]. If any of these resources are not available or are failing, you may need to investigate further by checking the logs of the failed pods [S6].\n\n### What this does not establish\nThis does not establish the cause of the reboot or whether the node is in a healthy state before the reboot. It also does not provide information on how to recover from a failed reboot or how to prevent similar issues in the future. The evidence provided does not include any information on the node's configuration, such as the network policies or the PodDisruptionBudget settings, which could be relevant to the issue [S2][S3].\n\n### Sources\n[S1] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 741\u2013741\n[S2] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 727\u2013727\n[S3] Updating Clusters \u2014 Updating OpenShift Container Platform Clusters (OCP 4.16) \u2014 OCP 4.16, pp. 73\u201373\n[S4] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 729\u2013729\n[S5] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 116\u2013116\n[S6] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 91\u201391",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 741,
+              "page_end": 741,
+              "section_path": "9. Reboot each node in your cluster. You can reboot the nodes in your cluster with either of the",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-4489"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 727,
+              "page_end": 727,
+              "section_path": "6. Configure migration features in the playbooks/playbook-migration.yml file:",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-4403"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Updating Clusters \u2014 Updating OpenShift Container Platform Clusters (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 73,
+              "page_end": 73,
+              "section_path": "1. To view the description of the update when it is not recommended because a risk might apply,",
+              "document_id": "doc-4049",
+              "chunk_id": "ocp_sno_support:doc-4049:rev-2026-07-06-6608e875852e:chunk-0486"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 729,
+              "page_end": 729,
+              "section_path": "6. Configure migration features in the playbooks/playbook-migration.yml file:",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-4416"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 116,
+              "page_end": 116,
+              "section_path": "# cat /etc/multipath/wwids",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0734"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 91,
+              "page_end": 91,
+              "section_path": "6. Determine OpenShift Container Platform SDN status.",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0572"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "90139a39-f78d-4b83-a84f-9e135601899e"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q024",
+        "category": "troubleshoot",
+        "question": "How do I collect diagnostic logs from a failing OpenShift node using must-gather?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-a752"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "must-gather section",
+        "notes": "oc adm must-gather --dest-dir=<dir>. Should cite troubleshooting/support guide."
+      },
+      "summary": {
+        "id": "q024",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-a752"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "56629c31-5283-43c8-be0e-4547512e390e",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "troubleshoot",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "cbbb9293-cd52-40d8-a681-31f9c758fd1a"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q025",
+        "category": "troubleshoot",
+        "question": "Persistent volume claims are stuck in Pending after storage provisioner deployment. How do I fix this?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "PVC troubleshooting section",
+        "notes": "Check StorageClass, provisioner pod logs, node storage availability."
+      },
+      "summary": {
+        "id": "q025",
+        "category": "troubleshoot",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-26de"
+        ],
+        "expected_document_ids": [
+          "doc-7a28"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "0d06928c-bc49-4f39-8bfa-9f54538dd292",
+          "status": "ANSWERED",
+          "intent": "troubleshoot",
+          "answer_markdown": "### Troubleshooting PVC Stuck in Pending State\n\nTo fix a persistent volume claim (PVC) stuck in the Pending state after storage provisioner deployment, you should first investigate the possible causes [S1]. These causes include insufficient computing resources, network problems, mismatched storage class or node selector, no available persistent volumes (PVs), and the node with the PV being in the Not Ready state. \n\nTo resolve the issue, you can follow these diagnostic steps:\n1. Check the node status to ensure it is in the Ready state [S2].\n2. Verify that there are sufficient computing resources and no network problems [S1].\n3. Confirm that the storage class and node selector match [S1].\n4. Ensure there are available persistent volumes (PVs) [S1].\n5. If the PVC is still stuck in the Pending state after resolving any issues with the node, perform a forced clean-up [S2].\n\n### What this does not establish\nThis does not establish the exact commands to use for performing a forced clean-up, as the provided evidence only mentions that more information can be found in \"Performing a forced clean-up\" [S2], but does not provide the actual procedure or commands.\n\n### Sources\n[S1] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 147\u2013147\n[S2] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 150\u2013150\n[S3] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 87\u201387\n[S4] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 265\u2013265\n[S5] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 58\u201358\n[S6] Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16) \u2014 OCP 4.16, pp. 86\u201386",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 147,
+              "page_end": 147,
+              "section_path": "5.4.17.1. Investigating a PVC stuck in the Pending state",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-0850"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 150,
+              "page_end": 150,
+              "section_path": "NAME READY STATUS RESTARTS AGE",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-0865"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 87,
+              "page_end": 87,
+              "section_path": "NAME CAPACITY ACCESS MODES RECLAIM POLICY STATUS CLAIM",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-0515"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 265,
+              "page_end": 265,
+              "section_path": "3. When the cloud provider object has finished resizing, the PersistentVolume object reflects the",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-1595"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 58,
+              "page_end": 58,
+              "section_path": "4.7.1. Creating the GCE storage class",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-0341"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Storage \u2014 Configuring and Managing Storage in OpenShift (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 86,
+              "page_end": 86,
+              "section_path": "5.2.4. Creating the local volume persistent volume claim",
+              "document_id": "doc-26de",
+              "chunk_id": "ocp_sno_support:doc-26de:rev-2026-07-06-653ccfb5f146:chunk-0511"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "3ad1be6b-a716-4bce-bd6d-6cbc6b37d900"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q026",
+        "category": "version",
+        "question": "What changed in the SNO installation process between OCP 4.14 and OCP 4.16?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "expected_ocp_version": null,
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "installation chapters of both versions",
+        "notes": "Must cite BOTH version docs. Must NOT mix up version-specific steps."
+      },
+      "summary": {
+        "id": "q026",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "270f05fb-7d74-4907-870a-6fc59789baa4",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "summarize",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "36a81461-89fe-4ea0-bb6b-d5225b13629c"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q027",
+        "category": "version",
+        "question": "How do I configure DNS for SNO installation specifically on OCP 4.14?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "expected_ocp_version": "4.14",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "DNS section of 4.14 guide",
+        "notes": "Must use ONLY 4.14 doc. Must NOT cite 4.16 guide for this answer."
+      },
+      "summary": {
+        "id": "q027",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-0c0c"
+        ],
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "0e6ccc50-20b8-4363-8b4c-78ceeeeec2e9",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Configuring DNS for SNO Installation on OCP 4.14\n\nTo configure DNS for a Single Node OpenShift (SNO) installation on OpenShift Container Platform (OCP) 4.14, you need to specify the DNS settings in the network configuration [S2]. The `dns-resolver` section should include the IP address of the DNS server, as shown in the example: `server: - 192.168.111.1` [S2]. Additionally, you may need to update the registry and certificate in the `install-config.yaml` file [S4].\n\n### What this does not establish\nThe provided evidence does not establish the exact steps for configuring DNS specifically for SNO installation on OCP 4.14, as the examples provided seem to be for a general on-premise cluster installation. More specific guidance on SNO installation and DNS configuration is needed.\n\n### Sources\n[S1] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 68\u201368\n[S2] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 64\u201364\n[S3] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 34\u201334\n[S4] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 68\u201368\n[S5] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 11\u201311\n[S6] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 69\u201369",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 68,
+              "page_end": 68,
+              "section_path": "CLUSTER FOR THE MULTICLUSTER ENGINE FOR",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0363"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 64,
+              "page_end": 64,
+              "section_path": "CONTAINER PLATFORM",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0344"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 34,
+              "page_end": 34,
+              "section_path": "INSTALLATION MIRRORING",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0180"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 68,
+              "page_end": 68,
+              "section_path": "4. Update the registry and certificate in the install-config.yaml file:",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0367"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 11,
+              "page_end": 11,
+              "section_path": "1.3. ABOUT FIPS COMPLIANCE",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0051"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 69,
+              "page_end": 69,
+              "section_path": "CLUSTER FOR THE MULTICLUSTER ENGINE FOR",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0369"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "196cec28-5db1-438b-bde2-bd382ed7c72f"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q028",
+        "category": "version",
+        "question": "What are the hardware requirements for SNO on OCP 4.16 compared to 4.14?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "expected_ocp_version": null,
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "prerequisites section of both guides",
+        "notes": "Version-sensitive \u2014 must cite both 4.14 and 4.16 docs separately, not merge them."
+      },
+      "summary": {
+        "id": "q028",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-4049",
+          "doc-783d",
+          "doc-cca5",
+          "doc-fbc5"
+        ],
+        "expected_document_ids": [
+          "doc-04af",
+          "doc-4957"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "ed567740-7ee7-447a-b456-1d20302bd645",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Hardware Requirements for SNO on OCP 4.16 Compared to 4.14\n\nThe provided evidence does not directly compare the hardware requirements for Single Node OpenShift (SNO) on OpenShift Container Platform (OCP) 4.16 to those on OCP 4.14 [S1][S2][S3][S4][S5][S6]. However, it discusses various aspects of OCP 4.16, including networking configurations and support, which might imply different or additional hardware requirements due to enhanced features or performance improvements [S2][S3][S6].\n\n### What this does not establish\n\nThis does not establish the specific hardware requirements for SNO on OCP 4.16 compared to 4.14, as the evidence provided focuses on other aspects of OCP 4.16, such as networking, support, and operators, without directly addressing the comparison of hardware requirements between the two versions [S1][S2][S3][S4][S5][S6]. The information necessary to determine the hardware requirements for SNO on both versions and to compare them is missing.\n\n### Sources\n[S1] Updating Clusters \u2014 Updating OpenShift Container Platform Clusters (OCP 4.16) \u2014 OCP 4.16, pp. 16\u201316\n[S2] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 18\u201318\n[S3] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 367\u2013367\n[S4] Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 72\u201372\n[S5] Operators \u2014 Working with Operators in OpenShift Container Platform (OCP 4.16) \u2014 OCP 4.16, pp. 224\u2013224\n[S6] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 406\u2013406",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Updating Clusters \u2014 Updating OpenShift Container Platform Clusters (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 16,
+              "page_end": 16,
+              "section_path": "1.1.6. Common terms",
+              "document_id": "doc-4049",
+              "chunk_id": "ocp_sno_support:doc-4049:rev-2026-07-06-6608e875852e:chunk-0109"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 18,
+              "page_end": 18,
+              "section_path": "19.10.1. About hardware offloading",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-0150"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 367,
+              "page_end": 367,
+              "section_path": "16.1. ABOUT PRECISION TIME PROTOCOL IN OPENSHIFT CLUSTER",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-2295"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Support \u2014 Getting Support for OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 72,
+              "page_end": 72,
+              "section_path": "5. Collect a sosreport archive.",
+              "document_id": "doc-cca5",
+              "chunk_id": "ocp_sno_support:doc-cca5:rev-2026-07-06-3169c39ed6b3:chunk-0446"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Operators \u2014 Working with Operators in OpenShift Container Platform (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 224,
+              "page_end": 224,
+              "section_path": "# This is useful for CI or a project to utilize a specific version of the operator-sdk toolkit.",
+              "document_id": "doc-783d",
+              "chunk_id": "ocp_sno_support:doc-783d:rev-2026-07-06-5da3fd8d6b3c:chunk-1370"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 406,
+              "page_end": 406,
+              "section_path": "2. Configure the Intel e810 NIC to enable periodical reporting of NAV-TIMELS messages by the",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-2501"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "bc188d88-a38d-4c27-8efd-54b85bb2e988"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q029",
+        "category": "version",
+        "question": "What networking features are available in OCP 4.16 that were not in 4.14?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "expected_ocp_version": "4.16",
+        "expected_deployment_type": null,
+        "expected_pages_hint": "networking guide 4.16",
+        "notes": "Should cite 4.16 networking guide. Must NOT hallucinate 4.14 networking content."
+      },
+      "summary": {
+        "id": "q029",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": "ANSWERED",
+        "status_pass": true,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-fbc5"
+        ],
+        "expected_document_ids": [
+          "doc-8e43"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "0a4f58d9-5e69-4a86-b713-7d35187b75c4",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### New Networking Features in OCP 4.16\n\nIn OpenShift Container Platform (OCP) 4.16, several new networking features are available that were not in OCP 4.14 [S1]. One of these features is improved DNS resolution for egress firewall rules, which is available as a Technology Preview feature [S2]. Additionally, OCP 4.16 supports migration to the OVN-Kubernetes network plugin, which allows for features such as egress IP, egress firewall, and multicast [S3]. The OVN-Kubernetes network plugin also supports IPsec and dual-stack (IPv4 and IPv6), which are not supported by OpenShift SDN [S4]. Furthermore, OCP 4.16 supports symmetric routing with Metallb [S5]. It's worth noting that OpenShift SDN CNI is deprecated as of OCP 4.14 and will be removed in a future release [S1][S5].\n\n### What this does not establish\n\nThis does not establish a comprehensive list of all new networking features in OCP 4.16, as the provided evidence blocks only mention a few specific features. Additionally, the evidence blocks do not provide information on the specific changes or improvements made to existing features in OCP 4.16 compared to OCP 4.14.\n\n### Sources\n[S1] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 806\u2013806\n[S2] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 282\u2013282\n[S3] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 730\u2013730\n[S4] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 702\u2013702\n[S5] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 27\u201328\n[S6] Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16) \u2014 OCP 4.16, pp. 930\u2013930",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 806,
+              "page_end": 806,
+              "section_path": "21.2.1.2.2. Google Cloud IP address capacity limits",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-4890"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 282,
+              "page_end": 282,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-1791"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 730,
+              "page_end": 730,
+              "section_path": "6. Configure migration features in the playbooks/playbook-migration.yml file:",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-4419"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 702,
+              "page_end": 702,
+              "section_path": "20.5.1. Limited live migration to the OVN-Kubernetes network plugin overview",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-4236"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 27,
+              "page_end": 28,
+              "section_path": "28.7. MANAGING SYMMETRIC ROUTING WITH METALLB",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-0244"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Networking \u2014 Configuring and Managing Cluster Networking (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 930,
+              "page_end": 930,
+              "section_path": "4. Optional: To view the configuration of a particular enactment, including any error reporting for a",
+              "document_id": "doc-fbc5",
+              "chunk_id": "ocp_sno_support:doc-fbc5:rev-2026-07-06-5faebd3a56c1:chunk-5638"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "114dd587-f43e-4459-8ec0-a5911635852c"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q030",
+        "category": "version",
+        "question": "I am running OCP 4.14 SNO. How do I configure the agent-based installer?",
+        "expected_status": "ANSWERED",
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "expected_ocp_version": "4.14",
+        "expected_deployment_type": "SNO",
+        "expected_pages_hint": "agent-based installer section 4.14",
+        "notes": "Critical version safety test \u2014 must use 4.14 doc ONLY, not 4.16 procedure."
+      },
+      "summary": {
+        "id": "q030",
+        "category": "version",
+        "expected_status": "ANSWERED",
+        "actual_status": "INSUFFICIENT_EVIDENCE",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [
+          "doc-04af"
+        ],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "ff3ab718-8600-4d54-8894-142e75180c72",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "d9f55cf3-441f-4891-8a13-63ee63ecc100"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q031",
+        "category": "ambiguous",
+        "question": "How do I install OpenShift?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Missing version AND deployment type. Should ask: which OCP version? SNO or multi-node?"
+      },
+      "summary": {
+        "id": "q031",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "f8e11006-fa50-41d4-884c-a9c1ed45b04a",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you trying to install?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "9262bffb-c5b2-4043-bf55-8ad292eab6b4"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q032",
+        "category": "ambiguous",
+        "question": "My cluster installation failed.",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Too vague \u2014 no version, no error, no deployment type. Should ask clarifying questions."
+      },
+      "summary": {
+        "id": "q032",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "7176f1f7-d5ad-4e6c-a31a-c9c14f3aae5a",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "troubleshoot",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you trying to install and is it a Single Node OpenShift (SNO) or standard deployment?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "1b308d4c-8309-4863-9c0d-059696a4d580"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q033",
+        "category": "ambiguous",
+        "question": "How do I configure networking?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Missing version and specific networking topic. Should ask for OCP version and area."
+      },
+      "summary": {
+        "id": "q033",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "7ae6ea75-5c4f-496b-b6b1-e699e866ec25",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you using and is it a standard or SNO deployment?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "17e2c2e0-794c-413a-b550-298253b17463"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q034",
+        "category": "ambiguous",
+        "question": "What is the bootstrap process?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Missing version and deployment type (SNO bootstrap differs from HA). Should clarify."
+      },
+      "summary": {
+        "id": "q034",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "5d320889-3cb3-4c5a-b8dd-06132d6eb340",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "What OpenShift version are you using?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "cdd3a1a9-e384-47cc-bf9d-fca5d1ae49d0"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q035",
+        "category": "ambiguous",
+        "question": "Help me troubleshoot my storage issue.",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "No version, no specific error, no storage type. Should ask for more context."
+      },
+      "summary": {
+        "id": "q035",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "90b018d6-3d13-4103-b184-be90529acb14",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "troubleshoot",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you using and is it a standard or SNO deployment?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "294b3653-f11f-40cb-b2b6-08f446aac601"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q036",
+        "category": "out_of_scope",
+        "question": "How do I create a ServiceNow ticket for an OpenShift incident?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "ServiceNow is explicitly excluded. Must return OUT_OF_SCOPE, never hallucinate."
+      },
+      "summary": {
+        "id": "q036",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "OUT_OF_SCOPE",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "7a9c1a1b-ed13-48fc-b9e3-d01876b1fa0b",
+          "status": "OUT_OF_SCOPE",
+          "intent": "unsupported",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "ac151e30-5c54-40bc-b5ee-af4cff90fe9f"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q037",
+        "category": "out_of_scope",
+        "question": "Can you access my live OpenShift cluster and check the node status?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Live cluster access is explicitly excluded. Must refuse cleanly."
+      },
+      "summary": {
+        "id": "q037",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "OUT_OF_SCOPE",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "3da85f41-198f-439d-80d7-e5863ecbf3c5",
+          "status": "OUT_OF_SCOPE",
+          "intent": "unsupported",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "36a22d93-9a6c-4c97-a835-1e7d5ba6756a"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q038",
+        "category": "out_of_scope",
+        "question": "How do I configure IBM Db2 on OpenShift?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Db2 is not in Phase 1 corpus (OCP/SNO only). Must return OUT_OF_SCOPE."
+      },
+      "summary": {
+        "id": "q038",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "OUT_OF_SCOPE",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "30c693d3-123d-4e52-87a4-79c4c4ce078b",
+          "status": "OUT_OF_SCOPE",
+          "intent": "unsupported",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you using?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "8ea7168f-4910-4367-8a50-e05a955018ad"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q039",
+        "category": "out_of_scope",
+        "question": "What is the latest version of Kubernetes released this week?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Requires live web search \u2014 system has no internet access. Must refuse."
+      },
+      "summary": {
+        "id": "q039",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "OUT_OF_SCOPE",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "da4433eb-7289-4f13-bd9a-8016618b058b",
+          "status": "OUT_OF_SCOPE",
+          "intent": "unsupported",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "6343d4a9-a01f-4119-a106-1fad19b21a52"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q040",
+        "category": "out_of_scope",
+        "question": "Write me a Python script to automate OpenShift deployments.",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Code generation is out of scope \u2014 system answers from docs, not writes code."
+      },
+      "summary": {
+        "id": "q040",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "OUT_OF_SCOPE",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "20803b33-b439-430e-9afc-c545052a2e76",
+          "status": "OUT_OF_SCOPE",
+          "intent": "unsupported",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you using and is it a standard or SNO deployment?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "e58b5e7f-7bb1-4d5f-8ad6-9642f2f7659b"
+        },
+        "error": null
+      }
+    }
+  ]
+}

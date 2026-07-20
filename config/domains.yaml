@@ -17,3 +17,9 @@ domains:
     active: true
     corpus_ids:
       - ibm_bob_docs_v1
+  ibm_products:
+    label: "IBM Product Documentation"
+    description: "Approved public IBM Documentation for additional IBM products and versions"
+    active: true
+    corpus_ids:
+      - ibm_product_docs_v1

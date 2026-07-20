@@ -35,6 +35,9 @@ build/
 # Data artifacts (never commit PDFs or corpus data)
 data/artifacts/
 data/corpus/
+data/ibm_docs_crawler/
+# Local recovery captures can contain HTML error pages saved with .pdf names.
+docs/local_backup_before_cos_pull_*/
 
 # IDE
 .vscode/

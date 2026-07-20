@@ -5,6 +5,7 @@ Uses the watsonx.ai chat model with the classify_extract prompt.
 """
 import json
 from pathlib import Path
+import re
 from app.graph.state import SupportState
 from app.observability.logging import get_logger
 
@@ -19,19 +20,33 @@ def run(state: SupportState, generate_fn=None) -> SupportState:
         generate_fn: Injected callable(prompt: str) -> str.
                      Defaults to app.providers.watsonx_chat.generate.
     """
-    if generate_fn is None:
-        from app.providers.watsonx_chat import generate as generate_fn
-
     question = state["user_question"]
-    template = _PROMPT_FILE.read_text()
-    prompt = template.replace("{question}", question)
+    api_scope = state.get("extracted_scope") or {}
+    if _explicit_scope_is_complete(api_scope):
+        # requested_scope is an authenticated API contract and already wins
+        # over model inference below. Avoid a slow, redundant LLM call when it
+        # identifies a complete routing boundary; deterministic resolve_scope
+        # still performs registry canonicalization and clarification checks.
+        parsed = {
+            **_safe_defaults(),
+            "intent": _deterministic_intent(question),
+            "domain_id": api_scope.get("domain_id"),
+        }
+        classification_source = "explicit_scope"
+    else:
+        if generate_fn is None:
+            from app.providers.watsonx_chat import generate as generate_fn
+        template = _PROMPT_FILE.read_text()
+        prompt = template.replace("{question}", question)
 
-    try:
-        raw = generate_fn(prompt)
-        parsed = _parse_classification(raw)
-    except Exception as e:
-        logger.info(f"classify_extract failed: {e} — using safe defaults")
-        parsed = _safe_defaults()
+        try:
+            raw = generate_fn(prompt)
+            parsed = _parse_classification(raw)
+            classification_source = "watsonx_model"
+        except Exception as e:
+            logger.info(f"classify_extract failed: {e} — using safe defaults")
+            parsed = _safe_defaults()
+            classification_source = "safe_defaults"
 
     extracted_scope = {
         k: v for k, v in {
@@ -39,11 +54,12 @@ def run(state: SupportState, generate_fn=None) -> SupportState:
             "deployment_type": parsed.get("deployment_type"),
             "domain_id": parsed.get("domain_id"),
             "component": parsed.get("component"),
+            "product": parsed.get("product"),
+            "product_version": parsed.get("product_version"),
         }.items() if v is not None
     }
 
     # Merge with any explicitly requested scope from the API request
-    api_scope = state.get("extracted_scope") or {}
     merged_scope = {**extracted_scope, **api_scope}  # API explicit values win
 
     required_clarification = (
@@ -69,9 +85,36 @@ def run(state: SupportState, generate_fn=None) -> SupportState:
                 "intent": parsed.get("intent"),
                 "domain_id": merged_scope.get("domain_id"),
                 "needs_clarification": required_clarification is not None,
+                "source": classification_source,
             },
         },
     }
+
+
+def _explicit_scope_is_complete(scope: dict) -> bool:
+    """Return True when requested_scope already supplies a safe route."""
+    domain_id = str(scope.get("domain_id") or "")
+    if domain_id in {"watsonx_orchestrate", "ibm_bob"}:
+        return True
+    if domain_id == "ocp_sno_support":
+        return bool(scope.get("ocp_version"))
+    if domain_id == "ibm_products":
+        return bool(scope.get("product") or scope.get("portfolio_family"))
+    return False
+
+
+def _deterministic_intent(question: str) -> str:
+    """Classify the small intent vocabulary for an already-scoped request."""
+    lowered = " ".join(question.casefold().split())
+    if re.search(
+        r"\b(?:error|failed|failure|failing|issue|problem|troubleshoot|"
+        r"diagnos(?:e|is|ing)|not\s+working|cannot|can't)\b",
+        lowered,
+    ):
+        return "troubleshoot"
+    if re.search(r"\b(?:summari[sz]e|summary|brief|overview|recap)\b", lowered):
+        return "summarize"
+    return "qa"
 
 
 def _parse_classification(raw: str) -> dict:
@@ -87,6 +130,8 @@ def _safe_defaults() -> dict:
         "ocp_version": None,
         "deployment_type": None,
         "component": None,
+        "product": None,
+        "product_version": None,
         "needs_clarification": False,
         "clarification_question": None,
     }

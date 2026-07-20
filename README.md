@@ -195,8 +195,10 @@ COS_API_KEY=<cos-api-key>
 API_KEY_SECRET=<api-key-for-x-api-key-header>
 ```
 
-> **Embedding model note:** `ibm/slate-125m-english-rtrvr-v2` is **withdrawn** (2026-08-08).
-> The current model is `ibm/granite-embedding-278m-multilingual` (768-dim).
+> **Embedding model note:** the current model is
+> `ibm/granite-embedding-278m-multilingual` (768-dim), which is listed as
+> supported in the target account. Do not reuse legacy Slate model IDs without
+> verifying their current lifecycle and regional availability.
 > The existing v1 index was built with this model — no migration needed unless rebuilding to v2.
 
 ### Start the server

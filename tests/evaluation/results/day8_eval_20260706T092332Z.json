@@ -1,0 +1,202 @@
+{
+  "created_at": "2026-07-06T09:23:32.119622+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "question_count": 5,
+  "results": [
+    {
+      "question": {
+        "id": "q031",
+        "category": "ambiguous",
+        "question": "How do I install OpenShift?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Missing version AND deployment type. Should ask: which OCP version? SNO or multi-node?"
+      },
+      "summary": {
+        "id": "q031",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "d4e43fd4-32b5-4720-bfa6-c76ca14019c7",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you trying to install?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "d9ad7733-b070-4c31-848b-01acc52f5709"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q032",
+        "category": "ambiguous",
+        "question": "My cluster installation failed.",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Too vague \u2014 no version, no error, no deployment type. Should ask clarifying questions."
+      },
+      "summary": {
+        "id": "q032",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "cf163845-af7c-4ff7-99e6-251ec6b4ce6e",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "troubleshoot",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you trying to install and is it a Single Node OpenShift (SNO) or standard deployment?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "f81be12c-c889-4762-8535-584fac5f8488"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q033",
+        "category": "ambiguous",
+        "question": "How do I configure networking?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Missing version and specific networking topic. Should ask for OCP version and area."
+      },
+      "summary": {
+        "id": "q033",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "71c776fb-ba71-432f-b097-87d64c30d310",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you using and is it a standard or SNO deployment?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "6b9253c8-332b-47a3-82ce-08bc6be830b0"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q034",
+        "category": "ambiguous",
+        "question": "What is the bootstrap process?",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Missing version and deployment type (SNO bootstrap differs from HA). Should clarify."
+      },
+      "summary": {
+        "id": "q034",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "7d8c7f1d-b5cf-4231-b7f6-a4959d3fd660",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "What OpenShift version are you using?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "e7542c26-98dd-4b73-915c-c2247628446d"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q035",
+        "category": "ambiguous",
+        "question": "Help me troubleshoot my storage issue.",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "No version, no specific error, no storage type. Should ask for more context."
+      },
+      "summary": {
+        "id": "q035",
+        "category": "ambiguous",
+        "expected_status": "NEEDS_CLARIFICATION",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "c4c9eacd-f038-42db-9410-aa43eb5cfccb",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "troubleshoot",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you using and is it a standard or SNO deployment?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "ea3aa07a-2e63-4fcd-a1e5-5ccfca591980"
+        },
+        "error": null
+      }
+    }
+  ]
+}

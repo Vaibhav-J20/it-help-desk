@@ -15,9 +15,20 @@ router = APIRouter(prefix="/v1", tags=["assist"])
     response_model=AssistResponse,
     summary="Submit a technical support question",
     description=(
-        "Submit a technical support question for an approved domain. "
-        "Returns a citation-grounded answer, a clarification request, "
-        "an insufficient-evidence notice, or an out-of-scope notice."
+        "Submit a technical support question for OpenShift/SNO, watsonx "
+        "Orchestrate, IBM Bob, or another registered IBM product such as "
+        "Guardium, Instana, Verify, Cloud Pak for Data, or Cloud Pak for "
+        "Integration, as well as broad IBM and watsonx product-portfolio "
+        "questions. For other registered IBM products, use the ibm_products "
+        "domain or omit requested_scope and allow the service to resolve it. "
+        "The response status is authoritative: ANSWERED returns answer_markdown, "
+        "NEEDS_CLARIFICATION returns clarification_question, and the remaining "
+        "statuses describe insufficient evidence, out-of-scope, invalid, or "
+        "service-error outcomes. answer_markdown contains a visible source "
+        "banner, safe suggested next steps, and a deterministic Sources section "
+        "with clickable URLs. source_urls exposes those links structurally, and "
+        "retrieval_provenance reports which retrieval paths were attempted and "
+        "which sources support the final answer."
     ),
 )
 async def assist(

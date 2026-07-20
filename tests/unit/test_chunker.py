@@ -11,8 +11,8 @@ from app.ingestion.chunker import (
 from app.ingestion.pdf_parser import PageRecord
 
 # If this assertion fails the version constant was not updated after a fix.
-assert CHUNKER_VERSION == "chunker-v5", (
-    f"Expected CHUNKER_VERSION='chunker-v5', got {CHUNKER_VERSION!r}. "
+assert CHUNKER_VERSION == "chunker-v6", (
+    f"Expected CHUNKER_VERSION='chunker-v6', got {CHUNKER_VERSION!r}. "
     "Update the version constant when the chunker behaviour changes."
 )
 
@@ -150,10 +150,22 @@ class TestChunkPages:
         ordinals = [c.chunk_ordinal for c in chunks]
         assert ordinals == list(range(len(chunks))), "Non-sequential ordinals indicate phantom duplicates"
 
-    def test_chunker_version_is_v5(self):
+    def test_chunker_version_is_v6(self):
         """Ensure the version constant reflects the page-attribution and
-        duplicate-trailing-chunk fixes introduced in chunker-v5."""
-        assert CHUNKER_VERSION == "chunker-v5"
+        token-budget and structure fixes introduced in chunker-v6."""
+        assert CHUNKER_VERSION == "chunker-v6"
+
+    def test_dense_commands_respect_token_budget(self):
+        """Punctuation-heavy shell/code content must not be sized as ordinary prose."""
+        from app.ingestion.chunker import TARGET_MAX_TOKENS, estimate_tokens
+
+        dense = "\n".join(
+            f"curl -H 'Authorization: Bearer $TOKEN' https://host/v1/items/{i}?a=1&b=2"
+            for i in range(250)
+        )
+        chunks = chunk_pages(_make_pages([dense]))
+        assert len(chunks) > 1
+        assert all(estimate_tokens(chunk.text) <= TARGET_MAX_TOKENS for chunk in chunks)
 
     def test_page_attribution_accurate_within_buffer(self):
         """Chunks that fall entirely within page 2 content must report page_start=2,

@@ -67,6 +67,15 @@ class TestValidateMetadata:
         assert result.valid is False
         assert any("classification" in err for err in result.errors)
 
+    def test_valid_access_scope_passes(self):
+        result = validate_metadata(_valid_record(access_scope=["public", "isa_technical"]))
+        assert result.valid is True
+
+    def test_invalid_access_scope_fails(self):
+        result = validate_metadata(_valid_record(access_scope=["unapproved_audience"]))
+        assert result.valid is False
+        assert any("access_scope" in err for err in result.errors)
+
     def test_invalid_component_fails(self):
         result = validate_metadata(_valid_record(components=["bootstrap", "ticketing"]))
         assert result.valid is False
@@ -77,6 +86,19 @@ class TestValidateMetadata:
         del record["components"]
         result = validate_metadata(record)
         assert result.valid is True
+
+    def test_ibm_product_catalog_metadata_passes(self):
+        result = validate_metadata(_valid_record(
+            domain_id="ibm_products",
+            product="IBM product catalog",
+            product_version="current",
+            document_type="product_catalog",
+            ocp_version=None,
+            deployment_type=[],
+            components=[],
+        ))
+        assert result.valid is True
+        assert result.errors == []
 
     def test_multiple_valid_deployment_types(self):
         result = validate_metadata(_valid_record(deployment_type=["SNO", "standard"]))

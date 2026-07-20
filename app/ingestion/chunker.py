@@ -6,14 +6,12 @@ Module: app/ingestion/chunker.py
 Splits a list of PageRecords into overlapping ChunkRecords.
 Target: safely below the embedding model's token input limit.
 
-Token-estimation strategy:
-  IBM technical documentation (tables, commands, URLs) tokenises at roughly
-  3–4 characters per token under most BPE tokenizers.  Using CHARS_PER_TOKEN=3
-  (conservative end of that range) ensures chunks stay below the embedding
-  model's 512-token hard limit with comfortable headroom.
-
-  Previous value was 2 chars/token, which could produce chunks of up to
-  480–960 actual tokens — well above the 512-token limit.
+Token-budget strategy (chunker-v6):
+  Technical prose, commands, tables, paths, and URLs have very different token
+  density. A fixed chars/token ratio therefore cannot enforce the embedding
+  model limit. v6 counts lexical/subword-like pieces, gives punctuation its own
+  budget, and finds every chunk boundary against TARGET_MAX_TOKENS. A character
+  ceiling remains only as a second safety bound.
 
 Page-attribution fix (chunker-v5):
   Each page boundary in the accumulated buffer is tracked so that chunks that
@@ -37,19 +35,20 @@ from app.ingestion.pdf_parser import PageRecord
 
 logger = logging.getLogger(__name__)
 
-CHUNKER_VERSION = "chunker-v5"
+CHUNKER_VERSION = "chunker-v6"
 
-# Conservative character-per-token estimate for dense IBM technical text.
-# Set to 3 so that TARGET_MAX_TOKENS=400 → 1200 chars, giving a safe margin
-# below a 512-token embedding model limit even for code-heavy pages.
-CHARS_PER_TOKEN = 3
+# Character limits remain an additional memory/response bound. They are no
+# longer treated as the token counter.
+CHARS_PER_TOKEN = 4
 TARGET_MIN_TOKENS = 150
 TARGET_MAX_TOKENS = 400
 OVERLAP_TOKENS = 40
 
-TARGET_MIN_CHARS = TARGET_MIN_TOKENS * CHARS_PER_TOKEN   # 450
-TARGET_MAX_CHARS = TARGET_MAX_TOKENS * CHARS_PER_TOKEN   # 1200
-OVERLAP_CHARS    = OVERLAP_TOKENS    * CHARS_PER_TOKEN   # 120
+TARGET_MIN_CHARS = TARGET_MIN_TOKENS * CHARS_PER_TOKEN
+TARGET_MAX_CHARS = TARGET_MAX_TOKENS * CHARS_PER_TOKEN
+OVERLAP_CHARS = OVERLAP_TOKENS * CHARS_PER_TOKEN
+
+_TOKEN_PIECE_RE = re.compile(r"[A-Za-z0-9_]+|[^\w\s]", re.UNICODE)
 
 # Heading detection: lines that look like section headings.
 _HEADING_RE = re.compile(
@@ -71,8 +70,29 @@ class ChunkRecord:
     token_estimate: int      # approximate token count
 
 
+def estimate_tokens(text: str) -> int:
+    """Conservative local token estimate for prose and dense technical text.
+
+    Every punctuation character receives a token. Alphanumeric pieces are
+    charged in four-character subword units, which catches long identifiers,
+    hashes, paths, and minified values that a word counter would undercount.
+    The embedding provider remains the final authority; the indexer has an
+    adaptive split-and-retry path for provider-reported length errors.
+    """
+    if not text:
+        return 0
+    count = 0
+    for piece in _TOKEN_PIECE_RE.findall(text):
+        if piece[0].isalnum() or piece[0] == "_":
+            count += max(1, (len(piece) + 3) // 4)
+        else:
+            count += 1
+    return max(1, count)
+
+
 def _estimate_tokens(text: str) -> int:
-    return max(1, len(text) // CHARS_PER_TOKEN)
+    """Backward-compatible private alias used by older tests/imports."""
+    return estimate_tokens(text)
 
 
 def _detect_section(text: str) -> str:
@@ -113,22 +133,32 @@ def _chunk_text(
     length = len(text)
 
     while start < length:
-        end = min(start + TARGET_MAX_CHARS, length)
+        hard_end = min(start + TARGET_MAX_CHARS, length)
+        end = _end_for_token_budget(text, start, hard_end, TARGET_MAX_TOKENS)
 
         # If not at the very end, try to break at a natural boundary.
         if end < length:
+            minimum_end = _end_for_token_budget(
+                text, start, end, min(TARGET_MIN_TOKENS, TARGET_MAX_TOKENS)
+            )
             # Prefer double newline (paragraph break).
-            para_break = text.rfind("\n\n", start + TARGET_MIN_CHARS, end)
+            para_break = text.rfind("\n\n", minimum_end, end)
             if para_break != -1:
                 end = para_break + 2
             else:
+                # A line boundary keeps command sequences and table rows intact
+                # more often than a blind character cut.
+                line_break = text.rfind("\n", minimum_end, end)
+                if line_break != -1:
+                    end = line_break + 1
+                else:
                 # Fall back to sentence end.
-                sent_break = max(
-                    text.rfind(". ", start + TARGET_MIN_CHARS, end),
-                    text.rfind(".\n", start + TARGET_MIN_CHARS, end),
-                )
-                if sent_break != -1:
-                    end = sent_break + 2
+                    sent_break = max(
+                        text.rfind(". ", minimum_end, end),
+                        text.rfind(".\n", minimum_end, end),
+                    )
+                    if sent_break != -1:
+                        end = sent_break + 2
 
         chunk_text = text[start:end].strip()
 
@@ -151,14 +181,46 @@ def _chunk_text(
                 page_start, page_end = _page_range_for_span(start, end, page_boundaries)
                 results.append((chunk_text, page_start, page_end))
 
+        if end >= length:
+            break
+
         # Advance: move forward by (chunk size - overlap), always forward.
-        next_start = end - OVERLAP_CHARS
+        next_start = _start_for_overlap(text, start, end, OVERLAP_TOKENS)
         if next_start <= start:
             # Safety: must always advance to avoid infinite loop.
             next_start = end
         start = next_start
 
     return results
+
+
+def _end_for_token_budget(text: str, start: int, hard_end: int, budget: int) -> int:
+    """Find the furthest character end whose local estimate fits the budget."""
+    if start >= hard_end:
+        return hard_end
+    if estimate_tokens(text[start:hard_end]) <= budget:
+        return hard_end
+    low, high = start + 1, hard_end
+    while low < high:
+        middle = (low + high + 1) // 2
+        if estimate_tokens(text[start:middle]) <= budget:
+            low = middle
+        else:
+            high = middle - 1
+    return max(start + 1, low)
+
+
+def _start_for_overlap(text: str, chunk_start: int, end: int, budget: int) -> int:
+    """Choose a forward-moving overlap start bounded by an estimated token budget."""
+    if budget <= 0:
+        return end
+    low = max(chunk_start + 1, end - OVERLAP_CHARS)
+    for candidate in range(low, end):
+        if estimate_tokens(text[candidate:end]) <= budget:
+            # Avoid starting halfway through a word or identifier.
+            boundary = re.search(r"\s", text[candidate:end])
+            return candidate + boundary.end() if boundary else candidate
+    return end
 
 
 def _page_range_for_span(
@@ -230,7 +292,7 @@ def chunk_pages(pages: list[PageRecord]) -> list[ChunkRecord]:
                 section_path=section,
                 content_hash=content_hash,
                 chunker_version=CHUNKER_VERSION,
-                token_estimate=_estimate_tokens(chunk_text),
+                token_estimate=estimate_tokens(chunk_text),
             ))
             ordinal += 1
 
@@ -238,8 +300,22 @@ def chunk_pages(pages: list[PageRecord]) -> list[ChunkRecord]:
         if not page.text:
             continue
 
-        # Detect heading at top of page to update the section trail.
-        heading = _detect_section(page.text)
+        # Structured HTML parsing marks explicit section boundaries. PDF pages
+        # leave section_path empty, so changing page headers do not force tiny
+        # page-sized chunks during PDF ingestion.
+        heading = page.section_path or _detect_section(page.text)
+        # Structured web extraction emits one pseudo-page per heading path.
+        # Do not merge a new section into the previous section merely because
+        # both happen to be short; section precision is critical for commands.
+        if (
+            buffer_text
+            and page.section_path
+            and current_section
+            and heading != current_section
+        ):
+            flush_buffer(buffer_text, buffer_page_boundaries)
+            buffer_text = ""
+            buffer_page_boundaries = []
         if heading:
             current_section = heading
 

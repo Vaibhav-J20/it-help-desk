@@ -34,10 +34,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DEFAULT_URL = os.getenv("API_URL", "https://left-appraiser-disorder.ngrok-free.dev")
-DEFAULT_API_KEY = os.getenv(
-    "API_KEY",
-    "9f33fa00abddea3d30ee24abdb5ea99d1a6257766e597938c7474874514d55c6",
-)
+DEFAULT_API_KEY = os.getenv("API_KEY_SECRET") or os.getenv("API_KEY", "")
 PASS_THRESHOLD = 0.70  # 70% pass rate required
 
 
@@ -53,6 +50,12 @@ def _call_api(url: str, api_key: str, question: dict) -> dict:
     deployment = question.get("expected_deployment_type")
     if deployment:
         scope["deployment_type"] = deployment
+    if question.get("expected_domain_id"):
+        scope["domain_id"] = question["expected_domain_id"]
+    if question.get("expected_product"):
+        scope["product"] = question["expected_product"]
+    if question.get("expected_product_version"):
+        scope["product_version"] = question["expected_product_version"]
     if scope:
         payload["requested_scope"] = scope
 
@@ -63,7 +66,7 @@ def _call_api(url: str, api_key: str, question: dict) -> dict:
             "Content-Type": "application/json",
         },
         json=payload,
-        timeout=30,
+        timeout=120,
     )
     resp.raise_for_status()
     return resp.json()
@@ -149,6 +152,8 @@ def run_eval(
     dry_run: bool,
     report_path: Path,
 ) -> dict:
+    if not dry_run and not api_key:
+        raise ValueError("API_KEY_SECRET or API_KEY must be set; no fallback key is embedded")
     with open(questions_path) as f:
         data = yaml.safe_load(f)
 

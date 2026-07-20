@@ -12,6 +12,7 @@ allowed_domain_ids:
   - ocp_sno_support
   - watsonx_orchestrate
   - ibm_bob
+  - ibm_products
 
 allowed_products:
   - OpenShift
@@ -40,6 +41,7 @@ allowed_document_types:
   - release_notes
   - reference_manual
   - tutorial
+  - product_catalog
 
 allowed_components:
   - bootstrap
@@ -83,3 +85,11 @@ allowed_components:
 allowed_classifications:
   - internal
   - public
+
+allowed_access_scopes:
+  - public
+  - isa_technical
+  - client_enablement
+  - seller_enablement
+  - demo_guide
+  - study_notes

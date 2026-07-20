@@ -1,0 +1,202 @@
+{
+  "created_at": "2026-07-06T09:30:37.443772+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "question_count": 5,
+  "results": [
+    {
+      "question": {
+        "id": "q036",
+        "category": "out_of_scope",
+        "question": "How do I create a ServiceNow ticket for an OpenShift incident?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "ServiceNow is explicitly excluded. Must return OUT_OF_SCOPE, never hallucinate."
+      },
+      "summary": {
+        "id": "q036",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "OUT_OF_SCOPE",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "8280328f-0bd1-418a-a9b9-ba8a875aeced",
+          "status": "OUT_OF_SCOPE",
+          "intent": "unsupported",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "8f9e3ceb-36bd-49a2-b031-5936f888ef27"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q037",
+        "category": "out_of_scope",
+        "question": "Can you access my live OpenShift cluster and check the node status?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Live cluster access is explicitly excluded. Must refuse cleanly."
+      },
+      "summary": {
+        "id": "q037",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "OUT_OF_SCOPE",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "f5cc3159-924f-4c90-8401-a9d8902eca11",
+          "status": "OUT_OF_SCOPE",
+          "intent": "unsupported",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "ce6ec666-f8db-4939-87ae-5c53e61df3b5"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q038",
+        "category": "out_of_scope",
+        "question": "How do I configure IBM Db2 on OpenShift?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Db2 is not in Phase 1 corpus (OCP/SNO only). Must return OUT_OF_SCOPE."
+      },
+      "summary": {
+        "id": "q038",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "OUT_OF_SCOPE",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "7a2b2e6b-face-48c3-9392-e0e2fd3dd978",
+          "status": "OUT_OF_SCOPE",
+          "intent": "unsupported",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you using?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "ef9f8dc8-b480-40e6-ac18-c5c50ec3a834"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q039",
+        "category": "out_of_scope",
+        "question": "What is the latest version of Kubernetes released this week?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Requires live web search \u2014 system has no internet access. Must refuse."
+      },
+      "summary": {
+        "id": "q039",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "OUT_OF_SCOPE",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "44813be4-a6ef-4eb9-971c-420bcd5d7ef9",
+          "status": "OUT_OF_SCOPE",
+          "intent": "unsupported",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "fc298af8-3c4c-4ec8-8b84-440fd9a8f241"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q040",
+        "category": "out_of_scope",
+        "question": "Write me a Python script to automate OpenShift deployments.",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Code generation is out of scope \u2014 system answers from docs, not writes code."
+      },
+      "summary": {
+        "id": "q040",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "OUT_OF_SCOPE",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "0214b2f3-8c4a-4665-86c7-9703b996a28d",
+          "status": "OUT_OF_SCOPE",
+          "intent": "unsupported",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you using and what type of deployment are you trying to automate, SNO or standard?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "a8752c40-7d5b-4edd-9fd7-563ba8e8729c"
+        },
+        "error": null
+      }
+    }
+  ]
+}

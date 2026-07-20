@@ -1,0 +1,272 @@
+{
+  "created_at": "2026-07-06T09:23:27.881485+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "question_count": 5,
+  "results": [
+    {
+      "question": {
+        "id": "q036",
+        "category": "out_of_scope",
+        "question": "How do I create a ServiceNow ticket for an OpenShift incident?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "ServiceNow is explicitly excluded. Must return OUT_OF_SCOPE, never hallucinate."
+      },
+      "summary": {
+        "id": "q036",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "ANSWERED",
+        "status_pass": false,
+        "citation_count": 6,
+        "citation_document_ids": [
+          "doc-0c0c",
+          "doc-c38a"
+        ],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "bd84c7d5-f745-48de-bffc-7f045054b793",
+          "status": "ANSWERED",
+          "intent": "qa",
+          "answer_markdown": "### Creating a ServiceNow Ticket for an OpenShift Incident\n\nTo create a ServiceNow ticket for an OpenShift incident, you should gather information for debugging by running the command `$ oc adm must-gather` [S5]. Then, create a compressed file from the must-gather directory by running the command `$ tar cvaf must-gather.tar.gz <must_gather_directory>` [S5]. After that, attach the installation directory used during the deployment, excluding the `/auth` subdirectory, to your support case on the Red Hat Customer Portal [S5]. Additionally, attach all other data gathered from this procedure to your support case [S5]. However, the provided evidence does not specify the exact steps to create a ServiceNow ticket, as it only mentions attaching data to a support case on the Red Hat Customer Portal.\n\n### What this does not establish\nThe provided evidence does not establish the exact process of creating a ServiceNow ticket, as the steps mentioned are for attaching data to a support case on the Red Hat Customer Portal [S5]. It also does not provide information on how to access or use the ServiceNow platform.\n\n### Sources\n[S1] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 20\u201321\n[S2] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 50\u201351\n[S3] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 27\u201328\n[S4] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14) \u2014 OCP 4.14, pp. 84\u201385\n[S5] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 61\u201362\n[S6] Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16) \u2014 OCP 4.16, pp. 1\u20135",
+          "clarification_question": null,
+          "citations": [
+            {
+              "citation_id": "S1",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 20,
+              "page_end": 21,
+              "section_path": "1.5. HOST CONFIGURATION",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0029"
+            },
+            {
+              "citation_id": "S2",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 50,
+              "page_end": 51,
+              "section_path": "3. Configure the manifest files in the cluster-manifests directory. For sample files, see the",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0080"
+            },
+            {
+              "citation_id": "S3",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 27,
+              "page_end": 28,
+              "section_path": "1.9. EXAMPLE: BONDS AND SR-IOV DUAL-NIC NODE NETWORK",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0043"
+            },
+            {
+              "citation_id": "S4",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.14)",
+              "product": "OpenShift",
+              "ocp_version": "4.14",
+              "page_start": 84,
+              "page_end": 85,
+              "section_path": "IMPORTANT",
+              "document_id": "doc-0c0c",
+              "chunk_id": "ocp_sno_support:doc-0c0c:rev-2026-07-06-76f032e7080a:chunk-0132"
+            },
+            {
+              "citation_id": "S5",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 61,
+              "page_end": 62,
+              "section_path": "4. If the output from the previous command indicates a failure, perform the following steps:",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0095"
+            },
+            {
+              "citation_id": "S6",
+              "title": "Installing an On-Premise Cluster with the Agent-based Installer (OCP 4.16)",
+              "product": "OpenShift",
+              "ocp_version": "4.16",
+              "page_start": 1,
+              "page_end": 5,
+              "section_path": "",
+              "document_id": "doc-c38a",
+              "chunk_id": "ocp_sno_support:doc-c38a:rev-2026-07-06-b98a55079b29:chunk-0000"
+            }
+          ],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "33ac85a9-480e-469f-84ac-bb74d2ea0048"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q037",
+        "category": "out_of_scope",
+        "question": "Can you access my live OpenShift cluster and check the node status?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Live cluster access is explicitly excluded. Must refuse cleanly."
+      },
+      "summary": {
+        "id": "q037",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "OUT_OF_SCOPE",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "b89de2f9-4da3-49bd-81e1-4c2fbc640e73",
+          "status": "OUT_OF_SCOPE",
+          "intent": "unsupported",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "8dd5e75e-99be-405f-95bf-5a2742368737"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q038",
+        "category": "out_of_scope",
+        "question": "How do I configure IBM Db2 on OpenShift?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Db2 is not in Phase 1 corpus (OCP/SNO only). Must return OUT_OF_SCOPE."
+      },
+      "summary": {
+        "id": "q038",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "a15b7afa-1265-4f98-af2a-ab103cf2be1e",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you using?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "5c6cb9e0-855b-4855-83fa-88ea3c8bad76"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q039",
+        "category": "out_of_scope",
+        "question": "What is the latest version of Kubernetes released this week?",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Requires live web search \u2014 system has no internet access. Must refuse."
+      },
+      "summary": {
+        "id": "q039",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "OUT_OF_SCOPE",
+        "status_pass": true,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "fa35a1f1-438a-4819-a4be-fd46f2cefd83",
+          "status": "OUT_OF_SCOPE",
+          "intent": "unsupported",
+          "answer_markdown": null,
+          "clarification_question": null,
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "93ed9393-08ef-4671-9d7b-53de97d857f4"
+        },
+        "error": null
+      }
+    },
+    {
+      "question": {
+        "id": "q040",
+        "category": "out_of_scope",
+        "question": "Write me a Python script to automate OpenShift deployments.",
+        "expected_status": "OUT_OF_SCOPE",
+        "expected_document_ids": [],
+        "expected_ocp_version": null,
+        "expected_deployment_type": null,
+        "expected_pages_hint": null,
+        "notes": "Code generation is out of scope \u2014 system answers from docs, not writes code."
+      },
+      "summary": {
+        "id": "q040",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "actual_status": "NEEDS_CLARIFICATION",
+        "status_pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "expected_document_ids": [],
+        "http_status": 200,
+        "error": null
+      },
+      "actual": {
+        "http_status": 200,
+        "response": {
+          "request_id": "7aff3793-e786-4f6f-99a0-51e9235c6d8c",
+          "status": "NEEDS_CLARIFICATION",
+          "intent": "qa",
+          "answer_markdown": null,
+          "clarification_question": "What version of OpenShift are you using and is it a standard or SNO deployment?",
+          "citations": [],
+          "safety_note": "Guidance is based only on the approved knowledge base; verify commands in your environment.",
+          "trace_id": "607ab909-db2a-4189-8631-1775f510e2d1"
+        },
+        "error": null
+      }
+    }
+  ]
+}

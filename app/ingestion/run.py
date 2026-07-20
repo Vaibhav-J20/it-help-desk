@@ -42,12 +42,16 @@ def _build_opensearch_client() -> OpenSearch:
     url = os.environ["OPENSEARCH_URL"]
     username = os.environ["OPENSEARCH_USERNAME"]
     password = os.environ["OPENSEARCH_PASSWORD"]
+    options = {
+        "hosts": [url],
+        "http_auth": (username, password),
+        "use_ssl": url.startswith("https"),
+        "verify_certs": url.startswith("https"),
+    }
+    if os.getenv("OPENSEARCH_CA_CERTS"):
+        options["ca_certs"] = os.environ["OPENSEARCH_CA_CERTS"]
     return OpenSearch(
-        hosts=[url],
-        http_auth=(username, password),
-        use_ssl=url.startswith("https"),
-        verify_certs=False,
-        ssl_show_warn=False,
+        **options,
     )
 
 
@@ -69,13 +73,19 @@ def _stub_embedding_batch(texts: list[str]) -> list[list[float]]:
 _stub_embedding_fn.batch = _stub_embedding_batch  # type: ignore[attr-defined]
 
 
-def _get_embedding_fn():
+def _get_embedding_fn(*, allow_stub: bool = False):
     """
     Return the real embedding function if credentials are available,
-    otherwise fall back to the stub.
+    otherwise fail closed. Zero-vector stubs require explicit opt-in because
+    indexing them into a real corpus silently destroys vector retrieval.
     """
     if not os.getenv("WATSONX_EMBEDDING_MODEL_ID"):
-        return _stub_embedding_fn
+        if allow_stub:
+            return _stub_embedding_fn
+        raise EnvironmentError(
+            "WATSONX_EMBEDDING_MODEL_ID is required; use --allow-stub-embeddings "
+            "only for isolated pipeline tests"
+        )
 
     try:
         from app.providers.watsonx_embeddings import embed_text, embed_texts
@@ -83,11 +93,20 @@ def _get_embedding_fn():
         embed_text.batch = embed_texts  # type: ignore[attr-defined]
         return embed_text
     except Exception as e:
-        logger.warning("Could not initialise watsonx.ai embeddings (%s) — using stub", e)
-        return _stub_embedding_fn
+        if allow_stub:
+            logger.warning("Could not initialise watsonx.ai embeddings (%s) — using explicit stub", e)
+            return _stub_embedding_fn
+        raise RuntimeError(f"Could not initialise watsonx.ai embeddings: {e}") from e
 
 
-def run(manifest_path: Path, dry_run: bool = False, force: bool = False) -> None:
+def run(
+    manifest_path: Path,
+    dry_run: bool = False,
+    force: bool = False,
+    allow_stub_embeddings: bool = False,
+    chunks_index: str | None = None,
+    docs_index: str | None = None,
+) -> None:
     """
     Main ingestion loop.
 
@@ -138,7 +157,7 @@ def run(manifest_path: Path, dry_run: bool = False, force: bool = False) -> None
         logger.error("Missing env var for OpenSearch: %s. Check your .env file.", e)
         sys.exit(1)
 
-    embedding_fn = _get_embedding_fn()
+    embedding_fn = _get_embedding_fn(allow_stub=allow_stub_embeddings)
 
     # Process each source
     total = len(accessible)
@@ -200,6 +219,8 @@ def run(manifest_path: Path, dry_run: bool = False, force: bool = False) -> None
                 opensearch_client=os_client,
                 embedding_fn=embedding_fn,
                 force_reindex=force,
+                chunks_index=chunks_index,
+                docs_index=docs_index,
             )
             # Map any unknown status to FAILED rather than crashing with KeyError.
             status_key = summary.status if summary.status in results else "FAILED"
@@ -224,7 +245,8 @@ def run(manifest_path: Path, dry_run: bool = False, force: bool = False) -> None
         logger.warning(
             "%d document(s) indexed with partial embedding failures. "
             "Chunks from failed pages are absent but the rest are searchable. "
-            "Re-run with chunker-v5 (OPENSEARCH_EMBEDDING_DIM set) to fix.",
+            "Review the recorded provider errors; chunker-v6 automatically retries "
+            "provider-reported input-length failures with smaller chunks.",
             results["PARTIAL"],
         )
     logger.info("=" * 60)
@@ -265,13 +287,36 @@ def main() -> None:
         action="store_true",
         help="Re-index documents even when the same content hash is already present",
     )
+    parser.add_argument(
+        "--allow-stub-embeddings",
+        action="store_true",
+        help="Explicitly allow zero vectors for isolated tests; never use for a searchable corpus",
+    )
+    parser.add_argument(
+        "--chunks-index",
+        help="Explicit target chunks index (use with --docs-index)",
+    )
+    parser.add_argument(
+        "--docs-index",
+        help="Explicit target document-registry index (use with --chunks-index)",
+    )
     args = parser.parse_args()
+
+    if bool(args.chunks_index) != bool(args.docs_index):
+        parser.error("--chunks-index and --docs-index must be provided together")
 
     if not args.manifest.exists():
         print(f"ERROR: Manifest not found: {args.manifest}")
         sys.exit(1)
 
-    run(manifest_path=args.manifest, dry_run=args.dry_run, force=args.force)
+    run(
+        manifest_path=args.manifest,
+        dry_run=args.dry_run,
+        force=args.force,
+        allow_stub_embeddings=args.allow_stub_embeddings,
+        chunks_index=args.chunks_index,
+        docs_index=args.docs_index,
+    )
 
 
 if __name__ == "__main__":

@@ -51,7 +51,7 @@ def test_requested_scope_valid():
 
 
 def test_requested_scope_domain_id_valid():
-    for domain in ("ocp_sno_support", "watsonx_orchestrate", "ibm_bob"):
+    for domain in ("ocp_sno_support", "watsonx_orchestrate", "ibm_bob", "ibm_products"):
         req = AssistRequest(
             question="How do I use this product?",
             requested_scope={"domain_id": domain},
@@ -67,6 +67,19 @@ def test_requested_scope_domain_id_invalid():
         )
 
 
+def test_requested_scope_accepts_generic_product_and_version():
+    request = AssistRequest(
+        question="How do I install this product?",
+        requested_scope={
+            "domain_id": "ibm_products",
+            "product": "IBM MQ",
+            "product_version": "9.4.x",
+        },
+    )
+    assert request.requested_scope.product == "IBM MQ"
+    assert request.requested_scope.product_version == "9.4.x"
+
+
 def test_invalid_deployment_type():
     with pytest.raises(ValidationError):
         AssistRequest(
@@ -78,6 +91,10 @@ def test_invalid_deployment_type():
 def test_response_defaults():
     resp = AssistResponse(status="ANSWERED")
     assert resp.citations == []
+    assert resp.source_urls == []
+    assert resp.suggested_next_steps == []
+    assert resp.retrieval_provenance.answer_sources == []
+    assert resp.retrieval_provenance.internet_search_performed is False
     assert resp.request_id is not None
     assert resp.trace_id is not None
 

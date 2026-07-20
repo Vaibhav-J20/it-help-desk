@@ -1,0 +1,53 @@
+{
+  "created_at": "2026-07-16T09:21:17.744013+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "question_file": "/Users/vaibhavjanga/projects/IT-help-desk/tests/evaluation/product_questions.yaml",
+  "question_count": 1,
+  "passed": 0,
+  "results": [
+    {
+      "question": {
+        "id": "product_cp4d_install",
+        "category": "installation",
+        "question": "What are the documented steps or commands to install IBM Cloud Pak for Data 5.4.x on OpenShift?",
+        "expected_status": "ANSWERED",
+        "expected_domain_id": "ibm_products",
+        "expected_product": "IBM Cloud Pak for Data",
+        "expected_product_version": "5.4.x",
+        "expected_keyword_groups": [
+          [
+            "install",
+            "installation"
+          ],
+          [
+            "openshift",
+            "cluster"
+          ]
+        ]
+      },
+      "summary": {
+        "id": "product_cp4d_install",
+        "category": "installation",
+        "expected_status": "ANSWERED",
+        "actual_status": null,
+        "status_pass": false,
+        "answer_pass": false,
+        "citations_pass": false,
+        "product_pass": false,
+        "keyword_groups_pass": false,
+        "pass": false,
+        "citation_count": 0,
+        "citation_document_ids": [],
+        "citation_products": [],
+        "expected_document_ids": [],
+        "http_status": null,
+        "error": "[Errno 1] Operation not permitted"
+      },
+      "actual": {
+        "http_status": null,
+        "response": null,
+        "error": "[Errno 1] Operation not permitted"
+      }
+    }
+  ]
+}

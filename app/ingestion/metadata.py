@@ -70,7 +70,10 @@ def validate_metadata(record: dict[str, Any]) -> ValidationResult:
         )
 
     # product
-    if record["product"] not in taxonomy["allowed_products"]:
+    if (
+        record["domain_id"] != "ibm_products"
+        and record["product"] not in taxonomy["allowed_products"]
+    ):
         errors.append(
             f"product '{record['product']}' not in allowed_products: {taxonomy['allowed_products']}"
         )
@@ -107,9 +110,26 @@ def validate_metadata(record: dict[str, Any]) -> ValidationResult:
             f"classification '{record['classification']}' not in allowed_classifications: {taxonomy['allowed_classifications']}"
         )
 
+    # access_scope — optional for legacy manifests, controlled when supplied.
+    access_scope = record.get("access_scope", [])
+    if access_scope:
+        if not isinstance(access_scope, list):
+            errors.append("access_scope must be a list")
+        else:
+            for scope in access_scope:
+                if scope not in taxonomy.get("allowed_access_scopes", []):
+                    errors.append(
+                        f"access_scope '{scope}' not in allowed_access_scopes: "
+                        f"{taxonomy.get('allowed_access_scopes', [])}"
+                    )
+
     # components — optional but if present, every value must be valid
     components = record.get("components", [])
-    if components:
+    if components and record["domain_id"] == "ibm_products":
+        for comp in components:
+            if not isinstance(comp, str) or not comp.strip() or len(comp) > 100:
+                errors.append("generic IBM product components must be non-empty strings <= 100 chars")
+    elif components:
         for comp in components:
             if comp not in taxonomy["allowed_components"]:
                 errors.append(

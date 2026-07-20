@@ -12,6 +12,11 @@ def test_ocp_version_added():
     assert {"term": {"ocp_version": "4.16"}} in filters
 
 
+def test_ocp_version_comparison_adds_terms_filter():
+    filters = build_filters({"ocp_versions": ["4.14", "4.16"]})
+    assert {"terms": {"ocp_version": ["4.14", "4.16"]}} in filters
+
+
 def test_deployment_type_added():
     filters = build_filters({"deployment_type": "SNO"})
     assert {"term": {"deployment_type": "SNO"}} in filters
@@ -20,6 +25,13 @@ def test_deployment_type_added():
 def test_domain_id_added():
     filters = build_filters({"domain_id": "ocp_sno_support"})
     assert {"term": {"domain_id": "ocp_sno_support"}} in filters
+
+
+def test_generic_ibm_product_filter_is_strict():
+    filters = build_filters({"domain_id": "ibm_products", "product": "IBM MQ"})
+    assert {"term": {"product": "IBM MQ"}} in filters
+    relaxed = relax_inferred_filters(filters, inferred_keys=["product"])
+    assert {"term": {"product": "IBM MQ"}} in relaxed
 
 
 def test_component_maps_to_components_array():
